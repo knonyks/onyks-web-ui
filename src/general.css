@@ -16,14 +16,23 @@
 
   --accent: #ff6262;
 
-  --color-blue: #003cff;
-  --color-green: #3eff6b;
-  --color-red: #ff0019;
+  --color-blue: #527aff;
+  --color-green: #3eff78;
+  --color-red: #fa5252;
+
+  --sub-color-blue: #2548be;
+  --sub-color-green: #35ca62;
+  --sub-color-red: #c53a2e;
 
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
+
+  --spacing-sm-field: 9.5px;
+  --spacing-md-field: 10px;
+  --spacing-lg-field: 11px;
+  --spacing-xl-field: 11.5px;
 
   --size-sm: 12px;
   --size-md: 16px;

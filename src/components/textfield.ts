@@ -54,28 +54,32 @@ export class Onyks_Textfield extends LitElement
             width: 100%;
             height: 100%;
             margin: 0; 
-            padding: var(--spacing-sm);
+            // padding: var(--spacing-sm);
             border-radius: var(--radius-sm);
             font-family: inherit;
         }
 
         .s
         {
+            padding: var(--spacing-sm-field);
             font-size: var(--size-sm);
         }
 
         .m
         {
+            padding: var(--spacing-md-field);
             font-size: var(--size-md);
         }
 
         .l
         {
+            padding: var(--spacing-lg-field);
             font-size: var(--size-lg);
         }
 
         .xl
         {
+            padding: var(--spacing-xl-field);
             font-size:  var(--size-xl);
         }
 

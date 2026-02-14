@@ -55,7 +55,6 @@ export class Onyks_Button extends LitElement
             display: inline-block;
             vertical-align: middle;
         }
-
         .btn
         {
             box-sizing: border-box;
@@ -70,26 +69,43 @@ export class Onyks_Button extends LitElement
             text-decoration: none;
             text-align: center;
             border-radius: var(--radius-sm, 4px);
-            transition: background-color 0.2s, opacity 0.2s;
+            transform: translateY(-4px); 
+            transition: all 0.1s ease;
             line-height: 1.5;
         }
-
         .bg-blue
         {
             background-color: var(--color-blue);
+            box-shadow: 0 7px 0 var(--sub-color-blue);
             color: white;
+        }
+        .bg-blue:hover
+        {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--sub-color-blue); 
         }
 
         .bg-green
         {
             background-color: var(--color-green);
+            box-shadow: 0 7px 0 var(--sub-color-green);
             color: black;
         }
-
+        .bg-green:hover
+        {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--sub-color-green); 
+        }
         .bg-red
         {
             background-color: var(--color-red);
+            box-shadow: 0 7px 0 var(--sub-color-red); 
             color: white;
+        }
+        .bg-red:hover
+        {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--sub-color-red); 
         }
 
         .size-s

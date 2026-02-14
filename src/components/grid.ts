@@ -135,3 +135,12 @@ export class Onyks_Card extends LitElement {
         `;
     }
 }
+
+declare global 
+{
+    interface HTMLElementTagNameMap 
+    {
+        'onyks-grid': Onyks_Grid,
+        'onyks-card': Onyks_Card
+    }
+}
