@@ -4,6 +4,7 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
   server: 
   {
+    host: true,
     proxy: 
     {}
   },
