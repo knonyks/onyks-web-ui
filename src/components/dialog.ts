@@ -16,7 +16,7 @@ export class Onyks_Dialog extends LitElement
     :host 
     { 
       display: block; 
-      z-index: 1000; 
+      z-index: 1000;
     }
     
     .backdrop 
@@ -48,7 +48,7 @@ export class Onyks_Dialog extends LitElement
       box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
       width: 100%;
       max-width: 600px;
-      max-height: 90vh;
+      max-height: 80%;
       display: flex;
       flex-direction: column;
       position: relative;
