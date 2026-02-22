@@ -17,14 +17,17 @@ export class Onyks_Table extends LitElement {
 
     syncWidths() {
         requestAnimationFrame(() => {
-        const headers = Array.from(this.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])')) as HTMLElement[];
+            const headers = Array.from(this.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])')) as HTMLElement[];
             if (!headers.length) return;
 
             this.style.removeProperty('--max-header-width');
 
             let maxWidth = 0;
             headers.forEach(header => {
+                header.style.width = 'max-content'; 
                 const width = header.getBoundingClientRect().width;
+                header.style.width = '';
+
                 if (width > maxWidth) {
                     maxWidth = width;
                 }
@@ -39,7 +42,7 @@ export class Onyks_Table extends LitElement {
     static styles = css`
         :host {
             display: block;
-            width: fit-content;
+            width: 100%; /* ZMIANA: Zamiast fit-content używamy 100% */
             max-width: 100%;
             margin: 0 auto;
             height: 200px;
@@ -71,8 +74,8 @@ export class Onyks_Table extends LitElement {
 
         .table-container {
             display: table;
-            width: max-content;
-            min-width: 100%;
+            width: 100%;
+            min-width: max-content;
             border-collapse: separate;
             table-layout: fixed;
         }
@@ -130,12 +133,10 @@ export class Onyks_Col extends LitElement {
             vertical-align: middle;
             text-align: center;
             color: var(--text-3);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 0.95rem;
 
-            width: var(--max-header-width, 100%);
+            width: 100%;
             min-width: var(--max-header-width, auto);
-            max-width: var(--max-header-width, 1px);
+            max-width: none;
             
             box-sizing: border-box;
             white-space: nowrap;
@@ -152,9 +153,11 @@ export class Onyks_Col extends LitElement {
             text-transform: uppercase;
             border-bottom: 2px solid var(--color-red);
             background-color: var(--surface-3);
-            width: var(--max-header-width, auto);
+            
+            width: 100%; 
             min-width: var(--max-header-width, auto);
-            max-width: var(--max-header-width, none);
+            max-width: none;
+            
             white-space: nowrap; 
             text-align: center;
             overflow: visible;
