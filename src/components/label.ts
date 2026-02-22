@@ -26,7 +26,7 @@ export class Onyks_Label extends LitElement
             width: 100%;
             height: 100%;
             margin: 0; 
-            padding: var(--spacing-sm) 0;
+            padding: var(--spacing-sm) var(--spacing-sm);
             display: inline-flex;
             font-family: var(--font);
             color: var(--color);
@@ -34,22 +34,22 @@ export class Onyks_Label extends LitElement
 
         .s
         {
-            font-size: var(--font-sm);
+            font-size: var(--size-sm);
         }
 
         .m
         {
-            font-size: var(--font-md);
+            font-size: var(--size-md);
         }
 
         .l
         {
-            font-size: var(--font-lg);
+            font-size: var(--size-lg);
         }
 
         .xl
         {
-            font-size:  var(--font-xl);
+            font-size:  var(--size-xl);
         }
 
         :host

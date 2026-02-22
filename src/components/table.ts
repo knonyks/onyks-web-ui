@@ -3,21 +3,51 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
+    private resizeObserver = new ResizeObserver(() => this.syncWidths());
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.resizeObserver.observe(this);
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.resizeObserver.disconnect();
+    }
+
+    syncWidths() {
+        requestAnimationFrame(() => {
+        const headers = Array.from(this.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])')) as HTMLElement[];
+            if (!headers.length) return;
+
+            this.style.removeProperty('--max-header-width');
+
+            let maxWidth = 0;
+            headers.forEach(header => {
+                const width = header.getBoundingClientRect().width;
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
+            });
+
+            if (maxWidth > 0) {
+                this.style.setProperty('--max-header-width', `${maxWidth}px`);
+            }
+        });
+    }
+
     static styles = css`
         :host {
             display: block;
             width: fit-content;
             max-width: 100%;
             margin: 0 auto;
-            
             height: 200px;
-            
-            background-color: #232428;
-            border: 1px solid #2c2e33;
+            background-color: var(--surface-2);
+            border: 1px solid var(--surface-4);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             box-sizing: border-box;
-            
             overflow: hidden;
         }
 
@@ -25,27 +55,26 @@ export class Onyks_Table extends LitElement {
             width: 100%;
             height: 100%;
             overflow: auto;
-            
             scrollbar-width: thin;
-            scrollbar-color: #3f4148 #232428;
+            scrollbar-color: var(--surface-4) var(--surface-2);
         }
 
         .scroll-wrapper::-webkit-scrollbar { width: 10px; height: 10px; }
-        .scroll-wrapper::-webkit-scrollbar-track { background: #232428; }
-        .scroll-wrapper::-webkit-scrollbar-corner { background: #232428; }
+        .scroll-wrapper::-webkit-scrollbar-track { background: var(--surface-2); }
+        .scroll-wrapper::-webkit-scrollbar-corner { background: var(--surface-2); }
         .scroll-wrapper::-webkit-scrollbar-thumb {
-            background-color: #3f4148;
+            background-color: var(--surface-4);
             border-radius: 6px;
-            border: 2px solid #232428;
+            border: 2px solid var(--surface-2);
         }
-        .scroll-wrapper::-webkit-scrollbar-thumb:hover { background-color: #fa5252; }
+        .scroll-wrapper::-webkit-scrollbar-thumb:hover { background-color: var(--color-red); }
 
         .table-container {
             display: table;
-            width: auto; 
+            width: max-content;
             min-width: 100%;
-            border-collapse: collapse;
-            table-layout: auto;
+            border-collapse: separate;
+            table-layout: fixed;
         }
     `;
 
@@ -53,7 +82,7 @@ export class Onyks_Table extends LitElement {
         return html`
             <div class="scroll-wrapper">
                 <div class="table-container">
-                    <slot></slot>
+                    <slot @slotchange=${this.syncWidths}></slot>
                 </div>
             </div>
         `;
@@ -71,14 +100,15 @@ export class Onyks_Row extends LitElement {
         }
 
         :host(:not([header]):hover) {
-            background-color: #34353c;
+            background-color: var(--surface-3);
         }
 
         :host([header]) {
             position: sticky;
             top: 0;
             z-index: 10;
-            background-color: #232428;
+            background-color: var(--surface-2);
+            border-bottom: 2px solid var(--color-red);
         }
     `;
 
@@ -89,51 +119,116 @@ export class Onyks_Row extends LitElement {
 
 @customElement('onyks-col')
 export class Onyks_Col extends LitElement {
+    @property({ type: Boolean, reflect: true }) checkbox = false;
+    @property({ type: Boolean }) checked = false;
+
     static styles = css`
         :host {
             display: table-cell;
             padding: 16px 24px;
-            
-            border-bottom: 1px solid #2c2e33;
-            border-right: none;
-            
+            border-bottom: 1px solid var(--surface-4);
             vertical-align: middle;
-            text-align: left;
-            
-            color: #c1c2c5;
+            text-align: center;
+            color: var(--text-3);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 0.95rem;
 
-            max-width: 1px;
-            width: 100%;
+            width: var(--max-header-width, 100%);
+            min-width: var(--max-header-width, auto);
+            max-width: var(--max-header-width, 1px);
+            
+            box-sizing: border-box;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        :host(:last-child) {
-            border-right: none;
-        }
+        :host(:last-child) { border-right: none; }
 
         :host-context(onyks-row[header]) {
-            color: #fa5252;
+            color: var(--color-red);
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
-            border-bottom: 2px solid #fa5252;
-            background-color: #2d2e33;
-            max-width: none; 
-            width: auto;
+            border-bottom: 2px solid var(--color-red);
+            background-color: var(--surface-3);
+            width: var(--max-header-width, auto);
+            min-width: var(--max-header-width, auto);
+            max-width: var(--max-header-width, none);
             white-space: nowrap; 
+            text-align: center;
             overflow: visible;
+        }
+
+        :host([checkbox]) {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            background-color: var(--surface-2);
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--surface-4);
+            border-radius: 4px;
+            display: inline-grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        input[type="checkbox"]:hover {
+            border-color: var(--color-red);
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            background-color: var(--color-red);
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        input[type="checkbox"]:checked {
+            border-color: var(--color-red);
         }
     `;
 
     render() {
+        if (this.checkbox) {
+            return html`
+                <input 
+                    type="checkbox" 
+                    .checked=${this.checked} 
+                    @change=${this._handleChange} 
+                />
+            `;
+        }
         return html`<slot @slotchange=${this.handleSlotChange}></slot>`;
     }
     
+    private _handleChange(e: Event) {
+        const target = e.target as HTMLInputElement;
+        this.checked = target.checked;
+        this.dispatchEvent(new CustomEvent('onyks-checkbox-change', {
+            detail: { checked: this.checked },
+            bubbles: true,
+            composed: true
+        }));
+    }
+
     handleSlotChange(e: Event) {
+        if (this.checkbox) return;
         const slot = e.target as HTMLSlotElement;
         const nodes = slot.assignedNodes();
         const text = nodes.map(n => n.textContent).join('').trim();

@@ -62,13 +62,13 @@ export class Onyks_Button extends LitElement
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-sm);
             border: 1px solid transparent;
             cursor: pointer;
             font-family: var(--font);
             text-decoration: none;
             text-align: center;
-            border-radius: var(--radius-sm, 4px);
+            border-radius: var(--radius-md, 4px);
             transform: translateY(-4px); 
             transition: all 0.1s ease;
             line-height: 1.5;
