@@ -6,4 +6,5 @@ export * from './components/table.ts'
 export * from './components/textfield.ts'
 export * from './components/grid.ts'
 export * from './components/theme-switch.ts'
+export * from './components/dialog.ts'
 import './general.css';

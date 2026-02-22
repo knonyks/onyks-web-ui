@@ -1,0 +1,110 @@
+<h1>Dialog</h1>
+<h5>A dialog window component.</h5>
+
+<h3>Basic Dialog</h3>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog1').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog1" has-title="false">
+  <!-- <div style="width: 1200px; height: 1200px; background-color: red;">Some very big square!</div> -->
+   <p>Some message!</p>
+  <onyks-button slot="footer" onclick="document.getElementById('dialog1').opened = false">Close!</onyks-button>
+  <onyks-button slot="footer" onclick="console.log('Hi!')">Console!</onyks-button>
+</onyks-dialog>
+
+<h3>A dialog with a title</h3>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog2').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog2" has-title="true" title="My Dialog Title">
+  <p>Some message!</p>
+  <onyks-button slot="footer" background="green" onclick="document.getElementById('dialog2').opened = false">Yes</onyks-button>
+  <onyks-button slot="footer" background="red" onclick="console.log('Hi!')">No</onyks-button>
+</onyks-dialog>
+
+<h3>A dialog with close button in the corner</h3>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog4').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog4" has-title="true" title="My Dialog Title" corner-close>
+  <p>Some message!</p>
+  <onyks-button slot="footer" background="green" onclick="document.getElementById('dialog4').opened = false">Yes</onyks-button>
+  <onyks-button slot="footer" background="red" onclick="console.log('Hi!')">No</onyks-button>
+</onyks-dialog>
+
+<h3>A modal dialog</h3>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog5').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog5" has-title="true" title="My Dialog Title" corner-close modal>
+  <p>Some message!</p>
+  <onyks-button slot="footer" background="green" onclick="document.getElementById('dialog5').opened = false">Yes</onyks-button>
+  <onyks-button slot="footer" background="red" onclick="console.log('Hi!')">No</onyks-button>
+</onyks-dialog>
+
+<h3>Other examples</h3>
+
+<h4>With a form</h4>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog6').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog6" has-title="false" corner-close modal>
+  <div style="display: flex; flex-direction: column; gap: 10px; width: 200px;">
+    <onyks-label for="some_input" size="xl">First Name</onyks-label>
+    <onyks-textfield size="l" class="inp"></onyks-textfield>
+    <onyks-label for="some_input" size="xl">Family Name</onyks-label>
+    <onyks-textfield size="l" class="inp"></onyks-textfield>
+    <onyks-label for="some_input" size="xl">E-mail</onyks-label>
+    <onyks-textfield size="l" class="inp"></onyks-textfield>
+    <onyks-button type="button" background="green" class="btn">Add</onyks-button>
+    <onyks-button type="button" background="red"  class="btn">Delete</onyks-button>
+    <onyks-button type="button" disabled background="blue" class="btn">Edit</onyks-button>
+  </div>
+</onyks-dialog>
+
+<h4>With a table</h4>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog7').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog7" has-title="false" corner-close modal>
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; flex-direction: row; gap: 20px; width: 100%;">
+      <onyks-label for="some_input" size="m">Search</onyks-label>
+      <onyks-textfield size="m" style="width: 100%;"></onyks-textfield>
+    </div>
+    <onyks-table style="width: 100%;">
+      <onyks-row header>
+          <onyks-col>ID</onyks-col>
+          <onyks-col>Vegetable</onyks-col>
+          <onyks-col>Amount</onyks-col>
+          <onyks-col>Price [$]</onyks-col>
+      </onyks-row>
+      <onyks-row>
+          <onyks-col>1</onyks-col>
+          <onyks-col>Carrot</onyks-col>
+          <onyks-col>5</onyks-col>
+          <onyks-col>2.50</onyks-col>
+      </onyks-row>
+      <onyks-row>
+          <onyks-col>2</onyks-col>
+          <onyks-col>Broccoli</onyks-col>
+          <onyks-col>3</onyks-col>
+          <onyks-col>1.75</onyks-col>
+      </onyks-row>
+      <onyks-row>
+          <onyks-col>3</onyks-col>
+          <onyks-col>Spinach</onyks-col>
+          <onyks-col>2</onyks-col>
+          <onyks-col>1.25</onyks-col>
+      </onyks-row>
+    </onyks-table>
+  </div>
+  <onyks-button slot="footer" background="blue" onclick="console.log('Hi!')">OK</onyks-button>
+</onyks-dialog>
+
+
+<h4>With a ,,square''</h4>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog8').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog8" has-title="false">
+  <div style="width: 1200px; height: 1200px; background-color: red;">Some very big square!</div>
+  <onyks-button slot="footer" onclick="document.getElementById('dialog8').opened = false">Close!</onyks-button>
+  <onyks-button slot="footer" onclick="console.log('Hi!')">Console!</onyks-button>
+</onyks-dialog>
+
+<h4>With a long content</h4>
+<onyks-button type="button" background="green" onclick="document.getElementById('dialog9').opened = true">Open!</onyks-button>
+<onyks-dialog  id="dialog9" has-title="false">
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni tempora qui, necessitatibus minima tempore pariatur laudantium. Dolorum, natus perspiciatis voluptas ducimus nam veniam eveniet recusandae quisquam delectus soluta. Quo, officia.</p>
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni optio soluta odio quidem delectus unde eum rem minima, aperiam, ullam deserunt ab non. Ut natus, nisi perferendis officia ad corrupti!</p>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem explicabo, tenetur deleniti quas, provident quibusdam architecto temporibus rerum similique quod perferendis, aut inventore voluptas nostrum harum esse neque omnis voluptatibus?</p>
+  <onyks-button slot="footer" onclick="document.getElementById('dialog9').opened = false">Close!</onyks-button>
+  <onyks-button slot="footer" onclick="console.log('Hi!')">Console!</onyks-button>
+</onyks-dialog>

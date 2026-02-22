@@ -20,6 +20,19 @@ const htmlModules = import.meta.glob('./examples/*.html',
 const scriptModules = import.meta.glob('./components/*.ts') as Record<string, () => Promise<PageModule>>;
 
 const pageNames = Object.keys(htmlModules).map(path => path.replace('./examples/', '').replace('.html', ''));
+// BUG FIX
+for(let el of Object.keys(scriptModules))
+{
+    if (scriptModules[el]) 
+    {
+      const mod = await scriptModules[el]();
+      if (mod && typeof mod.init === 'function') 
+      {
+        mod.init();
+      }
+    }
+}
+// 
 
 async function navigateTo(pageName: string, updateHistory = true): Promise<void> 
 {
