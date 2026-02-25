@@ -1,0 +1,62 @@
+<h1>Onyks Textarea</h1>
+<p>A multi-line text input for general purposes, e.g., for forms or comments.</p>
+
+<hr>
+
+<h2>1. Default textarea</h2>
+<onyks-textarea></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea></onyks-textarea>
+</code></pre>
+
+<h2>2. Pre-filled value</h2>
+<onyks-textarea value="This is an initial text provided by the value attribute."></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea value="This is an initial text provided by the value attribute."></onyks-textarea>
+</code></pre>
+
+<h2>3. Defined rows and cols</h2>
+<onyks-textarea rows="5" cols="40"></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea rows="5" cols="40"></onyks-textarea>
+</code></pre>
+
+<h2>4. Character constraints (minlength / maxlength)</h2>
+<onyks-textarea minlength="5" maxlength="50" placeholder="Type 5 to 50 characters"></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea minlength="5" maxlength="50" placeholder="Type 5 to 50 characters"></onyks-textarea>
+</code></pre>
+
+<h2>5. Disabled state</h2>
+<p>Prevents user interaction completely.</p>
+<onyks-textarea disabled value="You cannot edit or copy this text."></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea disabled value="You cannot edit or copy this text."></onyks-textarea>
+</code></pre>
+
+<h2>6. Read-only state</h2>
+<p>User can read and copy the text, but cannot modify it.</p>
+<onyks-textarea readonly value="You can select and copy this text, but not change it."></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea readonly value="You can select and copy this text, but not change it."></onyks-textarea>
+</code></pre>
+
+<h2>7. Required state</h2>
+<onyks-textarea required placeholder="This field is required"></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea required placeholder="This field is required"></onyks-textarea>
+</code></pre>
+
+<h2>8. Fixed size (No resize)</h2>
+<p>User cannot drag the corner to resize the textarea.</p>
+<onyks-textarea resize="none" placeholder="Resize blocked"></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea resize="none" placeholder="Resize blocked"></onyks-textarea>
+</code></pre>
+
+<h2>9. Error state</h2>
+<p>Visual indication of invalid input.</p>
+<onyks-textarea error placeholder="Something went wrong!"></onyks-textarea>
+<pre><code class="language-html">
+    <onyks-textarea error placeholder="Something went wrong!"></onyks-textarea>
+</code></pre>

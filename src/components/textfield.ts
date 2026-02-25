@@ -1,107 +1,123 @@
-import {LitElement, css, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('onyks-textfield')
-export class Onyks_Textfield extends LitElement 
-{
-    static override shadowRootOptions = 
-    {
+export class Onyks_Textfield extends LitElement {
+    static override shadowRootOptions = {
         ...LitElement.shadowRootOptions,
         delegatesFocus: true
     };
 
-    @property({type: String, reflect: true})
-    size = "m"
+    @property({ type: String, reflect: true }) size = "m";
+    @property({ type: String, reflect: true }) placeholder = "";
+    @property({ type: String, reflect: true }) type = "text";
+    @property({ type: String, reflect: true }) label = "";
+    @property({ type: String, reflect: true }) value = "";
+    @property({ type: Boolean, reflect: true }) disabled = false;
+    @property({ type: Boolean, reflect: true }) error = false;
 
-    @property({type: String, reflect: true})
-    placeholder = ""
-
-    @property({type: String, reflect: true})
-    type = "text"
-
-    @property({type: String, reflect: true})
-    label = ""
-
-    @property({type: String, reflect: true})
-    value = ""
-
-    private _handleInput(e: Event) 
-    {
+    private _handleInput(e: Event) {
         const input = e.target as HTMLInputElement;
         this.value = input.value;
     }
 
-    render() 
-    {
+    render() {
         return html`
-            <input class="${this.size}" 
-            placeholder="${this.placeholder}"
-            type="${this.type}"
-            label="${this.label}"
-            id="${this.id}"
-            .value="${this.value}"
-            @input="${this._handleInput}"
-            />
-        `
+            <div class="wrapper ${this.error ? 'is-error' : ''}">
+                <input 
+                    class=${this.size} 
+                    placeholder=${this.placeholder}
+                    type=${this.type}
+                    aria-label=${this.label}
+                    id=${this.id}
+                    .value=${this.value}
+                    ?disabled=${this.disabled}
+                    @input=${this._handleInput}
+                />
+                ${this.error ? this.renderErrorIcon() : ''}
+            </div>
+        `;
+    }
+
+    private renderErrorIcon() {
+        return html`
+            <svg class="error-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L1 21H23L12 2ZM12 5.5L19.53 19H4.47L12 5.5ZM11 10V14H13V10H11ZM11 16V18H13V16H11Z" fill="currentColor"/>
+            </svg>
+        `;
     }
 
     static styles = css`
-        input
-        {
+        :host {
+            display: inline-block;
+            width: fit-content;
+            height: fit-content;
+            box-sizing: border-box;
+        }
+
+        * {
+            font-family: var(--font, inherit);
+        }
+
+        .wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        input {
             box-sizing: border-box;
             outline: none;
-            border: 1px solid #ccc;
+            border: 2px solid var(--surface-4);
+            background: var(--surface-2;
+            color: var(--text-1);
             width: 100%;
             height: 100%;
             margin: 0; 
-            // padding: var(--spacing-sm);
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-sm, 4px);
             font-family: inherit;
+            transition: border-color 0.3s ease;
         }
 
-        .s
-        {
-            padding: var(--spacing-sm-field);
-            font-size: var(--size-sm);
+        .is-error input {
+            border-color: var(--sub-color-red);
         }
 
-        .m
-        {
-            padding: var(--spacing-md-field);
-            font-size: var(--size-md);
+        .error-icon {
+            position: absolute;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            color: var(--sub-color-red);
+            pointer-events: none;
         }
 
-        .l
-        {
-            padding: var(--spacing-lg-field);
-            font-size: var(--size-lg);
+        .s { padding: var(--spacing-sm-field, 6px); font-size: var(--size-sm, 12px); }
+        .m { padding: var(--spacing-md-field, 10px); font-size: var(--size-md, 14px); }
+        .l { padding: var(--spacing-lg-field, 14px); font-size: var(--size-lg, 16px); }
+        .xl { padding: var(--spacing-xl-field, 18px); font-size: var(--size-xl, 20px); }
+
+        input:disabled {
+            opacity: 0.6;
+            background: var(--surface-3);
+            border-color: var(--surface-4);
+            cursor: not-allowed;
         }
 
-        .xl
-        {
-            padding: var(--spacing-xl-field);
-            font-size:  var(--size-xl);
+        input:focus {
+            border-color: var(--color-blue);
         }
 
-        :host
-        {
-            height: fit-content;
-            display: inline-block;
-            width: fit-content;
-            box-sizing: border-box;
+        .is-error input:focus {
+            border-color: var(--sub-color-red);
         }
-
-        *
-        {
-            font-family: var(--font);
-        }
-    `
+    `;
 }
 
-declare global 
-{
-    interface HTMLElementTagNameMap 
-    {
-        'onyks-textfield': Onyks_Textfield
+declare global {
+    interface HTMLElementTagNameMap {
+        'onyks-textfield': Onyks_Textfield;
     }
 }
