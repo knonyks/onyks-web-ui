@@ -71,7 +71,7 @@ export class Onyks_Textfield extends LitElement {
             box-sizing: border-box;
             outline: none;
             border: 2px solid var(--surface-4);
-            background: var(--surface-2;
+            background: var(--surface-2);
             color: var(--text-1);
             width: 100%;
             height: 100%;
