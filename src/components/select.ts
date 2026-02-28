@@ -13,6 +13,7 @@ export class Onyks_Select extends LitElement {
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
     @property({ type: Boolean, reflect: true }) required = false;
+    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' = 'm';
 
     @state() private _internalOptions: { value: string, text: string, disabled: boolean, selected: boolean }[] = [];
 
@@ -51,14 +52,18 @@ export class Onyks_Select extends LitElement {
     }
 
     static styles = css`
+        :host {
+            display: inline-block;
+            width: 100%;
+        }
+
         select {
             width: 100%;
-            padding: 0.5em 2.5em 0.5em 0.5em; 
+            font-size: 1rem;
             border: 1px solid var(--surface-4);
             border-radius: 4px;
             background: var(--surface-2);
             color: var(--text-1);
-            font-size: 1em;
             transition: border-color 0.2s;
 
             appearance: none;
@@ -66,8 +71,27 @@ export class Onyks_Select extends LitElement {
 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
+        }
+
+        :host([size="s"]) select {
+            padding: 0.25em 2em 0.25em 0.5em;
+            font-size: 0.875rem;
+            background-position: right 0.5em center;
+            background-size: 1em;
+        }
+
+        :host([size="m"]) select {
+            padding: 0.5em 2.5em 0.5em 0.5em; 
+            font-size: 1 rem;
             background-position: right 0.75em center;
             background-size: 1.2em;
+        }
+
+        :host([size="l"]) select {
+            padding: 0.75em 3em 0.75em 0.75em;
+            font-size: 1.125rem; /* Większa czcionka */
+            background-position: right 1em center;
+            background-size: 1.4em;
         }
 
         select::-ms-expand {
@@ -89,12 +113,5 @@ export class Onyks_Option extends LitElement {
 
     render() {
         return html`<slot></slot>`;
-    }
-}
-
-declare global {
-    interface HTMLElementTagNameMap {
-        'onyks-select': Onyks_Select;
-        'onyks-option': Onyks_Option;
     }
 }

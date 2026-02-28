@@ -18,10 +18,10 @@ export class Onyks_Textarea extends LitElement {
     @property({ type: Boolean, reflect: true }) readonly = false;
     @property({ type: Boolean, reflect: true }) required = false;
     @property({ type: Boolean, reflect: true }) error = false;
+    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' = 'm';
     
     @property({ type: Number, reflect: true }) minlength?: number;
     @property({ type: Number, reflect: true }) maxlength?: number;
-    
     @property({ type: String, reflect: true }) resize: 'none' | 'both' | 'horizontal' | 'vertical' = 'both';
 
     private _handleInput(e: Event) {
@@ -88,15 +88,34 @@ export class Onyks_Textarea extends LitElement {
             box-sizing: border-box;
             width: 100%;
             height: 100%;
-            padding: var(--spacing-md, 12px);
+            
             border: 2px solid var(--surface-4);
             border-radius: var(--radius-md, 8px);
             background: var(--surface-2);
             color: var(--text-1);
             font-family: inherit;
-            font-size: var(--font-size-md, 16px);
             outline: none;
             transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        :host([size="s"]) textarea {
+            padding: var(--spacing-sm-field);
+            font-size: var(--size-sm);
+        }
+
+        :host([size="m"]) textarea {
+            padding: var(--spacing-md-field);
+            font-size: var(--size-md);
+        }
+
+        :host([size="l"]) textarea {
+            padding: var(--spacing-lg-field);
+            font-size: var(--size-lg);
+        }
+
+        :host([size="xl"]) textarea {
+            padding: var(--spacing-xl-field);
+            font-size: var(--size-xl);
         }
 
         textarea:focus {
@@ -121,20 +140,32 @@ export class Onyks_Textarea extends LitElement {
         textarea::placeholder {
             color: #c0c0c0;
         }
+        
         .error-icon {
             position: absolute;
+            color: var(--color-red);
+            pointer-events: none;
+        }
+
+        :host([size="s"]) .error-icon {
+            top: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+        }
+
+        :host([size="m"]) .error-icon {
             top: 12px;
             right: 12px;
             width: 20px;
             height: 20px;
-            color: var(--color-red);
-            pointer-events: none;
+        }
+
+        :host([size="l"]) .error-icon {
+            top: 16px;
+            right: 16px;
+            width: 24px;
+            height: 24px;
         }
     `;
-}
-
-declare global {
-    interface HTMLElementTagNameMap {
-        'onyks-textarea': Onyks_Textarea;
-    }
 }

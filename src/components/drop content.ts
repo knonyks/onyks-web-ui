@@ -6,6 +6,7 @@ export class Onyks_FileUpload extends LitElement {
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
     @property({ type: String }) accept = '';
+    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' = 'm';
 
     @state() private _isDragging = false;
     @state() private _displayText = 'Przeciągnij plik tutaj lub kliknij';
@@ -84,13 +85,24 @@ export class Onyks_FileUpload extends LitElement {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100px;
             border: 2px dashed var(--surface-4, #64748b);
             border-radius: 8px;
             background-color: var(--surface-2, #1e293b);
             color: var(--text-primary, #f8fafc);
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+
+        :host([size="s"]) .drop-zone {
+            min-height: 60px;
+        }
+
+        :host([size="m"]) .drop-zone {
+            min-height: 100px;
+        }
+
+        :host([size="l"]) .drop-zone {
+            min-height: 140px;
         }
 
         .drop-zone:hover:not(.disabled) {
@@ -115,8 +127,18 @@ export class Onyks_FileUpload extends LitElement {
 
         .text {
             pointer-events: none;
-            text-align: center;
-            padding: 1em;
+        }
+
+        :host([size="s"]) .text {
+            font-size: 0.8rem;
+        }
+
+        :host([size="m"]) .text {
+            font-size: 1rem;
+        }
+
+        :host([size="l"]) .text {
+            font-size: 1.3rem;
         }
     `;
 }
