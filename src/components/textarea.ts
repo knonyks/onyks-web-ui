@@ -118,6 +118,9 @@ export class Onyks_Textarea extends LitElement {
             border-color: var(--color-red);
         }
 
+        textarea::placeholder {
+            color: #c0c0c0;
+        }
         .error-icon {
             position: absolute;
             top: 12px;
