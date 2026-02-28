@@ -59,37 +59,38 @@ export class Onyks_Select extends LitElement {
 
         select {
             width: 100%;
-            font-size: 1rem;
-            border: 1px solid var(--surface-4);
-            border-radius: 4px;
-            background: var(--surface-2);
-            color: var(--text-1);
+            font-size: var(--size-md);
+            border: 2px solid var(--surface-border);
+            border-radius: var(--radius-md);
+            background-color: var(--surface-element);
+            color: var(--text-primary);
             transition: border-color 0.2s;
 
             appearance: none;
             -webkit-appearance: none;
+            -moz-appearance: none; 
 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
         }
 
         :host([size="s"]) select {
-            padding: 0.25em 2em 0.25em 0.5em;
-            font-size: 0.875rem;
+            padding: calc(var(--spacing-sm) - 2px) 2em calc(var(--spacing-sm) - 2px) var(--spacing-sm);
+            font-size: var(--size-sm);
             background-position: right 0.5em center;
             background-size: 1em;
         }
 
         :host([size="m"]) select {
-            padding: 0.5em 2.5em 0.5em 0.5em; 
-            font-size: 1 rem;
+            padding: calc(var(--spacing-md) - 6px) 2.5em calc(var(--spacing-md) - 6px) var(--spacing-md); 
+            font-size: var(--size-md);
             background-position: right 0.75em center;
             background-size: 1.2em;
         }
 
         :host([size="l"]) select {
-            padding: 0.75em 3em 0.75em 0.75em;
-            font-size: 1.125rem; /* Większa czcionka */
+            padding: calc(var(--spacing-md) - 2px) 3em calc(var(--spacing-md) - 2px) var(--spacing-lg);
+            font-size: var(--size-lg);
             background-position: right 1em center;
             background-size: 1.4em;
         }
@@ -100,7 +101,7 @@ export class Onyks_Select extends LitElement {
 
         select:focus {
             outline: none;
-            border-color: var(--sub-color-red);
+            border-color: var(--color-info);
         }
     `;
 }

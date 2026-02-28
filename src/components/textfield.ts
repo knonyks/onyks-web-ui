@@ -70,19 +70,19 @@ export class Onyks_Textfield extends LitElement {
         input {
             box-sizing: border-box;
             outline: none;
-            border: 2px solid var(--surface-4);
-            background: var(--surface-2);
-            color: var(--text-1);
+            border: 2px solid var(--surface-border);
+            background: var(--surface-element);
+            color: var(--text-primary);
             width: 100%;
             height: 100%;
             margin: 0; 
-            border-radius: var(--radius-sm, 4px);
+            border-radius: var(--radius-sm);
             font-family: inherit;
             transition: border-color 0.3s ease;
         }
 
         .is-error input {
-            border-color: var(--sub-color-red);
+            border-color: var(--color-primary);
         }
 
         .error-icon {
@@ -90,28 +90,28 @@ export class Onyks_Textfield extends LitElement {
             right: 12px;
             width: 20px;
             height: 20px;
-            color: var(--sub-color-red);
+            color: var(--color-primary);
             pointer-events: none;
         }
 
-        .s { padding: var(--spacing-sm-field, 6px); font-size: var(--size-sm, 12px); }
-        .m { padding: var(--spacing-md-field, 10px); font-size: var(--size-md, 14px); }
-        .l { padding: var(--spacing-lg-field, 14px); font-size: var(--size-lg, 16px); }
-        .xl { padding: var(--spacing-xl-field, 18px); font-size: var(--size-xl, 20px); }
+        .s { padding: calc(var(--spacing-sm) - 2px) var(--spacing-sm); font-size: var(--size-sm); }
+        .m { padding: calc(var(--spacing-md) - 6px) var(--spacing-sm); font-size: var(--size-md); }
+        .l { padding: calc(var(--spacing-md) - 2px) var(--spacing-md); font-size: var(--size-lg); }
+        .xl { padding: calc(var(--spacing-lg) - 6px) var(--spacing-md); font-size: var(--size-xl); }
 
         input:disabled {
             opacity: 0.6;
-            background: var(--surface-3);
-            border-color: var(--surface-4);
+            background: var(--surface-hover);
+            border-color: var(--surface-border);
             cursor: not-allowed;
         }
 
         input:focus {
-            border-color: var(--color-blue);
+            border-color: var(--color-info);
         }
 
         .is-error input:focus {
-            border-color: var(--sub-color-red);
+            border-color: var(--color-primary);
         }
     `;
 }

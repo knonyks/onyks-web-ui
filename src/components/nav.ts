@@ -15,72 +15,48 @@ export class Onyks_Nav extends LitElement
   @state() private is_mobile_menu_open = false;
 
   static styles = css`
-    *
-    {
-        font-family: var(--font);
-        color: var(--text-1)
+    * {
+      font-family: var(--font, inherit);
+      color: var(--text-primary);
     }
-        
-    :host 
-    {
+    
+    :host {
       display: block;
       width: 100%;
-      --nav-height: 64px;
-      font-size: var(--size-m);
       position: relative;
     }
 
-    :host([size="s"]) 
-    { 
-      font-size: var(--size-sm); --nav-height: 50px; 
-    }
-    
-    :host([size="m"])  
-    { 
-      font-size: var(--size-md); 
-      --nav-height: 64px;
-    }
-    
-    :host([size="l"])  
-    { 
-      font-size: var(--size-lg); 
-      --nav-height: 72px; 
-    }
-    
-    :host([size="xl"]) 
-    { 
-      font-size: var(--size-xl); 
-      --nav-height: 80px;
-    }
+    :host([size="s"]) { font-size: var(--size-sm); --nav-height: 50px; }
+    :host([size="m"]) { font-size: var(--size-md); --nav-height: 64px; }
+    :host([size="l"]) { font-size: var(--size-lg); --nav-height: 72px; }
+    :host([size="xl"]) { font-size: var(--size-xl); --nav-height: 80px; }
 
-    nav 
-    {
-      background-color: var(--surface-2);
-      align-items: center;
-      color: var(--text-1);
+    nav {
+      background-color: var(--surface-element);
+      color: var(--text-primary);
       height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      // padding: 0 var(--spacing-sm);
       box-sizing: border-box;
       position: relative; 
-      transition: border-radius 0.2s ease-in-out;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-bottom: 1px solid var(--surface-border);
     }
 
-    .rounded 
-    {
-      border-radius: var(--radius-md);
+    .rounded { 
+      border-radius: var(--radius-xl); 
+      margin: var(--spacing-sm);
+      border: 1px solid var(--surface-border);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     }
-
-    .rounded.menu-open 
-    {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      transition-delay: 0s;
+    
+    .rounded.menu-open { 
+      border-bottom-left-radius: 0; 
+      border-bottom-right-radius: 0; 
     }
   `;
-
   constructor() 
   {
     super();
@@ -119,8 +95,7 @@ export class Onyks_Nav_Content extends LitElement
   @state() private current_page = 0;
 
   static styles = css`
-    :host 
-    {
+    :host {
       position: static; 
       display: flex;
       align-items: center;
@@ -130,38 +105,39 @@ export class Onyks_Nav_Content extends LitElement
       z-index: 1;
     }
 
-    :host([mobile-mode]) 
-    {
+    :host([mobile-mode]) {
       justify-content: flex-end;
     }
 
-    .desktop-wrapper 
-    {
+    .desktop-wrapper {
       display: flex;
       height: 100%;
     }
 
-    .next-btn 
-    {
-      background: var(--surface-3);
+    .next-btn {
+      background: transparent;
       border: none;
-      color: inherit;
-      height: 100%;
+      color: var(--text-secondary);
+      height: calc(100% - 16px);
+      margin: 8px;
       width: fit-content;
-      padding: 0 var(--spacing-sm);
+      padding: 0 var(--spacing-md);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+    }
+    
+    .next-btn:hover {
+        background: var(--surface-hover);
+        color: var(--text-primary);
     }
 
-    .mobile-wrapper 
-    {
-      position: static;
-    }
+    .mobile-wrapper { position: static; }
 
-    .hamburger 
-    {
+    .hamburger {
       background: transparent;
       border: none;
       color: inherit;
@@ -171,75 +147,41 @@ export class Onyks_Nav_Content extends LitElement
       flex-direction: column;
       gap: 6px;
     }
-      
-    .line 
-    {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background-color: currentColor;
-      transition: 0.3s;
-    }
+    .line { display: block; width: 24px; height: 2px; background-color: currentColor; transition: 0.3s; }
+    .hamburger.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .line:nth-child(2) { opacity: 0; }
+    .hamburger.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    .hamburger.active .line:nth-child(1) 
-    { 
-      transform: translateY(8px) rotate(45deg); 
-    }
-
-    .hamburger.active .line:nth-child(2) 
-    { 
-      opacity: 0; 
-    }
-
-    .hamburger.active .line:nth-child(3) 
-    { 
-      transform: translateY(-8px) rotate(-45deg); 
-    }
-
-    .mobile-dropdown-wrapper 
-    {
+    .mobile-dropdown-wrapper {
       position: absolute;
       top: 100%; 
       left: 0;
       width: 100%; 
       display: grid;
       grid-template-rows: 0fr;
-      transition: grid-template-rows 0.3s ease-out;
-      
-      background-color: var(--surface-1); 
+      transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: var(--surface-element);
       z-index: 999;
-      
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     
-    .mobile-dropdown-wrapper.open 
-    {
+    .mobile-dropdown-wrapper.open {
       grid-template-rows: 1fr;
-      border-top: 1px solid rgba(255,255,255,0.1); 
+      border-top: 1px solid var(--surface-border); 
     }
 
-    :host-context(onyks-nav[rounded]) .mobile-dropdown-wrapper.open 
-    {
+    :host-context(onyks-nav[rounded]) .mobile-dropdown-wrapper.open {
       border-bottom-left-radius: var(--radius-xl);
       border-bottom-right-radius: var(--radius-xl);
+      margin: 0 var(--spacing-sm);
+      width: calc(100% - calc(var(--spacing-sm) * 2));
+      border: 1px solid var(--surface-border);
+      border-top: none;
     }
 
-    .dropdown-inner 
-    {
-      overflow: hidden;
-    }
-    
-    .dropdown-content-scroll 
-    {
-      max-height: 300px;
-      overflow-y: auto;
-      padding-bottom: 10px;
-    }
-
-    ::slotted(*) 
-    { 
-      display: flex; 
-    }
+    .dropdown-inner { overflow: hidden; }
+    .dropdown-content-scroll { padding: 8px 0; }
+    ::slotted(*) { display: flex; }
   `;
 
   constructor() 
@@ -421,53 +363,60 @@ export class Onyks_Nav_Option extends LitElement
   @property({type: Boolean, reflect: true}) selected = false;
 
   static styles = css`
-    :host 
-    { 
-      display: block; 
-      cursor: pointer; 
+    :host { 
+        display: block; 
+        cursor: pointer; 
+        height: 100%;
     }
     
-    :host([selected]) .nav-item 
-    {
-      color: var(--color);
-      background-color: rgba(255,255,255,0.05);
-      font-weight: 600;
-    }
-    
-    @media (max-width: 900px) 
-    {
-      :host([selected]) .nav-item 
-      { 
-        border-left: 3px solid var(--accent); 
-      }
-    }
-
-    @media (min-width: 901px) 
-    {
-      :host([selected]) .nav-item 
-      { 
-        border-bottom: 2px solid var(--accent); 
-      }
+    .nav-item {
+        padding: 0 var(--spacing-md);
+        margin: 4px 2px; 
+        height: calc(100% - 8px);
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        color: var(--text-secondary);
+        text-decoration: none;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+        width: 100%;
+        font-size: inherit;
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        position: relative;
     }
 
-    .nav-item 
-    {
-      padding: 0 20px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      color: inherit;
-      text-decoration: none;
-      box-sizing: border-box;
-      transition: background 0.2s;
-      width: 100%;
-      font-size: inherit;
+    .nav-item:hover { 
+        background-color: var(--surface-hover); 
+        color: var(--text-primary);
     }
 
-    .nav-item:hover 
-    { 
-      background-color: rgba(255,255,255,0.1); 
+    :host([selected]) .nav-item {
+        color: var(--color-primary);
+        background-color: var(--surface-hover);
+        font-weight: 600;
+    }
+
+    @media (min-width: 901px) {
+        :host([selected]) .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background-color: var(--color-primary);
+            border-radius: 3px;
+        }
+    }
+
+    @media (max-width: 900px) {   
+        :host([selected]) .nav-item { 
+            border-left: 3px solid var(--color-primary); 
+            background-color: var(--surface-hover);
+        }
     }
   `;
 

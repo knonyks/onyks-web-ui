@@ -32,25 +32,10 @@ export class Onyks_Label extends LitElement
             color: var(--color);
         }
 
-        .s
-        {
-            font-size: var(--size-sm);
-        }
-
-        .m
-        {
-            font-size: var(--size-md);
-        }
-
-        .l
-        {
-            font-size: var(--size-lg);
-        }
-
-        .xl
-        {
-            font-size:  var(--size-xl);
-        }
+        .s {font-size: var(--size-sm);}
+        .m {font-size: var(--size-md);}
+        .l {font-size: var(--size-lg);}
+        .xl {font-size:  var(--size-xl);}
 
         :host
         {

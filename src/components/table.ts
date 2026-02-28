@@ -42,13 +42,13 @@ export class Onyks_Table extends LitElement {
     static styles = css`
         :host {
             display: block;
-            width: 100%; /* ZMIANA: Zamiast fit-content używamy 100% */
+            width: 100%; 
             max-width: 100%;
             margin: 0 auto;
             height: 200px;
-            background-color: var(--surface-2);
-            border: 1px solid var(--surface-4);
-            border-radius: 12px;
+            background-color: var(--surface-element);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius-lg);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             box-sizing: border-box;
             overflow: hidden;
@@ -59,18 +59,18 @@ export class Onyks_Table extends LitElement {
             height: 100%;
             overflow: auto;
             scrollbar-width: thin;
-            scrollbar-color: var(--surface-4) var(--surface-2);
+            scrollbar-color: var(--surface-border) var(--surface-element);
         }
 
         .scroll-wrapper::-webkit-scrollbar { width: 10px; height: 10px; }
-        .scroll-wrapper::-webkit-scrollbar-track { background: var(--surface-2); }
-        .scroll-wrapper::-webkit-scrollbar-corner { background: var(--surface-2); }
+        .scroll-wrapper::-webkit-scrollbar-track { background: var(--surface-element); }
+        .scroll-wrapper::-webkit-scrollbar-corner { background: var(--surface-element); }
         .scroll-wrapper::-webkit-scrollbar-thumb {
-            background-color: var(--surface-4);
-            border-radius: 6px;
-            border: 2px solid var(--surface-2);
+            background-color: var(--surface-border);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--surface-element);
         }
-        .scroll-wrapper::-webkit-scrollbar-thumb:hover { background-color: var(--color-red); }
+        .scroll-wrapper::-webkit-scrollbar-thumb:hover { background-color: var(--color-primary); }
 
         .table-container {
             display: table;
@@ -103,15 +103,15 @@ export class Onyks_Row extends LitElement {
         }
 
         :host(:not([header]):hover) {
-            background-color: var(--surface-3);
+            background-color: var(--surface-hover);
         }
 
         :host([header]) {
             position: sticky;
             top: 0;
             z-index: 10;
-            background-color: var(--surface-2);
-            border-bottom: 2px solid var(--color-red);
+            background-color: var(--surface-element);
+            border-bottom: 2px solid var(--color-primary);
         }
     `;
 
@@ -128,11 +128,11 @@ export class Onyks_Col extends LitElement {
     static styles = css`
         :host {
             display: table-cell;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--surface-4);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--surface-border);
             vertical-align: middle;
             text-align: center;
-            color: var(--text-3);
+            color: var(--text-secondary); /* Zmiana z text-3 */
 
             width: 100%;
             min-width: var(--max-header-width, auto);
@@ -147,12 +147,12 @@ export class Onyks_Col extends LitElement {
         :host(:last-child) { border-right: none; }
 
         :host-context(onyks-row[header]) {
-            color: var(--color-red);
+            color: var(--color-primary);
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
-            border-bottom: 2px solid var(--color-red);
-            background-color: var(--surface-3);
+            border-bottom: 2px solid var(--color-primary);
+            background-color: var(--surface-hover);
             
             width: 100%; 
             min-width: var(--max-header-width, auto);
@@ -171,12 +171,12 @@ export class Onyks_Col extends LitElement {
 
         input[type="checkbox"] {
             appearance: none;
-            background-color: var(--surface-2);
+            background-color: var(--surface-element);
             margin: 0;
             width: 18px;
             height: 18px;
-            border: 2px solid var(--surface-4);
-            border-radius: 4px;
+            border: 2px solid var(--surface-border);
+            border-radius: var(--radius-sm);
             display: inline-grid;
             place-content: center;
             cursor: pointer;
@@ -184,7 +184,7 @@ export class Onyks_Col extends LitElement {
         }
 
         input[type="checkbox"]:hover {
-            border-color: var(--color-red);
+            border-color: var(--color-primary);
         }
 
         input[type="checkbox"]::before {
@@ -193,7 +193,7 @@ export class Onyks_Col extends LitElement {
             height: 10px;
             transform: scale(0);
             transition: 120ms transform ease-in-out;
-            background-color: var(--color-red);
+            background-color: var(--color-primary);
             transform-origin: center;
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
@@ -203,7 +203,7 @@ export class Onyks_Col extends LitElement {
         }
 
         input[type="checkbox"]:checked {
-            border-color: var(--color-red);
+            border-color: var(--color-primary);
         }
     `;
 

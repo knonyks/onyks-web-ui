@@ -73,39 +73,34 @@ export class Onyks_Button extends LitElement
             transition: all 0.1s ease;
             line-height: 1.5;
         }
-        .bg-blue
-        {
-            background-color: var(--color-blue);
-            box-shadow: 0 7px 0 var(--sub-color-blue);
-            color: white;
+        .bg-blue {
+            background-color: var(--color-info); 
+            box-shadow: 0 7px 0 var(--color-info-hover); 
+            color: var(--text-inverse); 
         }
-        .bg-blue:hover
-        {
+        .bg-blue:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--sub-color-blue); 
+            box-shadow: 0 3px 0 var(--color-info-hover); 
         }
 
-        .bg-green
-        {
-            background-color: var(--color-green);
-            box-shadow: 0 7px 0 var(--sub-color-green);
-            color: black;
+        .bg-green {
+            background-color: var(--color-success);
+            box-shadow: 0 7px 0 var(--color-success-hover);
+            color: var(--text-inverse);
         }
-        .bg-green:hover
-        {
+        .bg-green:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--sub-color-green); 
+            box-shadow: 0 3px 0 var(--color-success-hover); 
         }
-        .bg-red
-        {
-            background-color: var(--color-red);
-            box-shadow: 0 7px 0 var(--sub-color-red); 
-            color: white;
+
+        .bg-red {
+            background-color: var(--color-primary);
+            box-shadow: 0 7px 0 var(--color-primary-hover); 
+            color: var(--text-inverse);
         }
-        .bg-red:hover
-        {
+        .bg-red:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--sub-color-red); 
+            box-shadow: 0 3px 0 var(--color-primary-hover); 
         }
 
         .size-s

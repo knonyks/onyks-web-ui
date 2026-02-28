@@ -85,39 +85,31 @@ export class Onyks_FileUpload extends LitElement {
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px dashed var(--surface-4, #64748b);
-            border-radius: 8px;
-            background-color: var(--surface-2, #1e293b);
-            color: var(--text-primary, #f8fafc);
+            border: 2px dashed var(--surface-border);
+            border-radius: var(--radius-md);
+            background-color: var(--surface-element);
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        :host([size="s"]) .drop-zone {
-            min-height: 60px;
-        }
-
-        :host([size="m"]) .drop-zone {
-            min-height: 100px;
-        }
-
-        :host([size="l"]) .drop-zone {
-            min-height: 140px;
-        }
+        :host([size="s"]) .drop-zone { min-height: 60px; }
+        :host([size="m"]) .drop-zone { min-height: 100px; }
+        :host([size="l"]) .drop-zone { min-height: 140px; }
 
         .drop-zone:hover:not(.disabled) {
-            background-color: var(--surface-3);
+            background-color: var(--surface-hover);
         }
 
         .drop-zone.dragover {
-            border-color: var(--sub-color-red);
-            background-color: var(--surface-3);
+            border-color: var(--color-primary);
+            background-color: var(--surface-hover);
         }
 
         .drop-zone.disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            border-color: var(--surface-4, #475569);
+            border-color: var(--surface-border);
             pointer-events: none;
         }
 
@@ -127,18 +119,11 @@ export class Onyks_FileUpload extends LitElement {
 
         .text {
             pointer-events: none;
+            color: var(--text-primary);
         }
 
-        :host([size="s"]) .text {
-            font-size: 0.8rem;
-        }
-
-        :host([size="m"]) .text {
-            font-size: 1rem;
-        }
-
-        :host([size="l"]) .text {
-            font-size: 1.3rem;
-        }
+        :host([size="s"]) .text { font-size: var(--size-sm); }
+        :host([size="m"]) .text { font-size: var(--size-md); }
+        :host([size="l"]) .text { font-size: var(--size-lg); }
     `;
 }

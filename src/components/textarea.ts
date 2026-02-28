@@ -89,83 +89,66 @@ export class Onyks_Textarea extends LitElement {
             width: 100%;
             height: 100%;
             
-            border: 2px solid var(--surface-4);
-            border-radius: var(--radius-md, 8px);
-            background: var(--surface-2);
-            color: var(--text-1);
+            border: 2px solid var(--surface-border);
+            border-radius: var(--radius-md);
+            background-color: var(--surface-element);
+            color: var(--text-primary);
             font-family: inherit;
             outline: none;
             transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
-
+            
         :host([size="s"]) textarea {
-            padding: var(--spacing-sm-field);
+            padding: calc(var(--spacing-sm) - 2px) var(--spacing-sm);
             font-size: var(--size-sm);
         }
 
         :host([size="m"]) textarea {
-            padding: var(--spacing-md-field);
+            padding: calc(var(--spacing-md) - 6px) var(--spacing-md);
             font-size: var(--size-md);
         }
 
         :host([size="l"]) textarea {
-            padding: var(--spacing-lg-field);
+            padding: calc(var(--spacing-md) - 2px) var(--spacing-lg);
             font-size: var(--size-lg);
         }
 
         :host([size="xl"]) textarea {
-            padding: var(--spacing-xl-field);
+            padding: calc(var(--spacing-lg) - 6px) var(--spacing-lg);
             font-size: var(--size-xl);
         }
 
         textarea:focus {
-            border-color: var(--sub-color-red);
+            border-color: var(--color-info); 
         }   
 
         textarea:disabled {
             opacity: 0.6;
-            background: var(--surface-3);
+            background-color: var(--surface-hover);
             cursor: not-allowed;
         }
 
         textarea[readonly] {
-            background: var(--surface-3);
+            background-color: var(--surface-hover);
             border-style: dashed; 
         }
 
         textarea.error {
-            border-color: var(--color-red);
+            border-color: var(--color-primary);
         }
 
         textarea::placeholder {
-            color: #c0c0c0;
+            color: var(--text-secondary);
         }
         
         .error-icon {
             position: absolute;
-            color: var(--color-red);
+            color: var(--color-primary);
             pointer-events: none;
         }
 
-        :host([size="s"]) .error-icon {
-            top: 8px;
-            right: 8px;
-            width: 16px;
-            height: 16px;
-        }
-
-        :host([size="m"]) .error-icon {
-            top: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
-        }
-
-        :host([size="l"]) .error-icon {
-            top: 16px;
-            right: 16px;
-            width: 24px;
-            height: 24px;
-        }
+        :host([size="s"]) .error-icon { top: 8px; right: 8px; width: 16px; height: 16px; }
+        :host([size="m"]) .error-icon { top: 12px; right: 12px; width: 20px; height: 20px; }
+        :host([size="l"]) .error-icon { top: 16px; right: 16px; width: 24px; height: 24px; }
     `;
 }

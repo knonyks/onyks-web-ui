@@ -39,37 +39,14 @@ export class Onyks_Text_Help extends LitElement
             margin-top: 0.25rem;
             height: fit-content;
         }
-        .color-red
-        {
-            color: var(--color-red);
-        }
-        .color-green
-        {
-            color: var(--color-green);
-        }
-        .color-blue
-        {
-            color: var(--color-blue);
-        }
-        .size-s
-        {
-            font-size: var(--size-sm);
-        }
+        .color-red {color: var(--color-primary);}
+        .color-green {color: var(--color-success);}
+        .color-blue {color: var(--color-info);}
 
-        .size-m
-        {
-            font-size: var(--size-md);
-        }
-
-        .size-l
-        {
-            font-size: var(--size-lg);
-        }
-
-        .size-xl
-        {
-            font-size: var(--size-xl);
-        }
+        .size-s {font-size: var(--size-sm);}
+        .size-m {font-size: var(--size-md);}
+        .size-l {font-size: var(--size-lg);}
+        .size-xl {font-size: var(--size-xl);}
         `
 }
 
