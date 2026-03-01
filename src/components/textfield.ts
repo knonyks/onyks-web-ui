@@ -95,9 +95,9 @@ export class Onyks_Textfield extends LitElement {
         }
 
         .s { padding: calc(var(--spacing-sm) - 2px) var(--spacing-sm); font-size: var(--size-sm); }
-        .m { padding: calc(var(--spacing-md) - 6px) var(--spacing-sm); font-size: var(--size-md); }
-        .l { padding: calc(var(--spacing-md) - 2px) var(--spacing-md); font-size: var(--size-lg); }
-        .xl { padding: calc(var(--spacing-lg) - 6px) var(--spacing-md); font-size: var(--size-xl); }
+        .m { padding: calc(var(--spacing-md) - 6px) var(--spacing-md); font-size: var(--size-md); }
+        .l { padding: calc(var(--spacing-md) - 2px) var(--spacing-lg); font-size: var(--size-lg); }
+        .xl { padding: calc(var(--spacing-lg) - 6px) var(--spacing-xl); font-size: var(--size-xl); }
 
         input:disabled {
             opacity: 0.6;

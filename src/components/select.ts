@@ -57,11 +57,14 @@ export class Onyks_Select extends LitElement {
             width: 100%;
         }
 
+        * {
+            font-family: var(--font, inherit);
+        }
+
         select {
             width: 100%;
-            font-size: var(--size-md);
             border: 2px solid var(--surface-border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             background-color: var(--surface-element);
             color: var(--text-primary);
             transition: border-color 0.2s;
@@ -75,24 +78,31 @@ export class Onyks_Select extends LitElement {
         }
 
         :host([size="s"]) select {
-            padding: calc(var(--spacing-sm) - 2px) 2em calc(var(--spacing-sm) - 2px) var(--spacing-sm);
+            padding: calc(var(--spacing-sm) - 2px)  var(--spacing-sm);
             font-size: var(--size-sm);
             background-position: right 0.5em center;
             background-size: 1em;
         }
 
         :host([size="m"]) select {
-            padding: calc(var(--spacing-md) - 6px) 2.5em calc(var(--spacing-md) - 6px) var(--spacing-md); 
+            padding: calc(var(--spacing-md) - 6px)  var(--spacing-md); 
             font-size: var(--size-md);
             background-position: right 0.75em center;
-            background-size: 1.2em;
+            background-size: 1.25em;
         }
 
         :host([size="l"]) select {
-            padding: calc(var(--spacing-md) - 2px) 3em calc(var(--spacing-md) - 2px) var(--spacing-lg);
+            padding: calc(var(--spacing-lg) - 2px)  var(--spacing-lg);
             font-size: var(--size-lg);
             background-position: right 1em center;
-            background-size: 1.4em;
+            background-size: 1.5em;
+        }
+
+        :host([size="xl"]) select {
+            padding: calc(var(--spacing-xl) - 6px) var(--spacing-xl);
+            font-size: var(--size-xl);
+            background-position: right 1em center;
+            background-size: 1.75em;
         }
 
         select::-ms-expand {

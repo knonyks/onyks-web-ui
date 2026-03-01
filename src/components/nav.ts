@@ -371,8 +371,8 @@ export class Onyks_Nav_Option extends LitElement
     
     .nav-item {
         padding: 0 var(--spacing-md);
-        margin: 4px 2px; 
-        height: calc(100% - 8px);
+        margin: 0; 
+        height: 100%; 
         display: flex;
         align-items: center;
         white-space: nowrap;
@@ -383,8 +383,8 @@ export class Onyks_Nav_Option extends LitElement
         width: 100%;
         font-size: inherit;
         font-weight: 500;
-        border-radius: var(--radius-md);
-        position: relative;
+        border-radius: 0; 
+        border-bottom: 3px solid transparent; 
     }
 
     .nav-item:hover { 
@@ -396,25 +396,20 @@ export class Onyks_Nav_Option extends LitElement
         color: var(--color-primary);
         background-color: var(--surface-hover);
         font-weight: 600;
-    }
-
-    @media (min-width: 901px) {
-        :host([selected]) .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background-color: var(--color-primary);
-            border-radius: 3px;
-        }
+        border-bottom: 3px solid var(--color-primary);
     }
 
     @media (max-width: 900px) {   
+        .nav-item {
+            margin: 2px 8px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            border-bottom: none; 
+        }
+        
         :host([selected]) .nav-item { 
             border-left: 3px solid var(--color-primary); 
+            border-bottom: none;
             background-color: var(--surface-hover);
         }
     }
