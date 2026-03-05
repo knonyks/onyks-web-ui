@@ -96,7 +96,7 @@ export class Onyks_Table extends LitElement {
 
     render() {
         return html`
-            <div class="scroll-wrapper">
+            <div class="scroll-wrapper" @scroll=${this._handleScroll}>
                 <div class="table-container">
                     <slot @slotchange=${this.syncWidths}></slot>
                 </div>
