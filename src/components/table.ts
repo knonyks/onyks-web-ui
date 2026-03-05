@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
     private resizeObserver = new ResizeObserver(() => this.syncWidths());
+    @property({ type: Number }) scrollThreshold = 20;
 
     connectedCallback() {
         super.connectedCallback();
@@ -37,6 +38,18 @@ export class Onyks_Table extends LitElement {
                 this.style.setProperty('--max-header-width', `${maxWidth}px`);
             }
         });
+    }
+
+    private _handleScroll(e: Event) {
+        const target = e.target as HTMLElement;
+        const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+
+        if (distanceToBottom <= this.scrollThreshold) {
+            this.dispatchEvent(new CustomEvent('onyks-scroll-end', {
+                bubbles: true,
+                composed: true
+            }));
+        }
     }
 
     static styles = css`

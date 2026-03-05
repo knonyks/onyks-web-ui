@@ -25,8 +25,6 @@ export class Onyks_Label extends LitElement
             border: 1px solid transparent;
             width: 100%;
             height: 100%;
-            margin: 0; 
-            padding: var(--spacing-sm) var(--spacing-sm);
             display: inline-flex;
             font-family: var(--font);
             color: var(--color);

@@ -36,7 +36,6 @@ export class Onyks_Text_Help extends LitElement
         :host
         {
             display: block;
-            margin-top: 0.25rem;
             height: fit-content;
         }
         .color-red {color: var(--color-primary);}
