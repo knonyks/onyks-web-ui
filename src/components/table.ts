@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
     private resizeObserver = new ResizeObserver(() => this.syncWidths());
-    @property({ type: Number }) scrollThreshold = 20;
+    @property({ type: Number }) scrollThreshold = 0;
 
     connectedCallback() {
         super.connectedCallback();
@@ -45,7 +45,7 @@ export class Onyks_Table extends LitElement {
         const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
 
         if (distanceToBottom <= this.scrollThreshold) {
-            this.dispatchEvent(new CustomEvent('onyks-scroll-end', {
+            this.dispatchEvent(new CustomEvent('scroll-end', {
                 bubbles: true,
                 composed: true
             }));
