@@ -182,8 +182,21 @@ export class Onyks_Dialog extends LitElement {
     }
 }
 
+@customElement('onyks-dialog-dialog')
+export class Onyks_Dialog_Content extends LitElement 
+{
+    render()
+    {
+        return html`<slot></slot>`;
+    }
+}
+
+
+
+
 declare global {
     interface HTMLElementTagNameMap {
-        'onyks-dialog': Onyks_Dialog
+        'onyks-dialog': Onyks_Dialog,
+        'onyks-dialog-content': Onyks_Dialog_Content
     }
 }
