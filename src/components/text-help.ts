@@ -41,7 +41,7 @@ export class Onyks_Text_Help extends LitElement
         .color-red {color: var(--color-primary);}
         .color-green {color: var(--color-success);}
         .color-blue {color: var(--color-info);}
-
+        p {padding: 0; margin: 0}
         .size-s {font-size: var(--size-sm);}
         .size-m {font-size: var(--size-md);}
         .size-l {font-size: var(--size-lg);}
