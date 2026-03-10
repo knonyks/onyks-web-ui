@@ -9,7 +9,7 @@ export * from './components/textarea.ts'
 export * from './components/grid.ts'
 export * from './components/theme-switch.ts'
 export * from './components/dialog.ts'
-export * from './components/drop content.ts'
+export * from './components/file-upload.ts'
 export * from './components/select.ts'
 export * from './components/checkbox.ts'
 import './general.css';
