@@ -2,23 +2,19 @@
   "name": "onyks-web-ui-system",
   "version": "0.3.0",
   "type": "module",
-
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
-  "exports": 
-  {
-    ".": 
-    {
+  "exports": {
+    ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./general.css": "./dist/general.css"
   },
-
-  "files": ["dist"],
-
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -29,6 +25,7 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
+    "bootstrap-icons": "^1.13.1",
     "highlight.js": "^11.11.1",
     "lit": "^3.3.1",
     "shiki": "^3.20.0"
