@@ -28,12 +28,17 @@
     "bootstrap-icons": "^1.13.1",
     "highlight.js": "^11.11.1",
     "lit": "^3.3.1",
+    "prismjs": "^1.30.0",
     "shiki": "^3.20.0"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.6",
+    "@vitejs/plugin-vue": "^6.0.5",
     "glob": "^13.0.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.2",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.30",
+    "vue-router": "^5.0.3"
   }
 }

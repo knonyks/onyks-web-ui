@@ -1,175 +1,145 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import hljs from 'highlight.js';
-import githubTheme from 'highlight.js/styles/github-dark.css?inline';
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// Import Prisma i wtyczki do numeracji linii
+import Prism from 'prismjs';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
+
+// Import stylów Prisma (możesz zmienić 'prism-tomorrow' na inny motyw)
+import prismTheme from 'prismjs/themes/prism-tomorrow.css?inline';
+import prismLineNumbersTheme from 'prismjs/plugins/line-numbers/prism-line-numbers.css?inline';
+
+// UWAGA: Prism domyślnie ładuje tylko podstawowe języki (HTML, JS, CSS). 
+// Jeśli potrzebujesz innych, zaimportuj je tutaj, np.:
+// import 'prismjs/components/prism-typescript.js';
+// import 'prismjs/components/prism-bash.js';
 
 @customElement('onyks-code-block')
-export class Onyks_Code_Block extends LitElement 
-{
-    @state() 
-    private _rawCode = '';
+export class Onyks_Code_Block extends LitElement {
+    @state() private _rawCode = '';
+    @state() private _copied = false;
 
-    @state() 
-    private _copied = false;
-
-    @property({ type: String }) 
-    language = 'typescript';
-    
-    @property({ type: String }) 
-    title = '';
-
-    @property({ type: String }) 
-    size = 'm';
-
-    @property({ type: String }) 
-    file = '';
-
-    @property({ type: Boolean }) 
-    copy = true;
+    @property({ type: String }) language = 'html';
+    @property({ type: String }) title = '';
+    @property({ type: String }) size = 'm';
+    @property({ type: String }) file = '';
+    @property({ type: String }) content = ''; 
 
     static styles = css`
-        ${unsafeCSS(githubTheme)}
-        :host 
-        {
-            display: flex;
-            flex-direction: column;
-            border-radius: 8px;
-            overflow: hidden;
-            height: fit-content;
-            background: #0d1117;
-            border: 0.1px solid var(--surface-border);
+        /* Wstrzyknięcie stylów Prisma */
+        ${unsafeCSS(prismTheme)}
+        ${unsafeCSS(prismLineNumbersTheme)}
+
+        :host {
+            display: flex; flex-direction: column; border-radius: 8px;
+            overflow: hidden; background: #0d1117; border: 1px solid #30363d;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        slot { display: none; }
+        
+        /* Dostosowanie pre pod Prisma i wtyczkę line-numbers */
+        pre { 
+            margin: 0; 
+            padding: 1.25rem; 
+            overflow: auto; 
+            background: transparent !important; 
+        }
+        
+        pre.line-numbers {
             position: relative;
+            padding-left: 3.8em;
+            counter-reset: linenumber;
         }
 
-        slot 
-        {
-            display: none;
-        }
-
-        pre {
-            margin: 0;
+        code { 
             display: block; 
-            height: fit-content;
-            min-height: 0;
-            overflow: hidden;
+            tab-size: 4; 
+            line-height: 1.5; 
+            white-space: pre; 
+            font-size: inherit; 
         }
-
-        code 
-        {
-            display: block;
-            height: fit-content;
+        
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #161b22; padding: 10px 16px; border-bottom: 1px solid #30363d;
+            color: #8b949e; font-size: 0.85rem;
         }
+        .copy-btn { cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+        .copy-btn:hover { color: #58a6ff; }
+        .copy-btn::before { content: '\\F759'; font-family: "bootstrap-icons"; font-size: 1rem; }
+        .copy-btn.copied { color: #3fb950; }
+        .copy-btn.copied::before { content: '\\F725'; }
 
-        .title
-        {
-            padding: var(--spacing-md);
-            background: var(--surface-element);
-            text-align: center;
-        }
-
-        .copy
-        {
-            position: absolute;
-            cursor: pointer;
-            right: 0;
-
-            padding: var(--spacing-md);
-            height: fit-content;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0 0 0 8px;
-        }
-
-        .copy::before
-        {
-            content: '\\F759';
-            display: block;
-            font-weight: bold;
-            font-family: "bootstrap-icons" !important;
-        }
-
-        .copy.copied::before
-        {
-            content: '\\F725';
-        }
-
-        .file
-        {
-            padding: var(--spacing-md);
-            background: var(--surface-element);
-            width: 100%;
-        }
-
-        :host([size="s"])
-        {
-            font-size: var(--size-sm);
-        }
-
-        :host([size="m"])
-        {
-            font-size: var(--size-md);
-        }
-
-        :host([size="l"])
-        {
-            font-size: var(--size-lg);
-        }
-
-        :host([size="xl"])
-        {
-            font-size: var(--size-xl);
-        }
+        :host([size="s"]) { font-size: 12px; }
+        :host([size="m"]) { font-size: 14px; }
+        :host([size="l"]) { font-size: 16px; }
     `;
 
-    @query('code')
-    private _codeElement!: HTMLElement;
+    @query('code') private _codeElement!: HTMLElement;
 
-    private _handleSlotChange(e: Event) 
-    {
+    private _outdent(str: string): string {
+        if (!str) return '';
+        const lines = str.split('\n');
+        while (lines.length > 0 && lines[0].trim() === '') lines.shift();
+        while (lines.length > 0 && lines[lines.length - 1].trim() === '') lines.pop();
+        
+        const minIndent = lines.reduce((acc, line) => {
+            if (line.trim() === '') return acc;
+            const m = line.match(/^(\s+)/);
+            return m ? Math.min(acc, m[0].length) : 0;
+        }, Infinity);
+        
+        return lines.map(l => l.slice(minIndent === Infinity ? 0 : minIndent)).join('\n');
+    }
+
+    private _handleSlotChange(e: Event) {
+        if (this.content && this.content.trim() !== '') return;
+
         const slot = e.target as HTMLSlotElement;
-        const text = slot.assignedNodes().map(node => node.textContent).join('');
-        this._rawCode = text.trim();
+        const nodes = slot.assignedNodes();
+        
+        const container = nodes.find(n => n.nodeType === Node.ELEMENT_NODE) as HTMLElement;
+
+        if (container) {
+            this._rawCode = this._outdent(container.innerHTML);
+        } else {
+            this._rawCode = this._outdent(nodes.map(n => n.textContent).join(''));
+        }
+        this.requestUpdate();
     }
 
-    protected updated(changedProperties: Map<string, any>) 
-    {
-        if(changedProperties.has('_rawCode') && this._rawCode) 
-        {
+    protected updated(changedProperties: Map<string, any>) {
+        if (changedProperties.has('content') && this.content) {
+            this._rawCode = this._outdent(this.content);
+        }
+
+        // Zmiana podświetlania na PrismJS
+        if (this._codeElement && this._rawCode) {
             this._codeElement.textContent = this._rawCode;
-            this._codeElement.removeAttribute('data-highlighted');
-            hljs.highlightElement(this._codeElement);
+            Prism.highlightElement(this._codeElement);
         }
     }
 
-    private async _copyCode() 
-    {
-        try 
-        {
-            await navigator.clipboard.writeText(this._rawCode);
-            this._copied = true;
-            setTimeout(() => {
-                this._copied = false;
-            }, 1000);
-        } 
-        catch (err) 
-        {
-            console.error('Nie udało się skopiować kodu: ', err);
-        }
+    private async _copyCode() {
+        await navigator.clipboard.writeText(this._rawCode);
+        this._copied = true;
+        setTimeout(() => this._copied = false, 2000);
     }
 
-    render() 
-    {
+    render() {
         return html`
-            ${this.title ? html`<div class="title">${this.title}</div>` : ''}
+            <div class="header">
+                <span>${this.title}</span>
+                <div class="copy-btn ${this._copied ? 'copied' : ''}" @click=${this._copyCode}>
+                    ${this._copied ? 'Copied' : 'Copy'}
+                </div>
+            </div>
             <main>
-                <div class="copy ${this._copied ? 'copied' : ''}" @click=${this._copyCode}></div>
                 <slot @slotchange=${this._handleSlotChange}></slot>
-                <pre><code class="language-${this.language}"></code></pre>
+                <pre class="line-numbers"><code class="language-${this.language}"></code></pre>
             </main>
-            ${this.file ? html`<div class="file">${this.file}</div>` : ''}
         `;
     }
 }
