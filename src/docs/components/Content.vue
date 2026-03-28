@@ -23,4 +23,10 @@
         padding: 0;
         margin: 0;
     }
+
+        
+    .content :slotted(:is(onyks-code-block)) 
+    {
+        width: 100%;
+    }
 </style>

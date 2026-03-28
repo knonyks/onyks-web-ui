@@ -1,226 +1,175 @@
-import {LitElement, css, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
+import {LitElement, css, html, type PropertyValues} from 'lit'
+import {customElement, property, queryAssignedElements, state} from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'; 
 
-
-
-export class oPath
+export class Onyks_Path_Manager
 {
-    id: string;
-    ui: any;
-    data: any = [];
+    private _folders: string[];
 
-    constructor(id: string, data: any)
+    constructor(initial: string[]) 
     {
-        this.id = id
-        this.ui = document.querySelector(this.id)
-        this.data = data
+        this._folders = initial;
     }
 
-
-
-    
-    prev_folder()
+    get current_path(): string[]
     {
-
+        return this._folders;
     }
 
-    // get_current_path(style = 'linux', type = 'str')
-    // {
-        // let slash = '/'
-        // let result = ''
-        // if(style == 'windows')
-        // {
-        //     slash = '\\'
-        // }
-        // if(type == 'str')
-        // {
-            // result = slash
-            // this.data.forEach(element => {
-            //     result += element
-            //     result += slash
-            // });
-            // return result
-        // }
-        // else
-        // {
-        //     return this.data
-        // }
-    // }
-
-    append(chains: any)
+    public back_to(index: number) 
     {
-        if(typeof(chains) == 'string')
-        {
-            this.data.push(chains)
-        }
-        else
-        {
-            this.data.push(...chains)
-        }
-        this.update()
+        this._folders = this._folders.slice(0, index + 1);
     }
 
-    update()
+    public add_folder(name: string): void
     {
-
+        this._folders = [...this._folders, name]
     }
 }
 
-@customElement('onyks-path')
-export class Onyks_Path extends LitElement 
+@customElement('onyks-path-chain')
+export class Onyks_Path_Chain extends LitElement 
 {
-    @property({type: String, reflect: true})
-    size = 'l';
-
-    @property({type: String, reflect: true})
-    background = 'red';
-
-    private add_separators(e: Event) 
+    render()
     {
-        const slot = e.target as HTMLSlotElement;
-        const all = slot.assignedElements(); 
-    
-        const chains = all.filter(el => el.tagName !== 'onyks-path-separator'.toUpperCase());
-        const separators = all.filter(el => el.tagName === 'onyks-path-separator'.toUpperCase());
-
-        const to_delete = new Set(separators);
-
-        for (let i = chains.length - 1; i > 0; i--) 
-        {
-            const current_chain = chains[i];
-        
-            const potential_separator = current_chain.previousElementSibling;
-
-            if (potential_separator && potential_separator.tagName === 'onyks-path-separator'.toUpperCase()) 
-            {
-                to_delete.delete(potential_separator);
-            } 
-            else 
-            {
-                const elementZ = document.createElement('onyks-path-separator');
-                elementZ.textContent = '▶';
-                current_chain.parentNode?.insertBefore(elementZ, current_chain);
-            }
-        }
-        to_delete.forEach(z => z.remove());
-    }
-
-    render() 
-    {
-        return html`
-            <slot class="size-${this.size}" @slotchange=${this.add_separators}></slot>
-        `
+        return html`<div class="content"><slot></slot></div>`;
     }
 
     static styles = css`
         :host 
         {
             display: flex;
-            flex-direction: row;
-            gap: 10px;
-            overflow: auto;
+            flex-shrink: 0;
+        }
+
+        .content
+        {
+            background-color: #044B7F;
+            display: block;
             padding: 10px;
-            background-color: var(--surface-hover);
-            border-radius: 10px;
+            border-radius: 5px;
+            cursor: pointer;
             height: fit-content;
         }
-
-        .size-s
-        {
-            font-size: var(--size-sm);
-        }
-
-        .size-m
-        {
-            font-size: var(--size-md);
-        }
-
-        .size-l
-        {
-            font-size: var(--size-lg);
-        }
-
-        .size-xl
-        {
-            font-size: var(--size-xl);
-        }
-    `
+    `;
 }
 
-@customElement('onyks-path-chain')
-export class Onyks_Path_Chain extends LitElement 
+@customElement('onyks-path')
+export class Onyks_Path extends LitElement 
 {
-    @property({type: Number, reflect: true})
-    index = 0
+    @property({ type: String, reflect: true }) size = "l";
 
-    constructor() 
-    {
-        super();
-        this.addEventListener('click', this.clicked_path);
-    }
+    @queryAssignedElements({ flatten: true })
+    private _slot_elements!: Array<HTMLElement>;
 
-    render() 
-    {
-        return html`
-            <slot></slot>
-        `
-    }
+    private manager = new Onyks_Path_Manager([]);
 
-    private clicked_path()
+    @state()
+    private initialized = false;
+
+    protected firstUpdated(_changedProperties: PropertyValues): void 
     {
-        const event = new CustomEvent('path-clicked', 
+        const initial_folders = this._slot_elements.map(el => el.textContent?.trim() || '').filter(t => t !== '');
+        if (initial_folders.length > 0) 
         {
-            detail: {index: this.index},
+            this.manager = new Onyks_Path_Manager(initial_folders);
+        }
+        this.initialized = true;
+        this.requestUpdate();
+    }
+
+    private _handleItemClick(index: number) 
+    {
+        this.manager.back_to(index);    
+        this.requestUpdate();
+    
+        this.dispatchEvent(new CustomEvent('path-changed', 
+        {
+            detail: { path: this.manager.current_path},
             bubbles: true,
             composed: true
-    });
-    this.dispatchEvent(event);
-  }
+        }));
+    }
 
-    static styles = css`
-        :host
-        {
-            background-color: black;
-            padding: 10px 20px;
-            border-radius: 5px;
-            flex-shrink: 0;
-            cursor: pointer;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-        }
-    `
-}
-
-@customElement('onyks-path-separator')
-export class Onyks_Path_Separator extends LitElement 
-{
-    render() 
+    protected async updated(_changedProperties: PropertyValues): Promise<void> 
     {
+        super.updated(_changedProperties); 
+        await this.updateComplete;
+        setTimeout(() => {
+            this.scrollLeft = this.scrollWidth;
+        }, 0);
+    }
+
+    public addFolder(name: string) 
+    {
+        this.manager.add_folder(name);
+        this.requestUpdate();
+    }
+
+    render()
+    {
+        if (!this.initialized) 
+        {
+            return html`<div style="display: none;"><slot></slot></div>`;
+        }
+
         return html`
-            <slot></slot>
-        `
+        ${this.manager.current_path.map((folder, i) => html`
+            <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
+                ${folder}
+            </onyks-path-chain>
+        `)}
+        `;
     }
 
     static styles = css`
         :host
         {
-            border-radius: 5px;
-            flex-shrink: 0;
-            cursor: pointer;
-            text-aling: center;
+            background-color: #E3B505;
+            width: 100%;
+            height: fit-content;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: row;
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-x: auto;
+            gap: 10px; /* Odstęp między elementami a ikoną */
         }
-    `
+
+        onyks-path-chain:not(:last-child)::after 
+        {
+            font-family: 'bootstrap-icons' !important;
+            content: '\\f231';
+            color: black;
+            align-items: center;
+            display: flex;
+            margin-left: 10px;
+        }
+
+        :host([size="s"]) {
+            font-size: var(--size-sm, 12px);
+        }
+
+        :host([size="m"]) {
+            font-size: var(--size-md, 16px);
+        }
+
+        :host([size="l"]) {
+            font-size: var(--size-lg, 20px);
+        }
+
+        :host([size="xl"]) {
+            font-size: var(--size-xl, 24px);
+        }
+    `;
 }
 
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-path': Onyks_Path
+        'onyks-path': Onyks_Path,
+        'onyks-path-chain': Onyks_Path_Chain
     }
 }

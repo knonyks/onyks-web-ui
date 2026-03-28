@@ -1,6 +1,7 @@
 <script setup lang="js">
     import { onMounted } from 'vue';
     import Content from '../components/Content.vue';
+import PageTitle from '../components/PageTitle.vue';
 
     //TUTAJ MOGE PISAĆ KOD KTÓRY SIĘ WYKONA PO ZAŁADOWANIU; MOGE UZYC QUERY SELECTOR
     onMounted(() => {
@@ -10,7 +11,7 @@
 
 <template>
     <Content>
-        <h1>Button</h1>
+        <PageTitle>Buttons</PageTitle>
         <h2>A button for general purposes.</h2>
         <h3>Default button</h3>
         
@@ -92,9 +93,4 @@
 </template>
 
 <style lang="css" scoped>
-
-    onyks-code-block
-    {
-        width: 100%;
-    }
 </style>

@@ -1,6 +1,7 @@
 @import "@fontsource/inter/400.css";
 
-:root {
+:root 
+{
   --font: 'Inter', sans-serif;
 
   /* =========================================
