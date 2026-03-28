@@ -100,7 +100,7 @@ export class Onyks_Path extends LitElement
         }, 0);
     }
 
-    public addFolder(name: string) 
+    public add_folder(name: string) 
     {
         this.manager.add_folder(name);
         this.requestUpdate();
