@@ -1,56 +1,11 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
-    private resizeObserver = new ResizeObserver(() => this.syncWidths());
+    @property({ type: Array }) data = [];
+    @property({ type: Array}) columns = [];
     @property({ type: Number }) scrollThreshold = 0;
-
-    connectedCallback() {
-        super.connectedCallback();
-        this.resizeObserver.observe(this);
-    }
-
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.resizeObserver.disconnect();
-    }
-
-    syncWidths() {
-        requestAnimationFrame(() => {
-            const headers = Array.from(this.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])')) as HTMLElement[];
-            if (!headers.length) return;
-
-            this.style.removeProperty('--max-header-width');
-
-            let maxWidth = 0;
-            headers.forEach(header => {
-                header.style.width = 'max-content'; 
-                const width = header.getBoundingClientRect().width;
-                header.style.width = '';
-
-                if (width > maxWidth) {
-                    maxWidth = width;
-                }
-            });
-
-            if (maxWidth > 0) {
-                this.style.setProperty('--max-header-width', `${maxWidth}px`);
-            }
-        });
-    }
-
-    private _handleScroll(e: Event) {
-        const target = e.target as HTMLElement;
-        const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-
-        if (distanceToBottom <= this.scrollThreshold) {
-            this.dispatchEvent(new CustomEvent('scroll-end', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-    }
 
     static styles = css`
         :host {
@@ -94,14 +49,121 @@ export class Onyks_Table extends LitElement {
         }
     `;
 
+    private resizeObserver = new ResizeObserver(() => this.syncWidths());
+    connectedCallback() {
+        super.connectedCallback();
+        this.resizeObserver.observe(this); 
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.resizeObserver.disconnect();
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (changedProperties.has('data') || changedProperties.has('columns')) {
+            this.syncWidths();
+        }
+    }
+
+    syncWidths() {
+        requestAnimationFrame(() => {
+            const lightHeaders = Array.from(this.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])'));
+            const shadowHeaders = Array.from(this.shadowRoot?.querySelectorAll('onyks-row[header] onyks-col:not([checkbox])') || []);
+            
+            const headers = [...lightHeaders, ...shadowHeaders] as HTMLElement[];
+            if (!headers.length) return;
+            this.style.removeProperty('--max-header-width');
+            let maxWidth = 0;
+            headers.forEach(header => {
+                header.style.width = 'max-content'; 
+                const width = header.getBoundingClientRect().width;
+                header.style.width = '';
+
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
+            });
+
+            if (maxWidth > 0) {
+                this.style.setProperty('--max-header-width', `${maxWidth}px`);
+            }
+        });
+    }
+
+    private _handleScroll(e: Event) {
+        const target = e.target as HTMLElement;
+        const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+        if (distanceToBottom <= this.scrollThreshold) {
+            this.dispatchEvent(new CustomEvent('scroll-end', {
+                bubbles: true,
+                composed: true
+            }));
+        }
+    }
+
     render() {
+        const hasData = this.data && this.data.length > 0;
+        const cols = this.columns.length > 0 
+            ? this.columns 
+            : hasData ? Object.keys(this.data[0]).map(k => ({ key: k, label: k })) : [];
+
         return html`
             <div class="scroll-wrapper" @scroll=${this._handleScroll}>
                 <div class="table-container">
-                    <slot @slotchange=${this.syncWidths}></slot>
+                    ${hasData ? html`
+                        
+                        <onyks-row header>
+                            ${cols.map(col => html`<onyks-col>${col.label}</onyks-col>`)}
+                        </onyks-row>
+
+                        ${this.data.map(row => html`
+                            <onyks-row>
+                                ${cols.map(col => {
+                                    const value = row[col.key]; 
+                                    
+                                    if (typeof value === 'boolean') {
+                                        return html`<onyks-col checkbox .checked=${value}></onyks-col>`;
+                                    }
+                                    
+                                    return html`<onyks-col>${value}</onyks-col>`;
+                                })}
+                            </onyks-row>
+                        `)}
+
+                    ` : html`
+                        <slot></slot> 
+                    `}
                 </div>
             </div>
         `;
+    }
+
+    getTableData() {
+        if (this.data && this.data.length > 0) {
+            return this.data;
+        }
+        const headerRow = this.querySelector('onyks-row[header]');
+        const headerCols = headerRow ? Array.from(headerRow.querySelectorAll('onyks-col')) : [];
+        const keys = headerCols.map((col, i) => col.textContent?.trim() || `kolumna_${i}`);
+        const rows = Array.from(this.querySelectorAll('onyks-row:not([header])'));
+        
+        return rows.map(row => {
+            const cols = Array.from(row.querySelectorAll('onyks-col'));
+            const rowData: Record<string, any> = {};
+            
+            cols.forEach((col, i) => {
+                const key = keys[i];
+                if (col.hasAttribute('checkbox')) {
+                    const checkbox = col.shadowRoot?.querySelector('input[type="checkbox"]') as HTMLInputElement;
+                    rowData[key] = checkbox ? checkbox.checked : col.hasAttribute('checked');
+                } else {
+                    rowData[key] = col.textContent?.trim() || '';
+                }
+            });
+            return rowData;
+        });
     }
 }
 
