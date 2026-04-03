@@ -1,6 +1,5 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property, queryAssignedElements, state} from 'lit/decorators.js'
-import { classMap } from 'lit/directives/class-map.js'; 
 
 export class Onyks_Path_Manager
 {

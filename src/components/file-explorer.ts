@@ -1,102 +1,160 @@
-import {LitElement, css, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
+import { LitElement, html, css, type TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
-@customElement('onyks-explorer')
-export class Onyks_Explorer extends LitElement 
+export interface OnyksFileItem 
 {
-    @property({type: Number, reflect: true})
-    col = 5
+  type: 'folder' | 'file';
+  name: string;
+}
 
-    @property({type: String, reflect: true})
-    view = "detailed"
+@customElement('onyks-file-explorer')
+export class OnyksFileExplorer extends LitElement 
+{
+  @property({ type: Array })
+  content: OnyksFileItem[] = [];
 
-    render() 
+  @property({ type: Boolean })
+  multiple: boolean = false;
+
+  @property({ type: Boolean })
+  allowFolderSelection: boolean = false;
+
+  @state()
+  private _selectedItems: Set<string> = new Set();
+
+  static styles = css`
+    :host 
     {
-        return html`
-            <slot></slot>
-        `
+      display: block;
+      font-family: sans-serif;
+      border-radius: 10px;
+      padding: 10px;
+      background: #000;
+      width: calc(100% - 20px);
+      font-family: var(--font);
+      height: 300px;
+      overflow: auto;
     }
 
-    static styles = css`
-        :host 
-        {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-            grid-column-gap: 20px;
-            grid-row-gap: 20px;
-        }
+    .item 
+    {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      font-size: var(--size-lg);
+      cursor: pointer;
+      border-radius: 5px;
+      user-select: none;
+      transition: background 0.2s;
+    }
     
-    `
-}
-
-@customElement('onyks-explorer-object')
-export class Onyks_Explorer_Object extends LitElement 
-{
-    @property({type: String, reflect: true})
-    name = "Object"
-
-    @property({type: String, reflect: true})
-    icon = "📂"
-
-    render() 
+    .item:hover 
     {
-        return html`
-            <div class="icon">${this.icon}</div>
-            <div class="name">${this.name}</div>
-        `
+      background: #454545;
     }
 
-    static styles = css`
-        :host 
-        {
-            display: flex;
-            flex-direction: column;
-            background-color: red;
-            height: 100px;
-            padding: 20px;
-            border-radius: 15px;
-        }
-            
-        .icon
-        {
-            display: block;
-            width: 100%;
-            height: 100%;
-            font-size: 3rem;
-            text-aling: center;
-        }
+    .item.selected
+    {
+      background: #242222;
+    }
 
-        .name
-        {
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-        `
+    .icon 
+    {
+      margin-right: 10px;
+    }
+
+    .icon.folder::before
+    {
+      content: '\\F3D7';
+      font-family: 'bootstrap-icons';
+    }
+
+    .icon.file::before
+    {
+      content: '\\F35C';
+      font-family: 'bootstrap-icons';
+    }
+  `;
+  
+  getSelectedItems(): OnyksFileItem[] 
+  {
+    return this.content.filter((item) => this._selectedItems.has(item.name));
+  }
+
+
+  private handleItemClick(item: OnyksFileItem): void 
+  {
+    // if (item.type === 'folder' && !this.allowFolderSelection) 
+    // {
+    //   this.triggerEnterFolder(item);
+    //   return;
+    // }
+    const newSelected = new Set(this._selectedItems);
+
+    if (this.multiple) 
+    {
+      if (newSelected.has(item.name)) 
+      {
+        newSelected.delete(item.name);
+      } 
+      else 
+      {
+        newSelected.add(item.name);
+      }
+    } 
+    else 
+    {
+      newSelected.clear();
+      newSelected.add(item.name);
+    }
+
+    this._selectedItems = newSelected;
+  }
+
+  private handleItemDblClick(item: OnyksFileItem): void 
+  {
+    if (item.type === 'folder') 
+    {
+      this.triggerEnterFolder(item);
+    }
+  }
+
+  private triggerEnterFolder(folder: OnyksFileItem): void 
+  {
+    this._selectedItems = new Set();
     
-}
+    this.dispatchEvent(
+      new CustomEvent<{ folder: OnyksFileItem }>('enter-folder', 
+      {
+        detail: {folder},
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 
-@customElement('onyks-file')
-export class Onyks_File extends Onyks_Explorer_Object 
-{
-    @property({type: String, reflect: true})
-    name = "File!"
-}
-
-@customElement('onyks-folder')
-export class Onyks_Folder extends Onyks_Explorer_Object 
-{
-    @property({type: String, reflect: true})
-    name = "Folder!"
-}
-
-declare global 
-{
-    interface HTMLElementTagNameMap 
+  protected render(): TemplateResult 
+  {
+    if (!this.content || this.content.length === 0) 
     {
-        'onyks-explorer': Onyks_Explorer,
-        'onyks-file': Onyks_File,
-        'onyks-folder': Onyks_Folder
+      return html`<div style="padding: 10px; color: #888;">Folder jest pusty...</div>`;
     }
+
+    return html`
+      <div class="explorer-grid">
+        ${this.content.map(
+          (item) => html`
+            <div
+              class="item ${this._selectedItems.has(item.name) ? 'selected' : ''}"
+              @click=${() => this.handleItemClick(item)}
+              @dblclick=${() => this.handleItemDblClick(item)}
+            >
+              <span class="icon ${item.type}"></span>
+              <span class="name">${item.name}</span>
+            </div>
+          `
+        )}
+      </div>
+    `;
+  }
 }

@@ -1,9 +1,21 @@
 <script setup>
-import Footer from './components/Footer.vue';
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const availableRoutes = router.getRoutes()
-console.log(availableRoutes)
+  import Footer from './components/Footer.vue';
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
+  const availableRoutes = router.getRoutes()
+  availableRoutes.forEach(element => {
+    switch(element.name)
+    {
+      case("FileExplorer"):
+        element.name = "File Explorer"
+        break;
+      default:
+        break;
+    }
+  });
+
+  console.log(availableRoutes)
 </script>
 
 <template>
@@ -11,8 +23,6 @@ console.log(availableRoutes)
     <onyks-nav size="m">
       <onyks-logo></onyks-logo>
       <onyks-nav-content maxviewitems="6" mobilebreakpoint="1100">
-        <!-- <router-link to="/"><onyks-nav-option :selected="$route.path === '/'">Home</onyks-nav-option></router-link>
-        <router-link to="/license"><onyks-nav-option :selected="$route.path === '/license'">License</onyks-nav-option></router-link> -->
         <router-link v-for="route in availableRoutes" :key="route.name" :to="route.path" class="menu-link">
           <onyks-nav-option :selected="$route.path === route.path">{{ route.name }}</onyks-nav-option>
         </router-link>
