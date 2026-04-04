@@ -12,4 +12,6 @@ export * from './components/dialog.ts'
 export * from './components/file-upload.ts'
 export * from './components/select.ts'
 export * from './components/checkbox.ts'
+export * from './components/path.ts'
+export * from './components/file-explorer.ts'
 import './general.css';
