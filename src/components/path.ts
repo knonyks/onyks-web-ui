@@ -1,5 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property, queryAssignedElements, state} from 'lit/decorators.js'
+import { style_size, style_scrollbar } from './styles';
 
 export class Onyks_Path_Manager
 {
@@ -43,12 +44,18 @@ export class Onyks_Path_Chain extends LitElement
 
         .content
         {
-            background-color: #044B7F;
+            // background-color: #044B7F;
+            background-color: var(--color-primary);
             display: block;
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
             height: fit-content;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+            color: black;
         }
     `;
 }
@@ -121,10 +128,11 @@ export class Onyks_Path extends LitElement
         `;
     }
 
-    static styles = css`
+    static styles = [css`
         :host
         {
-            background-color: #E3B505;
+            // background-color: #E3B505;
+            background-color: #161619;
             width: 100%;
             height: fit-content;
             display: flex;
@@ -140,28 +148,12 @@ export class Onyks_Path extends LitElement
         {
             font-family: 'bootstrap-icons' !important;
             content: '\\f231';
-            color: black;
+            color: white;
             align-items: center;
             display: flex;
             margin-left: 10px;
         }
-
-        :host([size="s"]) {
-            font-size: var(--size-sm, 12px);
-        }
-
-        :host([size="m"]) {
-            font-size: var(--size-md, 16px);
-        }
-
-        :host([size="l"]) {
-            font-size: var(--size-lg, 20px);
-        }
-
-        :host([size="xl"]) {
-            font-size: var(--size-xl, 24px);
-        }
-    `;
+    `, style_scrollbar(':host'), style_size(':host')];
 }
 
 declare global 

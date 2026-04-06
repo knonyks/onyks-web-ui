@@ -108,25 +108,25 @@ export class Onyks_Alert extends LitElement
         :host([type="error"])
         { 
             background-color: var(--color-error);
-            color: var(--color-error-text);
+            color: var(--text-error);
         }
 
         :host([type="warning"])
         { 
             background-color: var(--color-warning);
-            color: var(--color-warning-text);
+            color: var(--text-warning);
         }
 
         :host([type="success"])
         { 
             background-color: var(--color-success);
-            color: var(--color-success-text);
+            color: var(--text-success);
         }
 
         :host([type="info"])
         { 
             background-color: var(--color-info);
-            color: var(--color-info-text);
+            color: var(--text-info);
         }
 
         #icon

@@ -1,37 +1,8 @@
 @import "@fontsource/inter/400.css";
 
-
 :root 
 {
   --font: 'Inter', sans-serif;
-
-  --color-green: #3eff78;
-  --color-blue: #527aff;
-  --color-red: #ff0000;
-  --color-orange: #ff7e05;
-  --color-yellow: #ffff00;
-
-
-
-  --color-error: #ff5454;
-  --color-error-text: #000;
-
-  --color-warning: #ffdc71;
-  --color-warning-text: #000000;
-
-  --color-success: #88ff7f;
-  --color-success-text: #000000;
-
-  --color-info: #0059ff;
-  --color-info-text: #ffffff;
-
-
-
-  --surface-base: #1f1f1f;
-  --surface-element-layer-1: #232428;
-
-  
-  --surface-element-layer-2: #000;
 
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -48,17 +19,26 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
+  --color-green: #3eff78;
+  --color-blue: #527aff;
+  --color-red: #ff0000;
+  --color-orange: #ff7e05;
+  --color-yellow: #ffff00;
+  --color-purple: #7e1ca5;
+
+  --color-error: #ff5454;
+  --color-warning: #ffdc71;
+  --color-success: #88ff7f;
+  --color-info: #0059ff;
+
+  --text-error: #000000;
+  --text-warning: #000000;
+  --text-success: #000000;
+  --text-info: #fff;
 
 
 
-
-
-
-
-
-
-
-
+  --surface-base: #1f1f1f;
 
 
   /* ------------------------------------- */
@@ -95,40 +75,6 @@
 
 [data-theme="light"]
 {
-  --surface-1: #ffffff; 
-  --surface-2: #e4e4e4; 
-  --surface-3: #c0c0c0; 
-  --surface-4: #b8b8b8;
-
-  --text-1: #000000;
-  --text-2: #000000;
-  --text-3: #000000;
-  --text-4: #000000;
-
-  --accent: #ff6262;
-
-  --color-blue: #003cff;
-  --color-green: #3eff6b;
-  --color-red: #ff0019;
-  --color-orange: #ffa742;
-  --color-purple: #a200ff;
-  --color-yellow: #ffff00;
-
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-
-  --size-sm: 12px;
-  --size-md: 16px;
-  --size-lg: 20px;
-  --size-xl: 24px;
-  
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-
   --logo-filter: invert(1);
 }
 
@@ -137,6 +83,7 @@ body
   background-color: var(--surface-base);
   color: var(--text-primary);
   margin: 0;
+  font-size: var(--size-md);
 }
 
 *

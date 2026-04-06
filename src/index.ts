@@ -14,4 +14,5 @@ export * from './components/select.ts'
 export * from './components/checkbox.ts'
 export * from './components/path.ts'
 export * from './components/file-explorer.ts'
+export * from './components/styles.ts'
 import './general.css';

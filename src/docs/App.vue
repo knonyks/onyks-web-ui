@@ -1,5 +1,4 @@
 <script setup>
-  import Footer from './components/Footer.vue';
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
@@ -32,7 +31,6 @@
     <main>
       <router-view></router-view>
     </main>
-    <Footer></Footer>
   </div>
 </template>
 

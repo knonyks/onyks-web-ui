@@ -20,9 +20,6 @@ import PageTitle from '../components/PageTitle.vue';
             &lt;onyks-alert>An example alert!&lt;/onyks-alert>
         </onyks-code-block>
 
-
-
-
         <h3>Sizes</h3>
         <onyks-alert type="info" size="s">S size!</onyks-alert>
         <onyks-alert type="error" size="m">M size!</onyks-alert>
@@ -60,7 +57,7 @@ import PageTitle from '../components/PageTitle.vue';
         <onyks-alert type="success" size="xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus magni illo vel a adipisci dolor! Consequuntur culpa voluptatem eum molestias ea quod in recusandae dicta tempora corrupti tempore, suscipit ad. Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quibusdam, magnam, officia quam sit blanditiis at cupiditate repellendus quia eum quis, itaque aliquid minus in? Explicabo dolorum officiis ut doloribus.</onyks-alert>
 
         
-        <onyks-code-block language="html" size="m" title="Available styles">
+        <onyks-code-block language="html" size="m" title="Long text example">
             &lt;onyks-alert type="info" size="s">[Lorem Ipsum text...]&lt;/onyks-alert>
             &lt;onyks-alert type="error" size="m">[Lorem Ipsum text...]&lt;/onyks-alert>
             &lt;onyks-alert type="warning" size="l">[Lorem Ipsum text...]&lt;/onyks-alert>
@@ -69,6 +66,3 @@ import PageTitle from '../components/PageTitle.vue';
         
     </Content>
 </template>
-
-<style lang="css" scoped>
-</style>

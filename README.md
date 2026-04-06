@@ -9,7 +9,7 @@
 * **⚡ Blazing Fast:** Built on top of `lit-html` for efficient rendering and minimal bundle size.
 * **🌐 Framework Agnostic:** Drop these components into any application. They are just HTML tags.
 * **🎨 Fully Customizable:** Native support for CSS Custom Properties (Variables) and Shadow DOM styling.
-* **♿ Accessible:** Components follow WAI-ARIA standards out of the box.
+<!-- * **♿ Accessible:** Components follow WAI-ARIA standards out of the box. -->
 * **📘 TypeScript:** Written in TypeScript with complete type definitions included.
 
 ## 📦 Installation
