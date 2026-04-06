@@ -63,7 +63,7 @@ export class Onyks_Path_Chain extends LitElement
 @customElement('onyks-path')
 export class Onyks_Path extends LitElement 
 {
-    @property({ type: String, reflect: true }) size = "l";
+    @property({ type: String, reflect: true }) size = "m";
 
     @queryAssignedElements({ flatten: true })
     private _slot_elements!: Array<HTMLElement>;

@@ -1,5 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { style_size } from './styles.ts';
 
 export interface OnyksFileItem 
 {
@@ -19,17 +20,18 @@ export class OnyksFileExplorer extends LitElement
   @property({ type: Boolean })
   allowFolderSelection: boolean = false;
 
+  @property({ type: String, reflect: true }) size = "xl";
+
   @state()
   private _selectedItems: Set<string> = new Set();
 
-  static styles = css`
+  static styles = [css`
     :host 
     {
       display: block;
-      font-family: sans-serif;
       border-radius: 10px;
       padding: 10px;
-      background: #000;
+      background: #3f3f3f;
       width: calc(100% - 20px);
       font-family: var(--font);
       height: 300px;
@@ -41,7 +43,6 @@ export class OnyksFileExplorer extends LitElement
       display: flex;
       align-items: center;
       padding: 8px;
-      font-size: var(--size-lg);
       cursor: pointer;
       border-radius: 5px;
       user-select: none;
@@ -50,7 +51,7 @@ export class OnyksFileExplorer extends LitElement
     
     .item:hover 
     {
-      background: #454545;
+      background: #4f4f4f;
     }
 
     .item.selected
@@ -74,7 +75,7 @@ export class OnyksFileExplorer extends LitElement
       content: '\\F35C';
       font-family: 'bootstrap-icons';
     }
-  `;
+  `, style_size(':host')];
   
   getSelectedItems(): OnyksFileItem[] 
   {

@@ -45,6 +45,13 @@
 
 <template>
     <Content>
+        <h1>File Explorer</h1>
+        <h2>An element for showing the struct of files and folders; folders trees</h2>
+        <onyks-alert type="error">This element is not completed; not completed styles and API.</onyks-alert>
+        
+        
+        
+        
         <onyks-file-explorer 
             id="myExplorer">
             </onyks-file-explorer>
