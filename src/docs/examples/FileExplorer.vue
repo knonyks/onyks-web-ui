@@ -4,37 +4,6 @@
 
     onMounted(() => 
     {
-        // const explorer = document.getElementById('my_explorer');
-        // const btn = document.getElementById('get_files_btn');
-
-        // explorer.content = [
-        //     { type: 'folder', name: 'Dokumenty' },
-        //     { type: 'folder', name: 'Zdjęcia' },
-        //     { type: 'file', name: 'raport.pdf' }
-        // ];
-
-        // explorer.addEventListener('enter-folder', async (e) => 
-        // {
-        //     const folderName = e.detail.folder.name;
-        //     console.log(`Pobieranie zawartości dla folderu: ${folderName}...`);
-    
-        //     setTimeout(() => {
-        //         explorer.content = [
-        //             { type: 'file', name: `plik_z_${folderName}_1.txt` },
-        //             { type: 'file', name: `plik_z_${folderName}_2.png` },
-        //             { type: 'folder', name: 'Pusty podfolder' }
-                    
-        //         ];
-        //     }, 500);
-        // });
-
-        // // 3. Wywoływanie funkcji pobierającej zaznaczone pliki
-        // btn.addEventListener('click', () => {
-        //     const selected = explorer.getSelectedItems();
-        //     console.log("Zaznaczone elementy:", selected);
-        //     // Zwróci np. [{ type: "file", name: "raport.pdf" }]
-        // });
-
         function random_folders_and_files(count = 10)
         {
             const types = ['file', 'folder'];
@@ -91,6 +60,8 @@
                 { type: 'file', name: 'plik.txt' }
                 ]; 
         })
+
+        document.querySelector('#multi_example').content = [{type: 'folder', name: 'Subfolder'}, {type: 'file', name: "File in subfolder!"}];
     })
 </script>
 
@@ -104,7 +75,7 @@
         <p>Without integration with Javascript interface; without setted data.</p>
         <onyks-file-explorer></onyks-file-explorer>
 
-        <onyks-code-block language="js" title="Example's Javascript">
+        <onyks-code-block language="html" title="">
         &lt;onyks-file-explorer>&lt;/onyks-file-explorer>
         </onyks-code-block>
 
@@ -151,22 +122,22 @@
         </onyks-code-block>
 
         <h3>Multiple selection</h3>
-        <p>User also can set whether the file explorer has to be multiselectable.</p>
+        <p>User also can set whether the file explorer has to be multiselectable. Selection of only one file is default. There is an example of multiselection:</p>
+
+        <onyks-file-explorer multiple id="multi_example"></onyks-file-explorer>
+        
+        <onyks-code-block language="js">
+        document.querySelector('#multi_example').content = [{type: 'folder', name: 'Subfolder'}, {type: 'file', name: "File in subfolder!"}];
+
+        </onyks-code-block>
+
+        <onyks-code-block language="html">
+            &lt;onyks-file-explorer multiple>&lt;/onyks-file-explorer>
+        </onyks-code-block>
 
 
 
-        <h4>Multiselect</h4>
 
-        <h4>Only one file</h4>
-
-
-
-
-
-
-        <h3>Allow folder selection</h3>
-
-        <p>We can set up if the file explorer can select folders or not.</p>
 
 
 

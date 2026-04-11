@@ -15,10 +15,10 @@ export class OnyksFileExplorer extends LitElement
   content: OnyksFileItem[] = [];
 
   @property({ type: Boolean })
-  multiple: boolean = true;
+  multiple: boolean = false;
 
-  @property({ type: Boolean })
-  allowFolderSelection: boolean = false;
+  // @property({ type: Boolean })
+  // allowFolderSelection: boolean = false;
 
   @property({ type: String })
   emptyAlert: string = "The folder is empty";
