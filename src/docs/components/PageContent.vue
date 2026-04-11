@@ -8,13 +8,19 @@
     </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
     .content
     {
         box-sizing: border-box;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
+        text-align: justify;
+    }
+
+    onyks-button
+    { 
+        width: fit-content;
     }
 </style>

@@ -132,7 +132,8 @@ export class Onyks_Path extends LitElement
         :host
         {
             // background-color: #E3B505;
-            background-color: #161619;
+            // background-color: #161619;
+            background-color: var(--surface-element);
             width: 100%;
             height: fit-content;
             display: flex;
@@ -142,6 +143,7 @@ export class Onyks_Path extends LitElement
             box-sizing: border-box;
             overflow-x: auto;
             gap: 10px; /* Odstęp między elementami a ikoną */
+            border: 1px solid var(--surface-border);
         }
 
         onyks-path-chain:not(:last-child)::after 

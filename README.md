@@ -2,7 +2,7 @@
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 
-**ONYKS Web UI System** provides a set of reusable, accessible, and highly performant interface elements. By leveraging the native Web Components standard, these elements work in any framework (React, Vue, Angular, Svelte) or with no framework at all.
+**ONYKS WebUI** provides a set of reusable, accessible, and highly performant interface elements. By leveraging the native Web Components standard, these elements work in any framework (React, Vue, Angular, Svelte) or with no framework at all.
 
 ## ✨ Features
 
@@ -25,4 +25,13 @@ yarn add https://github.com/knonyks/onyks-web-ui-system
 The documentation with examples may be run by using vite:
 ```bash
 npm run dev
+```
+
+## Used software
+Details in package.json.
+
+##  License
+
+```bash
+Here will be a license soon :>
 ```

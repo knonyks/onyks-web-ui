@@ -1,5 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
+import { style_size } from './styles';
 
 @customElement('onyks-alert')
 export class Onyks_Alert extends LitElement 
@@ -15,7 +16,7 @@ export class Onyks_Alert extends LitElement
        return html`<span id="icon"></span><span id="text"><slot></slot></span>`;
     }
 
-    static styles = css`
+    static styles = [css`
         :host
         {
             font-family: var(--font);
@@ -37,25 +38,6 @@ export class Onyks_Alert extends LitElement
             display: flex;
         }
 
-        :host([size="s"])
-        { 
-            font-size: var(--size-sm);
-        }
-
-        :host([size="m"])
-        { 
-            font-size: var(--size-md); 
-        }
-
-        :host([size="l"])
-        { 
-            font-size: var(--size-lg); 
-        }
-
-        :host([size="xl"])
-        { 
-            font-size: var(--size-xl); 
-        }
 
         :host([size="s"]) > #icon::before
         {
@@ -153,7 +135,7 @@ export class Onyks_Alert extends LitElement
         {
             content: '\\F337';
         }
-    `
+    `, style_size(':host')]
 }
 
 declare global 

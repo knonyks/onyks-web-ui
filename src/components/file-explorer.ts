@@ -1,6 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { style_size } from './styles.ts';
+import { style_scrollbar, style_size } from './styles.ts';
 
 export interface OnyksFileItem 
 {
@@ -15,27 +15,31 @@ export class OnyksFileExplorer extends LitElement
   content: OnyksFileItem[] = [];
 
   @property({ type: Boolean })
-  multiple: boolean = false;
+  multiple: boolean = true;
 
   @property({ type: Boolean })
   allowFolderSelection: boolean = false;
 
-  @property({ type: String, reflect: true }) size = "xl";
+  @property({ type: String })
+  emptyAlert: string = "The folder is empty";
+
+  @property({ type: String, reflect: true }) size = "m";
 
   @state()
   private _selectedItems: Set<string> = new Set();
 
   static styles = [css`
-    :host 
+    :host  
     {
       display: block;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       padding: 10px;
-      background: #3f3f3f;
+      background: var(--surface-element);
       width: calc(100% - 20px);
       font-family: var(--font);
       height: 300px;
       overflow: auto;
+      border: 1px solid var(--surface-border);
     }
 
     .item 
@@ -44,38 +48,62 @@ export class OnyksFileExplorer extends LitElement
       align-items: center;
       padding: 8px;
       cursor: pointer;
-      border-radius: 5px;
+      // border-radius: var(--radius-sm);
       user-select: none;
       transition: background 0.2s;
+      border: 1px solid transparent;
     }
     
     .item:hover 
     {
-      background: #4f4f4f;
+      border: 1px solid var(--surface-border);
     }
 
-    .item.selected
+    .item.selected 
     {
-      background: #242222;
+      background: var(--surface-marked);
+    }
+
+    .item:first-child 
+    {
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+    }
+
+    .item:last-child 
+    {
+      border-bottom-left-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
     }
 
     .icon 
     {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       margin-right: 10px;
+      line-height: 1;
     }
 
-    .icon.folder::before
+    .icon.folder::before 
     {
       content: '\\F3D7';
       font-family: 'bootstrap-icons';
+      line-height: 1;
     }
 
-    .icon.file::before
+    .icon.file::before 
     {
       content: '\\F35C';
       font-family: 'bootstrap-icons';
+      line-height: 1;
     }
-  `, style_size(':host')];
+    
+    .name 
+    {
+      line-height: 1.2; 
+    }
+  `, style_size(':host'), style_scrollbar(':host')];
   
   getSelectedItems(): OnyksFileItem[] 
   {
@@ -138,7 +166,7 @@ export class OnyksFileExplorer extends LitElement
   {
     if (!this.content || this.content.length === 0) 
     {
-      return html`<div style="padding: 10px; color: #888;">Folder jest pusty...</div>`;
+      return html`<div style="padding: 10px; color: #888;">${this.emptyAlert}</div>`;
     }
 
     return html`
@@ -157,5 +185,13 @@ export class OnyksFileExplorer extends LitElement
         )}
       </div>
     `;
+  }
+}
+
+declare global 
+{
+  interface HTMLElementTagNameMap 
+  {
+    'onyks-file-explorer': OnyksFileExplorer
   }
 }

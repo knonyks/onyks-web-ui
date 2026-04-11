@@ -1,6 +1,7 @@
 import { LitElement, html, css, type PropertyValueMap } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { style_size } from './styles';
 
 
 @customElement('onyks-nav')
@@ -14,25 +15,29 @@ export class Onyks_Nav extends LitElement
 
   @state() private is_mobile_menu_open = false;
 
-  static styles = css`
-    * {
+  static styles = [css`
+    * 
+    {
       font-family: var(--font, inherit);
       color: var(--text-primary);
     }
     
-    :host {
+    :host 
+    {
       display: block;
       width: 100%;
       position: relative;
+      background-color: var(--surface-element);
     }
 
-    :host([size="s"]) { font-size: var(--size-sm); --nav-height: 50px; }
-    :host([size="m"]) { font-size: var(--size-md); --nav-height: 64px; }
-    :host([size="l"]) { font-size: var(--size-lg); --nav-height: 72px; }
-    :host([size="xl"]) { font-size: var(--size-xl); --nav-height: 80px; }
+    :host([size="s"]) { --nav-height: 50px; }
+    :host([size="m"]) { --nav-height: 64px; }
+    :host([size="l"]) { --nav-height: 72px; }
+    :host([size="xl"]) { --nav-height: 80px; }
 
-    nav {
-      background-color: var(--surface-element);
+    nav 
+    {
+
       color: var(--text-primary);
       height: var(--nav-height);
       display: flex;
@@ -56,7 +61,8 @@ export class Onyks_Nav extends LitElement
       border-bottom-left-radius: 0; 
       border-bottom-right-radius: 0; 
     }
-  `;
+  `, style_size(':host')];
+  
   constructor() 
   {
     super();

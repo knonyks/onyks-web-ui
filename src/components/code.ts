@@ -9,6 +9,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 // Import stylów Prisma (możesz zmienić 'prism-tomorrow' na inny motyw)
 import prismTheme from 'prismjs/themes/prism-tomorrow.css?inline';
 import prismLineNumbersTheme from 'prismjs/plugins/line-numbers/prism-line-numbers.css?inline';
+import { style_scrollbar } from './styles';
 
 // UWAGA: Prism domyślnie ładuje tylko podstawowe języki (HTML, JS, CSS). 
 // Jeśli potrzebujesz innych, zaimportuj je tutaj, np.:
@@ -26,7 +27,7 @@ export class Onyks_Code_Block extends LitElement {
     @property({ type: String }) file = '';
     @property({ type: String }) content = ''; 
 
-    static styles = css`
+    static styles = [css`
         /* Wstrzyknięcie stylów Prisma */
         ${unsafeCSS(prismTheme)}
         ${unsafeCSS(prismLineNumbersTheme)}
@@ -75,7 +76,7 @@ export class Onyks_Code_Block extends LitElement {
         :host([size="s"]) { font-size: 12px; }
         :host([size="m"]) { font-size: 14px; }
         :host([size="l"]) { font-size: 16px; }
-    `;
+    `, style_scrollbar('pre')];
 
     @query('code') private _codeElement!: HTMLElement;
 

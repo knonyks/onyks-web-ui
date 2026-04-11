@@ -1,5 +1,6 @@
 <script setup lang="js">
     import { onMounted } from 'vue';
+    import PageContent from '../components/PageContent.vue';
 
     //TUTAJ MOGE PISAĆ KOD KTÓRY SIĘ WYKONA PO ZAŁADOWANIU; MOGE UZYC QUERY SELECTOR
     onMounted(() => {
@@ -8,7 +9,7 @@
 </script>
 
 <template>
-    <Content>
+    <PageContent>
         <h1>Alert</h1>
         <h2>An element to inform a user about something.</h2>
 
@@ -62,5 +63,5 @@
             &lt;onyks-alert type="success" size="xl">[Lorem Ipsum text...]&lt;/onyks-alert>
         </onyks-code-block>
         
-    </Content>
+    </PageContent>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="js">
     import { onMounted } from 'vue';
+import PageContent from '../components/PageContent.vue';
 
     onMounted(() => 
     {
@@ -22,10 +23,10 @@
 </script>
 
 <template>
-    <Content>
+    <PageContent>
         <h1>Path</h1>
         <h2>An element to show a current working directory.</h2>
-        <onyks-alert type="warning">This element has no completed style but it's stable to use.</onyks-alert>
+        <onyks-alert type="warning">This element wasn't tested enough. It can be unstable!</onyks-alert>
         
         <h3>Default</h3>
         <onyks-path>
@@ -153,7 +154,7 @@
             });
         </onyks-code-block>
 
-    </Content>
+    </PageContent>
 </template>
 
 <style lang="css" scoped>

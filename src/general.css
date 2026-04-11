@@ -19,23 +19,6 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-
-
-
-
-
-
-
-
-
-
-  --color-green: #3eff78;
-  --color-blue: #527aff;
-  --color-red: #ff0000;
-  --color-orange: #ff7e05;
-  --color-yellow: #ffff00;
-  --color-purple: #7e1ca5;
-
   --color-error: #ff5454;
   --color-warning: #ffdc71;
   --color-success: #88ff7f;
@@ -46,12 +29,12 @@
   --text-success: #000000;
   --text-info: #fff;
 
-
-
-  --surface-base: #1f1f1f;
-
-
-  /* ------------------------------------- */
+  --color-green: #3eff78;
+  --color-blue: #527aff;
+  --color-red: #ff0000;
+  --color-orange: #ff7e05;
+  --color-yellow: #ffff00;
+  --color-purple: #7e1ca5;
 
 
   /* =========================================
@@ -61,6 +44,14 @@
   --surface-element: #232428;  /* Tło elementów (np. select, textarea, menu) */
   --surface-hover: #38393f;    /* Tło po najechaniu myszką / nagłówki tabel */
   --surface-border: #3e4047;   /* Kolor ramek i obramowań (border) */
+  --surface-marked: #3e4047;   /* Kolor zaznaczenia (np. zaznaczony tekst) */
+
+
+
+
+
+
+
 
   /* =========================================
      2. TEKSTY (TYPOGRAPHY)
