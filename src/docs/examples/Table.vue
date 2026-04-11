@@ -1,7 +1,5 @@
 <script setup lang="js">
     import { onMounted } from 'vue';
-    import Content from '../components/Content.vue';
-    import PageTitle from '../components/PageTitle.vue';
 
     const pobierzDane = () => {
         const onyksTable = document.querySelector('#dynamiczna-tabela');

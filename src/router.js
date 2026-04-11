@@ -1,12 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './docs/other/Home.vue'
-import License from './docs/other/License.vue'
+
+function process_routes(routes) 
+{
+  routes.forEach(element => {
+    switch(element.name)
+    {
+      case("FileExplorer"):
+        element.name = "File Explorer"
+        element.path = "/file-explorer"
+        break;
+      default:
+        break;
+    }
+  });
+}
 
 const viewModules = import.meta.glob('./docs/examples/*.vue')
-
-let routes = [
-  {path: '/', component: Home, name: "Home"},
-  {path: '/license', component: License, name: "License"}]
+let routes = [{path: '/', component: Home, name: "Home"}]
 
 routes.push(...Object.keys(viewModules).map((path) => 
 {
@@ -17,6 +28,8 @@ routes.push(...Object.keys(viewModules).map((path) =>
     component: viewModules[path]
   }
 }))
+
+process_routes(routes);
 
 const router = createRouter(
 {

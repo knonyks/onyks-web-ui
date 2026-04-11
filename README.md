@@ -1,4 +1,4 @@
-# ONYKS Web UI System
+# ONYKS WebUI
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 

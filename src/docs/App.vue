@@ -3,22 +3,12 @@
 
   const router = useRouter()
   const availableRoutes = router.getRoutes()
-  availableRoutes.forEach(element => {
-    switch(element.name)
-    {
-      case("FileExplorer"):
-        element.name = "File Explorer"
-        break;
-      default:
-        break;
-    }
-  });
 
-  console.log(availableRoutes)
 </script>
 
 <template>
   <div id="app">
+
     <onyks-nav size="m">
       <onyks-logo></onyks-logo>
       <onyks-nav-content maxviewitems="6" mobilebreakpoint="1100">
@@ -31,6 +21,7 @@
     <main>
       <router-view></router-view>
     </main>
+    
   </div>
 </template>
 

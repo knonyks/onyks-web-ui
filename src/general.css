@@ -19,6 +19,16 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
+
+
+
+
+
+
+
+
+
+
   --color-green: #3eff78;
   --color-blue: #527aff;
   --color-red: #ff0000;
@@ -89,4 +99,9 @@ body
 *
 {
   font-family: var(--font);
+}
+
+p, h1, h2, h3, h4, h5, h6
+{
+  margin: 0;
 }
