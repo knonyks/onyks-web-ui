@@ -13,11 +13,11 @@ function process_routes(routes)
         element.name = "File Explorer";
         element.path = "/file-explorer";
         break;
-      case('Table'):
-      case('Buttons'):
-      case('Nav'):
-        routes.splice(i, 1); 
-        break;
+      // case('Table'):
+      // case('Buttons'):
+      // case('Nav'):
+      //   routes.splice(i, 1); 
+      //   break;
       default:
         break;
     }
