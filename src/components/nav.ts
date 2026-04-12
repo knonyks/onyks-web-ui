@@ -369,28 +369,30 @@ export class Onyks_Nav_Option extends LitElement
   @property({type: Boolean, reflect: true}) selected = false;
 
   static styles = css`
-    :host { 
-        display: block; 
-        cursor: pointer; 
-        height: 100%;
+    :host 
+    { 
+      display: block; 
+      cursor: pointer; 
+      height: 100%;
     }
     
-    .nav-item {
-        padding: 0 var(--spacing-md);
-        margin: 0; 
-        height: 100%; 
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        color: var(--text-secondary);
-        text-decoration: none;
-        box-sizing: border-box;
-        transition: all 0.2s ease;
-        width: 100%;
-        font-size: inherit;
-        font-weight: 500;
-        border-radius: 0; 
-        border-bottom: 3px solid transparent; 
+    .nav-item 
+    {
+      padding: 0 var(--spacing-md);
+      margin: 0; 
+      height: 100%; 
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      color: var(--text-secondary);
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+      width: 100%;
+      font-size: inherit;
+      font-weight: 500;
+      border-radius: 0; 
+      border-bottom: 3px solid transparent; 
     }
 
     .nav-item:hover { 

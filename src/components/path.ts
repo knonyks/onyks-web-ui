@@ -112,6 +112,11 @@ export class Onyks_Path extends LitElement
         this.requestUpdate();
     }
 
+    public current_path()
+    {
+        return this.manager.current_path;
+    }
+
     render()
     {
         if (!this.initialized) 
