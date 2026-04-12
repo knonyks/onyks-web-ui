@@ -14,13 +14,13 @@ export class OnyksFileExplorer extends LitElement
   @property({ type: Array })
   content: OnyksFileItem[] = [];
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   multiple: boolean = false;
 
-  // @property({ type: Boolean })
+  // @property({ type: Boolean, reflect: true })
   // allowFolderSelection: boolean = false;
 
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   emptyAlert: string = "The folder is empty";
 
   @property({ type: String, reflect: true }) size = "m";

@@ -374,6 +374,7 @@ export class Onyks_Nav_Option extends LitElement
       display: block; 
       cursor: pointer; 
       height: 100%;
+      width: 100%;
     }
     
     .nav-item 

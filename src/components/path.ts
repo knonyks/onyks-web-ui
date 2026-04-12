@@ -1,31 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
-import {customElement, property, queryAssignedElements, state} from 'lit/decorators.js'
+import {customElement, property, state} from 'lit/decorators.js'
 import { style_size, style_scrollbar } from './styles';
-
-export class Onyks_Path_Manager
-{
-    private _folders: string[];
-
-    constructor(initial: string[]) 
-    {
-        this._folders = initial;
-    }
-
-    get current_path(): string[]
-    {
-        return this._folders;
-    }
-
-    public back_to(index: number) 
-    {
-        this._folders = this._folders.slice(0, index + 1);
-    }
-
-    public add_folder(name: string): void
-    {
-        this._folders = [...this._folders, name]
-    }
-}
 
 @customElement('onyks-path-chain')
 export class Onyks_Path_Chain extends LitElement 
@@ -44,7 +19,6 @@ export class Onyks_Path_Chain extends LitElement
 
         .content
         {
-            // background-color: #044B7F;
             background-color: var(--color-primary);
             display: block;
             padding: 10px;
@@ -65,67 +39,58 @@ export class Onyks_Path extends LitElement
 {
     @property({ type: String, reflect: true }) size = "m";
 
-    @queryAssignedElements({ flatten: true })
-    private _slot_elements!: Array<HTMLElement>;
-
-    private manager = new Onyks_Path_Manager([]);
+    @property({ type: Array, reflect: true}) content: string[] = [];
 
     @state()
-    private initialized = false;
+    private _current_path: string[] = [];
 
-    protected firstUpdated(_changedProperties: PropertyValues): void 
+    protected willUpdate(_changedProperties: PropertyValues) 
     {
-        const initial_folders = this._slot_elements.map(el => el.textContent?.trim() || '').filter(t => t !== '');
-        if (initial_folders.length > 0) 
+        super.willUpdate(_changedProperties);
+        if (_changedProperties.has('content')) 
         {
-            this.manager = new Onyks_Path_Manager(initial_folders);
+            this._current_path = [...this.content];
         }
-        this.initialized = true;
-        this.requestUpdate();
+    }
+
+    protected updated(_changedProperties: PropertyValues) 
+    {
+        super.updated(_changedProperties);
+        if (_changedProperties.has('_current_path')) 
+        {
+            setTimeout(() => 
+            {
+                this.scrollLeft = this.scrollWidth;
+            }, 0);
+        }
     }
 
     private _handleItemClick(index: number) 
     {
-        this.manager.back_to(index);    
-        this.requestUpdate();
-    
+        this._current_path = this._current_path.slice(0, index + 1);
+        
         this.dispatchEvent(new CustomEvent('path-changed', 
         {
-            detail: { path: this.manager.current_path},
+            detail: { path: [...this._current_path] },
             bubbles: true,
             composed: true
         }));
     }
 
-    protected async updated(_changedProperties: PropertyValues): Promise<void> 
-    {
-        super.updated(_changedProperties); 
-        await this.updateComplete;
-        setTimeout(() => {
-            this.scrollLeft = this.scrollWidth;
-        }, 0);
-    }
-
     public add_folder(name: string) 
     {
-        this.manager.add_folder(name);
-        this.requestUpdate();
+        this._current_path = [...this._current_path, name];
     }
 
     public current_path()
     {
-        return this.manager.current_path;
+        return [...this._current_path];
     }
 
     render()
     {
-        if (!this.initialized) 
-        {
-            return html`<div style="display: none;"><slot></slot></div>`;
-        }
-
         return html`
-        ${this.manager.current_path.map((folder, i) => html`
+        ${this._current_path.map((folder, i) => html`
             <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
                 ${folder}
             </onyks-path-chain>
@@ -136,8 +101,6 @@ export class Onyks_Path extends LitElement
     static styles = [css`
         :host
         {
-            // background-color: #E3B505;
-            // background-color: #161619;
             background-color: var(--surface-element);
             width: 100%;
             height: fit-content;
@@ -147,7 +110,7 @@ export class Onyks_Path extends LitElement
             padding: 10px;
             box-sizing: border-box;
             overflow-x: auto;
-            gap: 10px; /* Odstęp między elementami a ikoną */
+            gap: 10px;
             border: 1px solid var(--surface-border);
         }
 

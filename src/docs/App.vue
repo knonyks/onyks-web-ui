@@ -60,5 +60,7 @@
   {
     text-decoration: none;
     color: inherit;
+    display: block;
+    height: fit-content;
   }
 </style>

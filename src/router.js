@@ -16,8 +16,10 @@ function process_routes(routes)
       // case('Table'):
       // case('Buttons'):
       // case('Nav'):
-      //   routes.splice(i, 1); 
-      //   break;
+      // case('FileExplorer'):
+      // case('Path'):
+        routes.splice(i, 1); 
+        break;
       default:
         break;
     }
