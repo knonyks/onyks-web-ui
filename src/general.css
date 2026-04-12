@@ -21,7 +21,7 @@
 
   --color-error: #ff5454;
   --color-warning: #ffdc71;
-  --color-success: #88ff7f;
+  --color-success: hsl(116, 100%, 75%);
   --color-info: #0059ff;
 
   --text-error: #000000;
@@ -72,6 +72,7 @@
   
   --color-info: #527aff;           
   --color-info-hover: #2548be;
+  --color-success-hover: rgb(71, 192, 62);
 }
 
 [data-theme="light"]
