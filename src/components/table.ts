@@ -3,8 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
-    @property({ type: Array }) data = [];
-    @property({ type: Array}) columns = [];
+@property({ type: Array }) data: Record<string, any>[] = [];
+    @property({ type: Array }) columns: { key: string, label: string }[] = [];
     @property({ type: Number }) scrollThreshold = 0;
 
     static styles = css`
@@ -103,6 +103,28 @@ export class Onyks_Table extends LitElement {
         }
     }
 
+    getSelectedRows() {
+        const allData = this.getTableData();
+        // Szukamy wierszy, które mają jakąkolwiek wartość true (zaznaczony checkbox)
+        return allData.filter(row => Object.values(row).some(val => val === true));
+    }
+
+    // 2. Obsługa kliknięcia w pojedynczy checkbox w wierszu
+    private _updateRowSelection(rowIndex: number, key: string, checked: boolean) {
+        // Zaktualizowanie danych w sposób niemutowalny - to wyzwala reaktywność Lit (re-render)
+        this.data = this.data.map((row, idx) => 
+            idx === rowIndex ? { ...row, [key]: checked } : row
+        );
+    }
+
+    // 3. Obsługa kliknięcia "Zaznacz wszystko" w nagłówku
+    private _toggleAll(key: string, checked: boolean) {
+        // Ustawiamy ten sam stan dla wszystkich wierszy
+        this.data = this.data.map(row => ({ ...row, [key]: checked }));
+    }
+
+    // --- ZMODYFIKOWANA METODA RENDER ---
+
     render() {
         const hasData = this.data && this.data.length > 0;
         const cols = this.columns.length > 0 
@@ -115,16 +137,40 @@ export class Onyks_Table extends LitElement {
                     ${hasData ? html`
                         
                         <onyks-row header>
-                            ${cols.map(col => html`<onyks-col>${col.label}</onyks-col>`)}
+                            ${cols.map(col => {
+                                // Sprawdzamy czy to kolumna z checkboxami (na podstawie pierwszego wiersza)
+                                const isBooleanCol = typeof this.data[0][col.key] === 'boolean';
+                                
+                                if (isBooleanCol) {
+                                    // Sprawdzamy, czy WSZYSTKIE checkboxy w tej kolumnie są zaznaczone
+                                    const isAllChecked = this.data.every(row => row[col.key] === true);
+                                    
+                                    return html`
+                                        <onyks-col 
+                                            checkbox 
+                                            .checked=${isAllChecked}
+                                            @onyks-checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
+                                        ></onyks-col>
+                                    `;
+                                }
+                                
+                                return html`<onyks-col>${col.label}</onyks-col>`;
+                            })}
                         </onyks-row>
 
-                        ${this.data.map(row => html`
+                        ${this.data.map((row, rowIndex) => html`
                             <onyks-row>
                                 ${cols.map(col => {
                                     const value = row[col.key]; 
                                     
                                     if (typeof value === 'boolean') {
-                                        return html`<onyks-col checkbox .checked=${value}></onyks-col>`;
+                                        return html`
+                                            <onyks-col 
+                                                checkbox 
+                                                .checked=${value}
+                                                @onyks-checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
+                                            ></onyks-col>
+                                        `;
                                     }
                                     
                                     return html`<onyks-col>${value}</onyks-col>`;
