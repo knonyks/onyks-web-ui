@@ -74,33 +74,60 @@ export class Onyks_Button extends LitElement
             line-height: 1.5;
         }
         .bg-blue {
-            background-color: var(--color-info); 
-            box-shadow: 0 7px 0 var(--color-info-hover); 
-            color: var(--text-inverse); 
+            background-color: var(--color-blue); 
+            box-shadow: 0 7px 0 var(--color-blue-hover); 
+            color: white;
         }
         .bg-blue:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--color-info-hover); 
+            box-shadow: 0 3px 0 var(--color-blue-hover); 
         }
 
         .bg-green {
-            background-color: var(--color-success);
-            box-shadow: 0 7px 0 var(--color-success-hover);
-            color: var(--text-inverse);
+            background-color: var(--color-green);
+            box-shadow: 0 7px 0 var(--color-green-hover);
+            color: black;
         }
         .bg-green:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--color-success-hover); 
+            box-shadow: 0 3px 0 var(--color-green-hover); 
         }
 
         .bg-red {
-            background-color: var(--color-primary);
-            box-shadow: 0 7px 0 var(--color-primary-hover); 
-            color: var(--text-inverse);
+            background-color: var(--color-red);
+            box-shadow: 0 7px 0 var(--color-red-hover); 
+            color: black;
         }
         .bg-red:hover {
             transform: translateY(0px); 
-            box-shadow: 0 3px 0 var(--color-primary-hover); 
+            box-shadow: 0 3px 0 var(--color-red-hover); 
+        }
+        .bg-yellow {
+            background-color: var(--color-yellow);
+            box-shadow: 0 7px 0 var(--color-yellow-hover);
+            color: black;
+        }
+        .bg-yellow:hover {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--color-yellow-hover); 
+        }
+        .bg-purple {
+            background-color: var(--color-purple);
+            box-shadow: 0 7px 0 var(--color-purple-hover);
+            color: white;
+        }
+        .bg-purple:hover {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--color-purple-hover); 
+        }
+            .bg-orange {
+            background-color: var(--color-orange);
+            box-shadow: 0 7px 0 var(--color-orange-hover);
+            color: black;
+        }
+        .bg-orange:hover {
+            transform: translateY(0px); 
+            box-shadow: 0 3px 0 var(--color-orange-hover); 
         }
 
         .size-s

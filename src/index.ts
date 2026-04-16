@@ -16,5 +16,6 @@ export * from './components/path.ts'
 export * from './components/file-explorer.ts'
 export * from './components/styles.ts'
 export * from './components/alert.ts'
+export * from './components/toast.ts'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './general.css';
