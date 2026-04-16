@@ -141,6 +141,15 @@ export class Onyks_Button extends LitElement
             font-family: var(--font);
         }
     `
+    constructor() {
+        super();
+        this.addEventListener('click', (e: Event) => {
+            if (this.disabled) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        });
+    }
 }
 
 declare global 

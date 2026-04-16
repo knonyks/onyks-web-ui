@@ -22,20 +22,20 @@ export class Onyks_Alert extends LitElement
             font-family: var(--font);
             border-radius: var(--radius-sm);
             display: flex;
-            width: 100%;
             gap: 10px;
             height: fit-content;
             padding: var(--spacing-md);
             box-sizing: border-box;
             flex-shrink: 0;
             vertical-align: middle;
-            text-align: justify;
+            // text-align: justify;
         }
 
         #text
         {
             align-items: center;
             display: flex;
+            text-align: inherit;
         }
 
 

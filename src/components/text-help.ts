@@ -33,20 +33,26 @@ export class Onyks_Text_Help extends LitElement
     }
         
     static styles = css`
-        :host
-        {
+        :host {
             display: block;
             height: fit-content;
         }
         .color-red {color: var(--color-primary);}
         .color-green {color: var(--color-success);}
         .color-blue {color: var(--color-info);}
-        p {padding: 0; margin: 0}
+        p {
+            padding: 0; 
+            margin: 0;
+        }
+        /* Dodany pseudoelement */
+        p::before {
+            content: '\200B'; 
+        }
         .size-s {font-size: var(--size-sm);}
         .size-m {font-size: var(--size-md);}
         .size-l {font-size: var(--size-lg);}
         .size-xl {font-size: var(--size-xl);}
-        `
+    `
 }
 
 declare global 
