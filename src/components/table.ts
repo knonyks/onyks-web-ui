@@ -105,86 +105,86 @@ export class Onyks_Table extends LitElement {
 
     getSelectedRows() {
         const allData = this.getTableData();
-        // Szukamy wierszy, które mają jakąkolwiek wartość true (zaznaczony checkbox)
         return allData.filter(row => Object.values(row).some(val => val === true));
     }
 
-    // 2. Obsługa kliknięcia w pojedynczy checkbox w wierszu
     private _updateRowSelection(rowIndex: number, key: string, checked: boolean) {
-        // Zaktualizowanie danych w sposób niemutowalny - to wyzwala reaktywność Lit (re-render)
         this.data = this.data.map((row, idx) => 
             idx === rowIndex ? { ...row, [key]: checked } : row
         );
     }
 
-    // 3. Obsługa kliknięcia "Zaznacz wszystko" w nagłówku
     private _toggleAll(key: string, checked: boolean) {
-        // Ustawiamy ten sam stan dla wszystkich wierszy
         this.data = this.data.map(row => ({ ...row, [key]: checked }));
     }
 
-    // --- ZMODYFIKOWANA METODA RENDER ---
 
-    render() {
-        const hasData = this.data && this.data.length > 0;
-        const cols = this.columns.length > 0 
-            ? this.columns 
-            : hasData ? Object.keys(this.data[0]).map(k => ({ key: k, label: k })) : [];
+render() {
+    // 1. Sprawdzamy co dokładnie otrzymaliśmy
+    const hasColumns = this.columns && this.columns.length > 0;
+    const hasData = this.data && this.data.length > 0;
 
-        return html`
-            <div class="scroll-wrapper" @scroll=${this._handleScroll}>
-                <div class="table-container">
-                    ${hasData ? html`
-                        
-                        <onyks-row header>
-                            ${cols.map(col => {
-                                // Sprawdzamy czy to kolumna z checkboxami (na podstawie pierwszego wiersza)
-                                const isBooleanCol = typeof this.data[0][col.key] === 'boolean';
+    // 2. Jeśli mamy kolumny ALBO dane, renderujemy tabelę dynamicznie. W przeciwnym razie slot.
+    const useProgrammatic = hasColumns || hasData;
+
+    // 3. Budujemy definicje kolumn
+    const cols = hasColumns 
+        ? this.columns 
+        : hasData ? Object.keys(this.data[0]).map(k => ({ key: k, label: k })) : [];
+
+    return html`
+        <div class="scroll-wrapper" @scroll=${this._handleScroll}>
+            <div class="table-container">
+                ${useProgrammatic ? html`
+                    
+                    <onyks-row header>
+                        ${cols.map(col => {
+                            // BEZPIECZNE SPRAWDZENIE: czy mamy dane, żeby odgadnąć czy to checkbox?
+                            const isBooleanCol = hasData && typeof this.data[0][col.key] === 'boolean';
+                            
+                            if (isBooleanCol) {
+                                const isAllChecked = this.data.every(row => row[col.key] === true);
                                 
-                                if (isBooleanCol) {
-                                    // Sprawdzamy, czy WSZYSTKIE checkboxy w tej kolumnie są zaznaczone
-                                    const isAllChecked = this.data.every(row => row[col.key] === true);
-                                    
+                                return html`
+                                    <onyks-col 
+                                        checkbox 
+                                        .checked=${isAllChecked}
+                                        @onyks-checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
+                                    ></onyks-col>
+                                `;
+                            }
+                            
+                            return html`<onyks-col>${col.label}</onyks-col>`;
+                        })}
+                    </onyks-row>
+
+                    ${this.data.map((row, rowIndex) => html`
+                        <onyks-row>
+                            ${cols.map(col => {
+                                const value = row[col.key]; 
+                                
+                                if (typeof value === 'boolean') {
                                     return html`
                                         <onyks-col 
                                             checkbox 
-                                            .checked=${isAllChecked}
-                                            @onyks-checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
+                                            .checked=${value}
+                                            @onyks-checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
                                         ></onyks-col>
                                     `;
                                 }
                                 
-                                return html`<onyks-col>${col.label}</onyks-col>`;
+                                return html`<onyks-col>${value}</onyks-col>`;
                             })}
                         </onyks-row>
+                    `)}
 
-                        ${this.data.map((row, rowIndex) => html`
-                            <onyks-row>
-                                ${cols.map(col => {
-                                    const value = row[col.key]; 
-                                    
-                                    if (typeof value === 'boolean') {
-                                        return html`
-                                            <onyks-col 
-                                                checkbox 
-                                                .checked=${value}
-                                                @onyks-checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
-                                            ></onyks-col>
-                                        `;
-                                    }
-                                    
-                                    return html`<onyks-col>${value}</onyks-col>`;
-                                })}
-                            </onyks-row>
-                        `)}
-
-                    ` : html`
-                        <slot></slot> 
-                    `}
-                </div>
+                ` : html`
+                    <slot></slot> 
+                `}
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     getTableData() {
         if (this.data && this.data.length > 0) {
