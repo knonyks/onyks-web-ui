@@ -10,6 +10,17 @@
 <template>
     <Content>
         <PageTitle>Buttons</PageTitle>
+
+        <div style="height: 3rem;"></div>
+
+        <onyks-window-bar text="tytuł apki">
+            <onyks-window-button type="minimalize" size="l"></onyks-window-button>
+            <onyks-window-button type="fullscreen" size="l"></onyks-window-button>
+            <onyks-window-button type="close" size="l"></onyks-window-button>
+        </onyks-window-bar>
+
+        <div style="height: 3rem;"></div>
+
         <h2>A button for general purposes.</h2>
         <h3>Default button</h3>
         
