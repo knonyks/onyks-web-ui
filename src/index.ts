@@ -19,5 +19,6 @@ export * from './components/alert.ts'
 export * from './components/toast.ts'
 export * from './components/window-buttons.ts'
 export * from './components/strip-menu.ts'
+export * from './components/pagination-nav.ts'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './general.css';
