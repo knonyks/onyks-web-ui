@@ -1,6 +1,5 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import {classMap} from 'lit/directives/class-map.js';
 import { style_size } from './styles';
 
 @customElement('onyks-pagination-nav')
