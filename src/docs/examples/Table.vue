@@ -1,5 +1,6 @@
 <script setup lang="js">
     import { onMounted } from 'vue';
+    import { ref } from 'vue';
 
     const pobierzDane = () => {
         const onyksTable = document.querySelector('#dynamiczna-tabela');
@@ -27,6 +28,7 @@
             { id: "ERR-004", priorytet: "Średni", aplikacja: "Baza Danych", szczegoly: "Przekroczony limit połączeń.", status: "Oczekuje", dostepny: true }
         ];
     });
+    
 </script>
 
 <template>
@@ -36,7 +38,7 @@
         <h2>Dynamic table (JS/TS data)</h2>
         <h3>Table generated automatically from an array of dictionaries.</h3>
         
-        <onyks-table id="dynamiczna-tabela"></onyks-table>
+        <onyks-table ref="x" id="dynamiczna-tabela"></onyks-table>
 
         <div style="margin-top: 15px; margin-bottom: 30px;">
             <onyks-button @click="pobierzDane">Pobierz stan tabeli (zobacz konsolę)</onyks-button>

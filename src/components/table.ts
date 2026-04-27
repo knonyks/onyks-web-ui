@@ -105,6 +105,7 @@ export class Onyks_Table extends LitElement {
 
     getSelectedRows() {
         const allData = this.getTableData();
+        console.log(allData)
         return allData.filter(row => Object.values(row).some(val => val === true));
     }
 
@@ -149,7 +150,7 @@ render() {
                                     <onyks-col 
                                         checkbox 
                                         .checked=${isAllChecked}
-                                        @onyks-checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
+                                        @checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
                                     ></onyks-col>
                                 `;
                             }
@@ -168,7 +169,7 @@ render() {
                                         <onyks-col 
                                             checkbox 
                                             .checked=${value}
-                                            @onyks-checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
+                                            @checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
                                         ></onyks-col>
                                     `;
                                 }
