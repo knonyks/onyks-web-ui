@@ -344,7 +344,7 @@ export class Onyks_Col extends LitElement {
     private _handleChange(e: Event) {
         const target = e.target as HTMLInputElement;
         this.checked = target.checked;
-        this.dispatchEvent(new CustomEvent('onyks-checkbox-change', {
+        this.dispatchEvent(new CustomEvent('checkbox-change', {
             detail: { checked: this.checked },
             bubbles: true,
             composed: true
