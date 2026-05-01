@@ -5,24 +5,23 @@ import logo_path from '../assets/logo.png';
 @customElement('onyks-logo')
 export class Onyks_Logo extends LitElement 
 {
-    render()
-    {
-        return html`<img src="${logo_path}" alt="ONYKS Logo">`;
+render() {
+        return html`<img src="${logo_path}">`;
     }
 
     static styles = css`
         :host 
         {
-            display: block;
-            width: fit-content;
-            height: fit-content;
+            display: block; 
         }
 
         img 
         {
             display: block;
-            width: inherit;
-            height: inherit;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            
             filter: var(--logo-filter);
             transition: filter 0.3s ease;
         }
