@@ -38,7 +38,7 @@
         <h2>Dynamic table (JS/TS data)</h2>
         <h3>Table generated automatically from an array of dictionaries.</h3>
         
-        <onyks-table ref="x" id="dynamiczna-tabela"></onyks-table>
+        <onyks-table ref="x" id="dynamiczna-tabela" @checkbox-change="console.log"></onyks-table>
 
         <div style="margin-top: 15px; margin-bottom: 30px;">
             <onyks-button @click="pobierzDane">Pobierz stan tabeli (zobacz konsolę)</onyks-button>

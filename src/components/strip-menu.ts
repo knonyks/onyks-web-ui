@@ -6,9 +6,12 @@ import { style_size } from './styles';
 @customElement('onyks-strip-menu-option')
 export class Onyks_Strip_Menu_Option extends LitElement 
 {
-@property({type: String, reflect: true}) icon = "F62A"; 
+    @property({type: String, reflect: true}) icon = "F62A"; 
 
     @property({ type: Boolean, reflect: true }) marked = false;
+
+    @property({type: String, reflect: true})
+    size = "m";
 
     render() 
     {
@@ -22,13 +25,21 @@ export class Onyks_Strip_Menu_Option extends LitElement
         </style>`;
     }
 
-    static styles = css`
-        :host {
-            display: block;
-            padding: var(--spacing-md, 8px); 
-            border-radius: var(--radius-md, 4px);
+    static styles = [css`
+        :host 
+        {
+            display: block;'
+            height: fit-content;
+            width: fit-content;
+            padding: var(--spacing-md); 
             cursor: pointer;
-            transition: background-color 0.2s; /* Żeby łatwiej zauważyć zmianę */
+            user-select: none;
+
+
+            border-radius: var(--radius-md, 4px);
+
+            transition: background-color 0.2s;
+
         }
 
         :host::before {
@@ -38,6 +49,8 @@ export class Onyks_Strip_Menu_Option extends LitElement
             justify-content: center;
             align-items: center;
             content: var(--decoded-icon);
+            width: fit-content;
+            height: fit-content;
         }
 
         :host(:hover) {
@@ -47,7 +60,7 @@ export class Onyks_Strip_Menu_Option extends LitElement
         :host([marked]) {
             background-color: var(--surface-marked, green) !important;
         }
-    `;
+    `, style_size(':host')];
 }
 
 @customElement('onyks-strip-menu')
@@ -71,6 +84,7 @@ export class Onyks_Strip_Menu extends LitElement
             background-color: var(--surface-element);
             border: 1px solid var(--surface-border);
             gap: 1rem;
+            align-items: center;
             font-weigth: bold;
         }
 

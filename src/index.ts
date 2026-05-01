@@ -20,5 +20,7 @@ export * from './components/toast.ts'
 export * from './components/window-buttons.ts'
 export * from './components/strip-menu.ts'
 export * from './components/pagination-nav.ts'
+export * from './components/avatar.ts'
+export * from './components/list.ts'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './general.css';
