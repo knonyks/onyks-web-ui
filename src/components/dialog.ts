@@ -4,10 +4,10 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('onyks-dialog')
 export class Onyks_Dialog extends LitElement {
     @property({type: Boolean, reflect: true }) opened = false;
-    @property({type: String }) title = ''; 
-    @property({type: Boolean, attribute: 'has-title'}) has_title = true;
-    @property({type: Boolean, attribute: 'corner-close'}) corner_close = false;
-    @property({type: Boolean}) modal = false;
+    @property({type: String, reflect: true  }) title = ''; 
+    @property({type: Boolean, attribute: 'has-title', reflect: true }) has_title = true;
+    @property({type: Boolean, attribute: 'corner-close', reflect: true }) corner_close = false;
+    @property({type: Boolean, reflect: true }) modal = false;
 
     private _shakeTimeout: number | undefined;
 
