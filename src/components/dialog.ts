@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 export class Onyks_Dialog extends LitElement {
     @property({type: Boolean, reflect: true }) opened = false;
     @property({type: String, reflect: true  }) title = ''; 
-    @property({type: Boolean, attribute: 'has-title', reflect: true }) has_title = true;
+    @property({type: Boolean, attribute: 'no-title', reflect: true }) no_title = false;
     @property({type: Boolean, attribute: 'corner-close', reflect: true }) corner_close = false;
     @property({type: Boolean, reflect: true }) modal = false;
 
@@ -154,7 +154,7 @@ export class Onyks_Dialog extends LitElement {
             <div class="backdrop" @click="${this._handleBackdropClick}">
                 <div class="dialog-container" role="dialog" aria-modal="true">
                     
-                    ${this.has_title ? html`
+                    ${this.no_title ? html`
                         <div class="dialog-header">
                             <span>${this.title}</span>
                             ${this.corner_close ? html`
@@ -182,7 +182,7 @@ export class Onyks_Dialog extends LitElement {
     }
 }
 
-@customElement('onyks-dialog-dialog')
+@customElement('onyks-dialog-content')
 export class Onyks_Dialog_Content extends LitElement 
 {
     render()
