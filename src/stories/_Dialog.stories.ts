@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'Onyks WebUI/Dialog',
+    title: 'ONYKS WebUI/Dialog',
     component: 'onyks-dialog',
     tags: ['autodocs'],
     argTypes: {
