@@ -18,7 +18,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/index.ts',
-      name: 'onyks-web-ui-system',
+      name: 'onyks-web-ui',
       fileName: 'index',
       formats: ['es']
     },

@@ -6,7 +6,7 @@ addons.setConfig({
     base: 'light',
 
     brandTitle: 'ONYKS WebUI', 
-    brandUrl: 'https://github.com/...',
+    brandUrl: 'https://github.com/knonyks/onyks-web-ui',
     
     brandImage: './logo.png', 
     brandTarget: '_self',
