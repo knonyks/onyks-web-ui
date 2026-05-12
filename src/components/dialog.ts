@@ -5,14 +5,15 @@ import { customElement, property } from 'lit/decorators.js';
 export class Onyks_Dialog extends LitElement {
     @property({type: Boolean, reflect: true }) opened = false;
     @property({type: String, reflect: true  }) title = ''; 
-    @property({type: Boolean, attribute: 'no-title', reflect: true }) no_title = false;
-    @property({type: Boolean, attribute: 'corner-close', reflect: true }) corner_close = false;
+    @property({type: Boolean, reflect: true }) noTitle = false;
+    @property({type: Boolean, reflect: true }) cornerClose = true;
     @property({type: Boolean, reflect: true }) modal = false;
 
     private _shakeTimeout: number | undefined;
 
     static styles = css`
-        :host { 
+        :host 
+        { 
             display: block; 
             z-index: 1000;
             font-family: var(--font, inherit);
@@ -32,6 +33,8 @@ export class Onyks_Dialog extends LitElement {
             padding: 20px;
             backdrop-filter: blur(4px);
         }
+
+
 
         :host([opened]) .backdrop {
             opacity: 1;
@@ -154,15 +157,15 @@ export class Onyks_Dialog extends LitElement {
             <div class="backdrop" @click="${this._handleBackdropClick}">
                 <div class="dialog-container" role="dialog" aria-modal="true">
                     
-                    ${this.no_title ? html`
+                    ${this.noTitle ? html`
                         <div class="dialog-header">
                             <span>${this.title}</span>
-                            ${this.corner_close ? html`
+                            ${this.cornerClose ? html`
                                 <button class="close-btn" @click="${this._close}">&times;</button>
                             ` : ''}
                         </div>
                     ` : html`
-                         ${this.corner_close ? html`
+                         ${this.cornerClose ? html`
                                 <button class="close-btn" 
                                         style="position: absolute; top: 10px; right: 10px; z-index: 1;" 
                                         @click="${this._close}">&times;</button>
