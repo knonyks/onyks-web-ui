@@ -3,7 +3,7 @@ import {customElement, property} from 'lit/decorators.js'
 import { style_size } from './styles';
 
 @customElement('onyks-alert')
-export class Onyks_Alert extends LitElement 
+export class OnyksAlert extends LitElement 
 {
     @property({type: String, reflect: true})
     size = 'm';
@@ -28,7 +28,6 @@ export class Onyks_Alert extends LitElement
             box-sizing: border-box;
             flex-shrink: 0;
             vertical-align: middle;
-            // text-align: justify;
         }
 
         #text
@@ -87,28 +86,32 @@ export class Onyks_Alert extends LitElement
             vertical-align: middle;
         }
             
-        :host([type="error"])
+        :host([type="info"])
         { 
-            background-color: var(--color-error);
-            color: var(--text-error);
+            background-color: var(--alert-info-background);
+            color: var(--alert-info-text-color);
+            border: 1px solid var(--alert-info-border-color);
         }
 
         :host([type="warning"])
         { 
-            background-color: var(--color-warning);
-            color: var(--text-warning);
+            background-color: var(--alert-warning-background);
+            color: var(--alert-warning-text-color);
+            border: 1px solid var(--alert-warning-border-color);
+        }
+
+        :host([type="error"])
+        { 
+            background-color: var(--alert-error-background);
+            color: var(--alert-error-text-color);
+            border: 1px solid var(--alert-error-border-color);
         }
 
         :host([type="success"])
         { 
-            background-color: var(--color-success);
-            color: var(--text-success);
-        }
-
-        :host([type="info"])
-        { 
-            background-color: var(--color-info);
-            color: var(--text-info);
+            background-color: var(--alert-success-background);
+            color: var(--alert-success-text-color);
+            border: 1px solid var(--alert-success-border-color);
         }
 
         #icon
@@ -142,6 +145,6 @@ declare global
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-alert': Onyks_Alert
+        'onyks-alert': OnyksAlert
     }
 }

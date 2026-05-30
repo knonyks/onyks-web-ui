@@ -1,9 +1,9 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
-import {customElement, property, state} from 'lit/decorators.js'
+import {customElement, property} from 'lit/decorators.js'
 import { style_size, style_scrollbar } from './styles';
 
 @customElement('onyks-path-chain')
-export class Onyks_Path_Chain extends LitElement 
+export class OnyksPathChain extends LitElement 
 {
     render()
     {
@@ -19,10 +19,10 @@ export class Onyks_Path_Chain extends LitElement
 
         .content
         {
-            background-color: var(--color-primary);
+            background-color: var(--path-chain-background);
             display: block;
-            padding: 10px;
-            border-radius: 5px;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
             cursor: pointer;
             height: fit-content;
             white-space: nowrap;
@@ -30,33 +30,29 @@ export class Onyks_Path_Chain extends LitElement
             text-overflow: ellipsis;
             max-width: 300px;
             color: black;
+            transition: opacity 0.2s;
+        }
+
+        .content:hover
+        {
+            opacity: 0.6;
         }
     `;
 }
 
 @customElement('onyks-path')
-export class Onyks_Path extends LitElement 
+export class OnyksPath extends LitElement 
 {
     @property({ type: String, reflect: true }) size = "m";
 
-    @property({ type: Array, reflect: true}) content: string[] = [];
+    @property({ type: Boolean, reflect: true }) disabled = false;
 
-    @state()
-    private _current_path: string[] = [];
-
-    protected willUpdate(_changedProperties: PropertyValues) 
-    {
-        super.willUpdate(_changedProperties);
-        if (_changedProperties.has('content')) 
-        {
-            this._current_path = [...this.content];
-        }
-    }
+    @property({ type: Array }) content: string[] = [];
 
     protected updated(_changedProperties: PropertyValues) 
     {
         super.updated(_changedProperties);
-        if (_changedProperties.has('_current_path')) 
+        if (_changedProperties.has('content')) 
         {
             setTimeout(() => 
             {
@@ -67,51 +63,45 @@ export class Onyks_Path extends LitElement
 
     private _handleItemClick(index: number) 
     {
-        this._current_path = this._current_path.slice(0, index + 1);
-        
-        this.dispatchEvent(new CustomEvent('path-changed', 
+        if(!this.disabled)
         {
-            detail: { path: [...this._current_path] },
-            bubbles: true,
-            composed: true
-        }));
-    }
+            this.content = this.content.slice(0, index + 1);
+            console.log('🔥 Dispatching path-change event:', this.content); // 👈 Debug
 
-    public add_folder(name: string) 
-    {
-        this._current_path = [...this._current_path, name];
-    }
-
-    public current_path()
-    {
-        return [...this._current_path];
+            this.dispatchEvent(new CustomEvent('path-change', 
+            {
+                detail: { path: [...this.content] },
+                bubbles: true,
+                composed: true
+            }));
+        }
     }
 
     render()
     {
         return html`
-        ${this._current_path.map((folder, i) => html`
-            <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
-                ${folder}
-            </onyks-path-chain>
-        `)}
+            ${this.content.map((folder, i) => html`
+                <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
+                    ${folder}
+                </onyks-path-chain>
+            `)}
         `;
     }
 
     static styles = [css`
         :host
         {
-            background-color: var(--surface-element);
+            background-color: var(--path-background);
             width: 100%;
             height: fit-content;
             display: flex;
             flex-direction: row;
             border-radius: 5px;
-            padding: 10px;
+            padding: var(--spacing-sm);
             box-sizing: border-box;
             overflow-x: auto;
-            gap: 10px;
-            border: 1px solid var(--surface-border);
+            gap: var(--spacing-sm);
+            border: 1px solid var(--path-border-color);
         }
 
         onyks-path-chain:not(:last-child)::after 
@@ -121,7 +111,7 @@ export class Onyks_Path extends LitElement
             color: white;
             align-items: center;
             display: flex;
-            margin-left: 10px;
+            margin-left: var(--spacing-sm);
         }
     `, style_scrollbar(':host'), style_size(':host')];
 }
@@ -130,7 +120,7 @@ declare global
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-path': Onyks_Path,
-        'onyks-path-chain': Onyks_Path_Chain
+        'onyks-path': OnyksPath,
+        'onyks-path-chain': OnyksPathChain
     }
 }

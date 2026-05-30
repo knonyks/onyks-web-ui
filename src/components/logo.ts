@@ -1,18 +1,24 @@
 import {LitElement, css, html} from 'lit'
-import {customElement} from 'lit/decorators.js'
+import {customElement, property} from 'lit/decorators.js'
 import logo_path from '../assets/logo.png';
 
 @customElement('onyks-logo')
-export class Onyks_Logo extends LitElement 
+export class OnyksLogo extends LitElement 
 {
-render() {
+    @property({type: Boolean, reflect: true})
+    invert = false;
+
+    render() 
+    {
         return html`<img src="${logo_path}">`;
     }
 
     static styles = css`
         :host 
         {
-            display: block; 
+            display: block;
+            height: fit-content;
+            width: fit-content;
         }
 
         img 
@@ -21,9 +27,13 @@ render() {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            
-            filter: var(--logo-filter);
+            filter: var(--logo-invert-mode);
             transition: filter 0.3s ease;
+        }
+
+        :host([invert]) > img
+        {
+            filter: invert(calc(1 - var(--logo-invert-mode)));
         }
     `;
 }
@@ -32,6 +42,6 @@ declare global
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-logo': Onyks_Logo
+        'onyks-logo': OnyksLogo
     }
 }

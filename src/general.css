@@ -1,7 +1,8 @@
 @import "@fontsource/inter/400.css";
 
-:root 
+:root
 {
+  /* General */
   --font: 'Inter', sans-serif;
 
   --spacing-sm: 8px;
@@ -19,7 +20,41 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  --color-error: #ff5454;
+  --surface-background: hsl(0, 0%, 12%);
+  --surface-element-background: hsl(228, 7%, 15%);
+  --surace-element-border-color: hsl(227, 7%, 26%);
+
+  --text-color: hsl(0, 0%, 100%);
+
+  --accent-color: hsl(0, 94%, 65%);
+
+  /* Alert */
+  --alert-success-background: hsl(116, 100%, 75%);
+  --alert-warning-background: hsl(45, 100%, 72%);
+  --alert-info-background: hsl(219, 100%, 50%);
+  --alert-error-background: hsl(0, 100%, 66%);
+
+  --alert-success-border-color: hsl(116, 35%, 40%);
+  --alert-warning-border-color: hsl(45, 37%, 44%);
+  --alert-info-border-color: hsl(219, 100%, 14%);
+  --alert-error-border-color: hsl(0, 53%, 35%);
+
+  --alert-success-text-color: hsl(0, 0%, 0%);
+  --alert-warning-text-color: hsl(0, 0%, 0%);
+  --alert-info-text-color: hsl(0, 0%, 100%);
+  --alert-error-text-color: hsl(0, 0%, 0%);
+
+  /* Logo */
+  --logo-invert-mode: 1;
+
+  /* Path */
+  --path-background: var(--surface-element-background);
+  --path-border-color: var(--surace-element-border-color);
+  --path-chain-background: var(--accent-color);
+
+
+  /* TO FIX */
+    --color-error: #ff5454;
   --color-warning: #ffdc71;
   --color-success: hsl(116, 100%, 75%);
   --color-info: #0059ff;
@@ -82,15 +117,11 @@
   --color-success-hover: rgb(71, 192, 62);
 }
 
-[data-theme="light"]
-{
-  --logo-filter: invert(1);
-}
 
 body
 {
-  background-color: var(--surface-base);
-  color: var(--text-primary);
+  background-color: var(--surface-background);
+  color: var(--text-color);
   margin: 0;
   font-size: var(--size-md);
 }
@@ -103,4 +134,45 @@ body
 p, h1, h2, h3, h4, h5, h6
 {
   margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+*
+{
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-border) var(--surface-element);
+}
+
+*::-webkit-scrollbar 
+{ 
+  width: 10px; 
+  height: 10px; 
+}
+    
+*::-webkit-scrollbar-track, *::-webkit-scrollbar-corner 
+{
+  background: var(--surface-element);
+}
+
+*::-webkit-scrollbar-thumb 
+{
+  background-color: var(--surface-border);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--surface-element);
+}
+
+*::-webkit-scrollbar-thumb:hover 
+{
+  background-color: var(--color-primary);
 }
