@@ -1,6 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { style_size, style_scrollbar } from './styles';
+import { style_size, style_scrollbar } from './_styles';
 
 @customElement('onyks-path-chain')
 export class OnyksPathChain extends LitElement 
@@ -11,7 +11,7 @@ export class OnyksPathChain extends LitElement
     }
 
     static styles = css`
-        :host 
+        :host
         {
             display: flex;
             flex-shrink: 0;
@@ -44,9 +44,7 @@ export class OnyksPathChain extends LitElement
 export class OnyksPath extends LitElement 
 {
     @property({ type: String, reflect: true }) size = "m";
-
     @property({ type: Boolean, reflect: true }) disabled = false;
-
     @property({ type: Array }) content: string[] = [];
 
     protected updated(_changedProperties: PropertyValues) 
@@ -66,8 +64,6 @@ export class OnyksPath extends LitElement
         if(!this.disabled)
         {
             this.content = this.content.slice(0, index + 1);
-            console.log('🔥 Dispatching path-change event:', this.content); // 👈 Debug
-
             this.dispatchEvent(new CustomEvent('path-change', 
             {
                 detail: { path: [...this.content] },
@@ -113,7 +109,7 @@ export class OnyksPath extends LitElement
             display: flex;
             margin-left: var(--spacing-sm);
         }
-    `, style_scrollbar(':host'), style_size(':host')];
+    `, style_size(':host')];
 }
 
 declare global 

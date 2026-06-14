@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { style_size } from './styles';
+import { style_size } from './_styles';
 
 @customElement('onyks-avatar')
 export class Onyks_Avatar extends LitElement

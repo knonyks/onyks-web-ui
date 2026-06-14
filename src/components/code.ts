@@ -9,7 +9,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 // Import stylów Prisma (możesz zmienić 'prism-tomorrow' na inny motyw)
 import prismTheme from 'prismjs/themes/prism-tomorrow.css?inline';
 import prismLineNumbersTheme from 'prismjs/plugins/line-numbers/prism-line-numbers.css?inline';
-import { style_scrollbar } from './styles';
+import { style_scrollbar } from './_styles';
 
 // UWAGA: Prism domyślnie ładuje tylko podstawowe języki (HTML, JS, CSS). 
 // Jeśli potrzebujesz innych, zaimportuj je tutaj, np.:

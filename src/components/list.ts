@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { style_scrollbar, style_size } from './styles';
+import { style_scrollbar, style_size } from './_styles';
 
 @customElement('onyks-list-element')
 export class Onyks_List_Element extends LitElement 

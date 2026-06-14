@@ -1,7 +1,7 @@
 import { LitElement, html, css, type PropertyValueMap } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { style_size } from './styles';
+import { style_size } from './_styles';
 
 
 @customElement('onyks-nav')

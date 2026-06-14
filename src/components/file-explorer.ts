@@ -1,6 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { style_scrollbar, style_size } from './styles.ts';
+import { style_scrollbar, style_size } from './_styles.ts';
 
 export interface OnyksFileItem 
 {

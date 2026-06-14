@@ -6,11 +6,11 @@ import logo_path from '../assets/logo.png';
 export class OnyksLogo extends LitElement 
 {
     @property({type: Boolean, reflect: true})
-    invert = false;
+    invert = true;
 
     render() 
     {
-        return html`<img src="${logo_path}">`;
+        return html`<img src="${logo_path}" part="logo">`;
     }
 
     static styles = css`
@@ -21,13 +21,13 @@ export class OnyksLogo extends LitElement
             width: fit-content;
         }
 
-        img 
+        img
         {
             display: block;
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: var(--logo-invert-mode);
+            filter: invert(var(--logo-invert-mode));
             transition: filter 0.3s ease;
         }
 
