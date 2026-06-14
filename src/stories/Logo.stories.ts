@@ -68,7 +68,7 @@ export const CSSEdit: Story =
         },
         source: 
         {
-          transform: (_originalCode: string, storyContext: any) => 
+          transform: (_originalCode: string, _storyContext: any) => 
           {
             return `
 <style>
