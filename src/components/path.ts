@@ -1,6 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { style_size } from './_styles';
+import { applyStyle } from './_styles';
 
 @customElement('onyks-path-chain')
 export class OnyksPathChain extends LitElement 
@@ -109,7 +109,7 @@ export class OnyksPath extends LitElement
             display: flex;
             margin-left: var(--spacing-sm);
         }
-    `, style_size(':host')];
+    `, applyStyle('size')];
 }
 
 declare global 

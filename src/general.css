@@ -1,4 +1,24 @@
 @import "@fontsource/inter/400.css";
+@import 'bootstrap-icons';
+
+body
+{
+  background-color: var(--background);
+  color: var(--text-color);
+  margin: 0;
+  font-size: var(--size-md);
+}
+
+*
+{
+  font-family: var(--font);
+}
+
+p, h1, h2, h3, h4, h5, h6
+{
+  margin: 0;
+  padding: 0;
+}
 
 :root
 {
@@ -20,14 +40,15 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  --surface-background: hsl(0, 0%, 12%);
-  --surface-element-background: hsl(228, 7%, 15%);
-  --surface-element-sub-background: hsl(0, 14%, 7%);
-  --surface-element-border-color: hsl(227, 7%, 26%);
+  --background: #1f1f1f;
+  --element-background: #242529;
+  --element-background-marked: #3e4047;
+  --element-background-hover: #37383e;
+  --element-sub-background: #140f0f; /*Usefull when element has depth - it has elements which need other color*/
+  --element-border-color: #3e4047;
 
-  --text-color: hsl(0, 0%, 100%);
-
-  --accent-color: hsl(0, 94%, 65%);
+  --text-color: #ffffff;
+  --accent-color: #fa5252;
 
   /* Alert */
   --alert-success-background: hsl(116, 100%, 75%);
@@ -49,23 +70,41 @@
   --logo-invert-mode: 0;
 
   /* Path */
-  --path-background: var(--surface-element-background);
-  --path-border-color: var(--surface-element-border-color);
+  --path-background: var(--element-background);
+  --path-border-color: var(--element-border-color);
   --path-chain-background: var(--accent-color);
 
   /* Dialog */
   --dialog-backdrop-filter: blur(4px);
-  --dialog-background-background: hsla(0, 0%, 0%, 0.5);
-  --dialog-border-color: var(--surface-element-border-color);
-  --dialog-background: var(--surface-element-background);
-  --dialog-footer-background: var(--surface-element-sub-background);
+  --dialog-border-color: var(--element-border-color);
+  --dialog-background: var(--element-background);
+  --dialog-footer-background: var(--element-sub-background);
 
 
+  /* Pagination Nav */
+  --pagination-nav-background: var(--element-background);
+  --pagination-nav-background-hover: var(--element-background-hover);
+  --pagination-nav-border-color: var(--element-border-color);
 
-
+  --pagination-nav-border-color-active: var(--accent-color); 
+  --pagination-nav-background-active: var(--element-background-marked);
   
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /* TO FIX */
     --color-error: #ff5454;
   --color-warning: #ffdc71;
@@ -131,24 +170,7 @@
 }
 
 
-body
-{
-  background-color: var(--surface-background);
-  color: var(--text-color);
-  margin: 0;
-  font-size: var(--size-md);
-}
 
-*
-{
-  font-family: var(--font);
-}
-
-p, h1, h2, h3, h4, h5, h6
-{
-  margin: 0;
-  padding: 0;
-}
 
 
 

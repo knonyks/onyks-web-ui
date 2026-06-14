@@ -1,6 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { style_scrollbar, style_size } from './_styles.ts';
+import { applyStyle } from './_styles.ts';
 
 export interface OnyksFileItem 
 {
@@ -103,7 +103,7 @@ export class OnyksFileExplorer extends LitElement
     {
       line-height: 1.2; 
     }
-  `, style_size(':host'), style_scrollbar(':host')];
+  `, applyStyle('size', ''), applyStyle('scrollbar', '')];
   
   getSelectedItems(): OnyksFileItem[] 
   {

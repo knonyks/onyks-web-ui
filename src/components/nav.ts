@@ -1,7 +1,7 @@
 import { LitElement, html, css, type PropertyValueMap } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { style_size } from './_styles';
+import { applyStyle } from './_styles';
 
 
 @customElement('onyks-nav')
@@ -61,7 +61,7 @@ export class Onyks_Nav extends LitElement
       border-bottom-left-radius: 0; 
       border-bottom-right-radius: 0; 
     }
-  `, style_size(':host')];
+  `, applyStyle('size', '')];
   
   constructor() 
   {

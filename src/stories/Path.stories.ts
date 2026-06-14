@@ -58,7 +58,7 @@ const meta: Meta =
         {
             source: 
             {
-                transform: (originalCode: string, storyContext: any) => 
+                transform: (_originalCode: string, storyContext: any) => 
                 {
                     const { args } = storyContext;
                     return `

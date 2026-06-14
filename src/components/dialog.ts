@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { style_size } from './_styles';
+import { applyStyle } from './_styles';
 
 @customElement('onyks-dialog')
 export class OnyksDialog extends LitElement 
@@ -161,7 +161,7 @@ export class OnyksDialog extends LitElement
         {
             min-width: 100px;
         }
-    `, style_size('.dialogContent')];
+    `, applyStyle('size', '.dialogContent')];
 
     
 

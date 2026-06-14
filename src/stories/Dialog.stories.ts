@@ -52,7 +52,7 @@ const meta: Meta =
         {
             source:
             {
-                transform: (originalCode: string, storyContext: any) => 
+                transform: (_originalCode: string, storyContext: any) => 
                 {
                     const { args } = storyContext;
                     return `
@@ -111,7 +111,7 @@ export const WithButtons: Story =
       {
           source:
           {
-              transform: (originalCode: string, storyContext: any) => 
+              transform: (_originalCode: string, storyContext: any) => 
               {
                   const { args } = storyContext;
                   return `
@@ -152,7 +152,7 @@ export const WithLongContent: Story =
       {
           source:
           {
-              transform: (originalCode: string, storyContext: any) => 
+              transform: (_originalCode: string, storyContext: any) => 
               {
                   const { args } = storyContext;
                   return `
@@ -227,7 +227,7 @@ export const CSSEdit: Story =
         },
         source:
         {
-            transform: (originalCode: string, storyContext: any) => 
+            transform: (_originalCode: string, storyContext: any) => 
             {
                 const { args } = storyContext;
                 return `

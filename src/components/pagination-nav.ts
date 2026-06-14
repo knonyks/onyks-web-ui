@@ -1,21 +1,14 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { style_size } from './_styles';
+import { applyStyle, style_size } from './_styles';
 
 @customElement('onyks-pagination-nav')
-export class Onyks_Pagination_Nav extends LitElement 
+export class OnyksPaginationNav extends LitElement 
 {
-    @property({type: Number, reflect: true})
-    maxIndex = 10;
-
-    @property({type: Number, reflect: true})
-    index = 1;
-
-    @property({type: Number, reflect: true})
-    maxView = 5;
-
-    @property({type: Number, reflect: true})
-    size = "m";
+    @property({type: Number, reflect: true, attribute: 'max-index'}) maxIndex = 10;
+    @property({type: Number, reflect: true}) index = 1;
+    @property({type: Number, reflect: true, attribute: 'max-view'}) maxView = 5;
+    @property({type: Number, reflect: true}) size = "m";
 
     willUpdate(changedProperties: any) 
     {
@@ -38,7 +31,7 @@ export class Onyks_Pagination_Nav extends LitElement
         {
             this.index = newIndex;
             
-            this.dispatchEvent(new CustomEvent('page-changed', 
+            this.dispatchEvent(new CustomEvent('page-change', 
             {
                 detail: {index: this.index},
                 bubbles: true,
@@ -57,8 +50,6 @@ export class Onyks_Pagination_Nav extends LitElement
             endPage = this.maxIndex;
             startPage = Math.max(1, endPage - this.maxView + 1);
         }
-
-
 
         const pages = [];
         for (let i = startPage; i <= endPage; i++) 
@@ -83,6 +74,7 @@ export class Onyks_Pagination_Nav extends LitElement
             display: flex;
             flex-direction: row;
             gap: var(--spacing-sm);
+            font-family: var(--font);
         }
 
         .btn
@@ -91,23 +83,25 @@ export class Onyks_Pagination_Nav extends LitElement
             padding: var(--spacing-sm);
             min-width: var(--spacing-xl);
             text-align: center;
-            border: 2px solid var(--surface-border);
-            background-color: var(--surface-element);
+            border: 3px solid var(--pagination-nav-border-color);
+            background-color: var(--pagination-nav-background);
             color: inherit;
             font-size: inherit;
             cursor: pointer;
             outline: none;
+            flex-shrink: 0;
+            transition: background-color 0.3s ease;
         }
 
         .btn:hover
         {
-            background-color: var(--surface-hover);
+            background-color: var(--pagination-nav-background-hover);
         }
 
         .active
         {
-            border: 2px solid var(--color-primary);
-            background-color: var(--surface-marked);
+            border: 3px solid var(--pagination-nav-border-color-active);
+            background-color: var(--pagination-nav-background-active);
         }
 
         .btn:disabled 
@@ -143,18 +137,13 @@ export class Onyks_Pagination_Nav extends LitElement
             font-family: 'bootstrap-icons';
             display: block;
         }
-
-        .disabled
-        {
-
-        }
-    `, style_size(":host")];
+    `, applyStyle('size'), applyStyle('font')];
 }
 
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-pagination-nav': Onyks_Pagination_Nav
+        'onyks-pagination-nav': OnyksPaginationNav
     }
 }

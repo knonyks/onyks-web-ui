@@ -1,6 +1,6 @@
 import { css, unsafeCSS } from 'lit';
 
-export const style_size = (selector: string) => 
+export const styleSize = (selector: string) => 
 {
     const sel = unsafeCSS(selector);
     return css`
@@ -23,11 +23,14 @@ export const style_size = (selector: string) =>
     `;
 };
 
-export const style_scrollbar = (selector: string) => 
+export const style_size = styleSize
+
+
+export const styleScrollbar = (selector: string) => 
 {
     const sel = unsafeCSS(selector);
     return css`
-        ${sel} 
+        ${sel}
         {
             scrollbar-width: thin;
             scrollbar-color: var(--surface-border) var(--surface-element);
@@ -57,6 +60,33 @@ export const style_scrollbar = (selector: string) =>
             background-color: var(--color-primary);
         }
     `;
+};
+
+export const style_scrollbar = styleScrollbar
+
+export const styleFont = (selector: string) =>
+{
+    const sel = unsafeCSS(selector);
+    return css`
+        ${sel}
+        {
+            font-family: var(--font-family);
+        }
+    `
+};
+
+export const applyStyle = (mode: string, selector: string = '') =>
+{
+    switch(mode)
+    {
+        case 'size':
+            return styleSize(selector)
+        case 'scrollbar':
+            return styleScrollbar(selector)
+        case 'font':
+            return styleFont(selector);
+    }
+    return styleSize(selector)
 };
 
 
