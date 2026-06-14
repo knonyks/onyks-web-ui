@@ -1,6 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { style_size, style_scrollbar } from './_styles';
+import { style_size } from './_styles';
 
 @customElement('onyks-path-chain')
 export class OnyksPathChain extends LitElement 

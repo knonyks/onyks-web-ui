@@ -22,7 +22,7 @@ const meta: Meta =
             },
             source:
             {
-                transform: (originalCode: string, storyContext: any) => 
+                transform: (_originalCode: string, storyContext: any) => 
                 {
                     const { args } = storyContext;
                     return `<onyks-logo${args.invert ? ' invert' : ''}></onyks-logo>`;
@@ -68,9 +68,8 @@ export const CSSEdit: Story =
         },
         source: 
         {
-          transform: (originalCode: string, storyContext: any) => 
+          transform: (_originalCode: string, storyContext: any) => 
           {
-            const { args } = storyContext;
             return `
 <style>
     onyks-logo::part(logo)
@@ -84,7 +83,7 @@ export const CSSEdit: Story =
         },
       }
     },
-    render: (args) => html`
+    render: (_args) => html`
     <style>
       #custom-css::part(logo)
       {

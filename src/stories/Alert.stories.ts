@@ -46,7 +46,7 @@ const meta: Meta =
       {
         source: 
         {
-          transform: (originalCode: string, storyContext: any) => 
+          transform: (_originalCode: string, storyContext: any) => 
           {
             const { args } = storyContext;
             return `<onyks-alert type="${args.type}" size="${args.size}">${args.text}</onyks-alert>`;
@@ -127,7 +127,7 @@ export const CSSEdit: Story = {
         },
         source: 
         {
-          transform: (originalCode: string, storyContext: any) => 
+          transform: (_originalCode: string, storyContext: any) => 
           {
             const { args } = storyContext;
             return `
