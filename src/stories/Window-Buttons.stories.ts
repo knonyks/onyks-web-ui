@@ -42,7 +42,11 @@ const meta: Meta =
                 {
                     const { args } = storyContext;
                     return `
-                    dasd
+                        <onyks-window-bar text="${args.text}" size="${args.size}">
+                            <onyks-window-bar-button type="minimize" size="${args.size}"></onyks-window-bar-button>
+                            <onyks-window-bar-button type="fullscreen" size="${args.size}"></onyks-window-bar-button>
+                            <onyks-window-bar-button type="close" size="${args.size}"></onyks-window-bar-button>
+                        </onyks-window-bar>
                     `;
                 }
             },
