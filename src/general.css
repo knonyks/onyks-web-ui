@@ -44,11 +44,20 @@ p, h1, h2, h3, h4, h5, h6
   --element-background: #242529;
   --element-background-marked: #3e4047;
   --element-background-hover: #37383e;
-  --element-sub-background: #140f0f; /*Usefull when element has depth - it has elements which need other color*/
-  --element-border-color: #3e4047;
+
+  /*Usefull when element has depth - it has elements inside which need other color*/
+  --element-sub-background: #140f0f; 
+  --element-border-color: #57585b;
 
   --text-color: #ffffff;
   --accent-color: #fa5252;
+
+  --color-green: #3eff78;
+  --color-blue: #527aff;
+  --color-red: #ff4e4e;
+  --color-orange: #ff7e05;
+  --color-yellow: #ffff00;
+  --color-purple: #7e1ca5;
 
   /* Alert */
   --alert-success-background: hsl(116, 100%, 75%);
@@ -85,24 +94,38 @@ p, h1, h2, h3, h4, h5, h6
   --pagination-nav-background: var(--element-background);
   --pagination-nav-background-hover: var(--element-background-hover);
   --pagination-nav-border-color: var(--element-border-color);
-
   --pagination-nav-border-color-active: var(--accent-color); 
   --pagination-nav-background-active: var(--element-background-marked);
-  
 
-  
-
-
-
-
+  /* Avatar */
+  --avatar-background: var(--element-background);
+  --avatar-background-hover: var(--element-background-hover);
+  --avatar-border-color: var(--element-border-color);
 
 
+  /* Strip Menu */
+  --strip-menu-background: var(--element-background);
+  --strip-menu-border-color: var(--element-border-color);
+  --strip-menu-option-background: var(--element-background);
+  --strip-menu-option-background-hover: var(--element-background-hover);
+  --strip-menu-option-background-marked: var(--element-background-marked);
+  --strip-menu-option-border-color: var(--element-border-color);
+
+  /* Panel */
+  --panel-background: var(--element-background);
+  --panel-border-color: var(--element-border-color);
+
+  /* Window Buttons */
+  --window-bar-background: var(--element-background);
+  --window-bar-border-color: var(--element-border-color);
+  --window-bar-button-close-background: var(--color-red);
+  --window-bar-button-minimize-background: var(--color-yellow);
+  --window-bar-button-fullscreen-background: var(--color-green);
 
 
+  /* Nav */
 
-
-
-
+  /* Select  */
 
 
   /* TO FIX */
@@ -116,12 +139,7 @@ p, h1, h2, h3, h4, h5, h6
   --text-success: #000000;
   --text-info: #fff;
 
-  --color-green: #3eff78;
-  --color-blue: #527aff;
-  --color-red: #ff4e4e;
-  --color-orange: #ff7e05;
-  --color-yellow: #ffff00;
-  --color-purple: #7e1ca5;
+
 
   --color-green-hover: #35ca62;
   --color-blue-hover: #2548be;

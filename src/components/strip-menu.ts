@@ -1,76 +1,88 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { style_size } from './_styles';
+import { applyStyle } from './_styles';
 
 @customElement('onyks-strip-menu-option')
-export class Onyks_Strip_Menu_Option extends LitElement 
+export class OnyksStripMenuOption extends LitElement 
 {
-    @property({type: String, reflect: true}) icon = "F62A"; 
+    @property({type: String, reflect: true}) 
+    icon = "F62A"; 
 
-    @property({ type: Boolean, reflect: true }) marked = false;
+    @property({ type: Boolean, reflect: true })
+    marked = false;
 
     @property({type: String, reflect: true})
-    size = "m";
+    size = "xl"
 
     render() 
     {
-        const parsedCode = parseInt(this.icon, 16);
-        const converted_icon = isNaN(parsedCode) ? '' : String.fromCodePoint(parsedCode);
-
-        return html`<style>
-            :host {
-                --decoded-icon: '${converted_icon}';
-            }
-        </style>`;
+        return html`    
+            <style>
+                :host::before 
+                {
+                    font-family: 'bootstrap-icons';
+                    content: "\\${this.icon}";
+                }
+            </style>
+        `;
     }
 
     static styles = [css`
-        :host 
+        :host([size="s"])
         {
-            display: block;'
-            height: fit-content;
-            width: fit-content;
-            padding: var(--spacing-md); 
-            cursor: pointer;
-            user-select: none;
-
-
-            border-radius: var(--radius-md, 4px);
-
-            transition: background-color 0.2s;
-
+            width: var(--size-sm);
+            height: var(--size-sm);
         }
 
-        :host::before {
-            font-family: 'bootstrap-icons';
-            color: white;
+        :host([size="m"])
+        {
+            width: var(--size-md);
+            height: var(--size-md);
+        }
+
+        :host([size="l"])
+        {
+            width: var(--size-lg);
+            height: var(--size-lg);
+        }
+
+        :host([size="xl"])
+        {
+            width: var(--size-xl);
+            height: var(--size-xl);
+        }
+
+        :host
+        {
             display: flex;
             justify-content: center;
             align-items: center;
-            content: var(--decoded-icon);
-            width: fit-content;
-            height: fit-content;
+            background-color: var(--strip-menu-option-background);
+            border: 2px solid var(--strip-menu-border-color);
+            transition: background-color 0.3s ease;
+            padding: var(--spacing-md);
+            border-radius: var(--spacing-sm);
+            cursor: pointer;
         }
 
-        :host(:hover) {
-            background-color: var(--surface-hover, red) !important;
+        :host(:hover)
+        {
+            background-color: var(--strip-menu-option-background-hover);
         }
 
-        :host([marked]) {
-            background-color: var(--surface-marked, green) !important;
+        :host([marked])
+        {
+            background-color: var(--strip-menu-option-background-marked);
         }
-    `, style_size(':host')];
+    `, applyStyle('size')];
 }
 
 @customElement('onyks-strip-menu')
-export class Onyks_Strip_Menu extends LitElement 
+export class OnyksStripMenu extends LitElement 
 {
     @property({type: String, reflect: true})
     type = "v"
-
-    @property({type: String, reflect: true})
-    size = "l"
 
     render()
     {
@@ -78,38 +90,35 @@ export class Onyks_Strip_Menu extends LitElement
     }
 
     static styles = [css`
-        :host 
+        :host
         {
+            background-color: var(--strip-menu-background);
+            border: 2px solid var(--strip-menu-border-color);
+            border-radius: var(--radius-md);
             display: flex;
-            background-color: var(--surface-element);
-            border: 1px solid var(--surface-border);
-            gap: 1rem;
-            align-items: center;
-            font-weigth: bold;
+            gap: var(--spacing-sm);
+            width: fit-content;
+            height: fit-content;
+            padding: var(--spacing-sm);
         }
 
         :host([type="v"])
         {
             flex-direction: column;
-            height: fit-content;
-            width: fit-content;
-            padding: var(--spacing-sm);
-            border-radius: var(--radius-md);
         }
 
         :host([type="h"])
         {
             flex-direction: row;
         }
-
-    `, style_size(':host')];
+    `];
 }
 
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-strip-menu': Onyks_Strip_Menu,
-        'onyks-strip-menu-option': Onyks_Strip_Menu_Option
+        'onyks-strip-menu': OnyksStripMenu,
+        'onyks-strip-menu-option': OnyksStripMenuOption
     }
 }

@@ -1,60 +1,54 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
 
-
-
 @customElement('onyks-panel')
-export class Onyks_Panel extends LitElement 
+export class OnyksPanel extends LitElement 
 {
-    @property({type: String, reflect: true})
-    size = 'l';
-
-    @property({type: Boolean, reflect: true }) 
-    opened = false;
-
     @property({type: String, reflect: true})
     side = 'left'
 
-    @property({type: String, reflect: true})
+    @property({type: String, reflect: true, attribute: 'all-round'})
     allRound = false
 
     render() 
     {
-        return html`<slot class="size-${this.size}"></slot>`
+        return html`<slot></slot>`
     }
 
     static styles = css`
         :host 
         {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 300px;
-            height: 300px;
-            padding: 20px;
-            background-color: var(--surface-hover);
-            height: 100%;
-            border-radius: 5px;
+            display: block;
+            height: 200px;
+            width: 200px;
+            background-color: var(--panel-background);
+            padding: var(--spacing-md);
+            border: 3px solid var(--panel-border-color);
         }
 
-        .size-s
+        :host([all-round])
         {
-            font-size: var(--size-sm);
+            border-radius: var(--radius-lg);
         }
 
-        .size-m
+        :host([side="left"]:not([all-round]))
         {
-            font-size: var(--size-md);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+        
+        :host([side="right"]:not([all-round]))
+        {
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
         }
 
-        .size-l
+        :host([side="top"]:not([all-round]))
         {
-            font-size: var(--size-lg);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
-        .size-xl
+        :host([side="bottom"]:not([all-round]))
         {
-            font-size: var(--size-xl);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
     `
 }
@@ -64,6 +58,6 @@ declare global
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-panel': Onyks_Panel
+        'onyks-panel': OnyksPanel
     }
 }

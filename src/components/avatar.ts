@@ -1,48 +1,42 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { style_size } from './_styles';
+import { applyStyle } from './_styles';
 
 @customElement('onyks-avatar')
-export class Onyks_Avatar extends LitElement
+export class OnyksAvatar extends LitElement
 {
-    @property({type: String, reflect: true})
-    type = "emoji"
-
-    @property({type: String, reflect: true})
-    src = "";
-
-    @property({type: String, reflect: true})
-    alt = "Avatar";
-
-    @property({type: String, reflect: true})
-    shape = "circle";
-
     @property({type: String, reflect: true})
     size = "m";
 
+    @property({type: String, reflect: true})
+    src = "";
+    
+    @property({type: String, reflect: true})
+    shape = "circle";
+
     render()
     {
-        return html`${this.type === "emoji" ? html`${this.src}` : html`<img src="${this.src}" alt="${this.alt}">`}`;
+        return html`${this.src}`;
     }
 
     static styles = [css`
         :host
         {
-            display: block;
-            height: fit-content;
-            width: fit-content;
+            display: flex;
             padding: var(--spacing-md);
             cursor: pointer;
             user-select: none;
-            background-color: var(--surface-element);
-            border: 1px solid var(--surface-border);
+            background-color: var(--avatar-background);
+            border: 2px solid var(--avatar-border-color);
             transition: background-color 0.3s ease;
+            justify-content: center;
+            align-items: center;
         }
         
         :host(:hover)
         {
-            background-color: var(--surface-hover);
+            background-color: var(--avatar-background-hover);
         }
 
         :host([shape="circle"])
@@ -54,13 +48,43 @@ export class Onyks_Avatar extends LitElement
         {
             border-radius: var(--spacing-sm);
         }
-    `, style_size(":host")];
+
+        :host([size="s"])
+        {
+            width: var(--size-sm);
+            height: var(--size-sm);
+        }
+
+        :host([size="m"])
+        {
+            width: var(--size-md);
+            height: var(--size-md);
+        }
+
+        :host([size="l"])
+        {
+            width: var(--size-lg);
+            height: var(--size-lg);
+        }
+
+        :host([size="xl"])
+        {
+            width: var(--size-xl);
+            height: var(--size-xl);
+        }
+
+        :host([size="xl"])
+        {
+            width: var(--size-xl);
+            height: var(--size-xl);
+        }
+    `, applyStyle('size')];
 }
 
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-avatar': Onyks_Avatar
+        'onyks-avatar': OnyksAvatar
     }
 }
