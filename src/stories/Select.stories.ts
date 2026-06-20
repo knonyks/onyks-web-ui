@@ -64,7 +64,7 @@ const meta: Meta =
         <onyks-select-option value="oil">Oil</onyks-select-option>
         <onyks-select-option value="vinegar">Vinegar</onyks-select-option>
     </onyks-select>
-    <onyks-button @click=${(e) => {console.log(document.querySelector("#select").getSelectedItems())}} style="margin-top: var(--spacing-md)">Get Selected Items!</onyks-button>
+    <onyks-button @click=${() => {console.log((document.querySelector("#select") as any)?.getSelectedItems())}} style="margin-top: var(--spacing-md)">Get Selected Items!</onyks-button>
     `,
     parameters:
     {
