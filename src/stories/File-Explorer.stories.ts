@@ -72,7 +72,7 @@ size=${args.size}
         
         </onyks-file-explorer>
         
-        <onyks-button style="margin-top: var(--spacing-md)" @click=${(e) => {console.log(document.querySelector('#x').getSelectedItems())}}>Get Selected</onyks-button>
+        <onyks-button style="margin-top: var(--spacing-md)" @click=${() => {console.log((document.querySelector('#x') as any)?.getSelectedItems())}}>Get Selected</onyks-button>
         `,
     parameters:
     {
@@ -127,25 +127,24 @@ export const ExampleInUseWithPathElement: Story =
     content: [{type: 'folder', name: "Kanye West"}, {type: 'file', name: "Shakira - Waka Waka.mp3"}, {type: 'folder', name: "Marek Grechuta"}],
     'empty-alert': "This folder is empty!"
   },
-  render: (args) => html`
-    <script>
-        let updateExplorer = (folderName) => 
+  render: (_args) => {
+    const updateExplorer = (folderName: string) => 
+    {
+        const explorer = document.querySelector('#explorer') as any
+        switch(folderName)
         {
-            const explorer = document.querySelector('#explorer')
-            switch(folderName)
-            {
-                case 'Zenek Martyniuk':
-                    explorer.content = [{type: 'file', name: 'Przez Twe oczy zielone.mp3'}, {type: 'file', name: 'Przekorny los.avi'}]
-                    break;
-                case 'Music':
-                    explorer.content = [{type: 'folder', name: 'Shakira'}, {type: 'folder', name: 'Zenek Martyniuk'}]
-                    break;
-                case 'Shakira':
-                    explorer.content = [{type: 'file', name: 'La La La (Brazil 2014).mp3'}, {type: 'file', name: 'Waka Waka.flac'}]
-                    break;
-            }
+            case 'Zenek Martyniuk':
+                explorer.content = [{type: 'file', name: 'Przez Twe oczy zielone.mp3'}, {type: 'file', name: 'Przekorny los.avi'}]
+                break;
+            case 'Music':
+                explorer.content = [{type: 'folder', name: 'Shakira'}, {type: 'folder', name: 'Zenek Martyniuk'}]
+                break;
+            case 'Shakira':
+                explorer.content = [{type: 'file', name: 'La La La (Brazil 2014).mp3'}, {type: 'file', name: 'Waka Waka.flac'}]
+                break;
         }
-    </script>
+    }
+    return html`
     <div style="display: flex; gap: var(--spacing-md); flex-direction: column;">
         <onyks-path id="path" @path-change=${(e:any) => 
         {
@@ -156,23 +155,23 @@ export const ExampleInUseWithPathElement: Story =
             .content=${[{type: 'folder', name: 'Shakira'}, {type: 'folder', name: 'Zenek Martyniuk'}]}
             @enter-folder=${(e:any) => 
             {
-                const path = document.querySelector('#path')
+                const path = document.querySelector('#path') as any
                 path.content = [...path.content, e.detail.folder.name];
                 updateExplorer(e.detail.folder.name)
             }}
         >
         </onyks-file-explorer>
     </div>
-  `,
+  `;
+  },
     parameters:
     {
         docs:
         {
             source:
             {
-                transform: (_originalCode: string, storyContext: any) => 
+                transform: (_originalCode: string, _storyContext: any) => 
                 {
-                    const { args } = storyContext;
                     return `
 <script>
     let updateExplorer = (folderName) => 

@@ -1,7 +1,5 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
-import { state } from 'lit/decorators/state.js';
 import { applyStyle } from './_styles';
 
 @customElement('onyks-select')
