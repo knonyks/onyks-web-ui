@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Strip-Menu',
+    title: 'ONYKS WebUI/Strip Menu',
     component: 'onyks-strip-menu',
     tags: ['autodocs'],
     argTypes: 

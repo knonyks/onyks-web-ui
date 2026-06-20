@@ -12,6 +12,7 @@ body
 *
 {
   font-family: var(--font);
+  color: var(--text-color);
 }
 
 p, h1, h2, h3, h4, h5, h6
@@ -46,7 +47,7 @@ p, h1, h2, h3, h4, h5, h6
   --element-background-hover: #37383e;
 
   /*Usefull when element has depth - it has elements inside which need other color*/
-  --element-sub-background: #140f0f; 
+  --element-sub-background: rgb(41, 42, 47); 
   --element-border-color: #57585b;
 
   --text-color: #ffffff;
@@ -122,10 +123,32 @@ p, h1, h2, h3, h4, h5, h6
   --window-bar-button-minimize-background: var(--color-yellow);
   --window-bar-button-fullscreen-background: var(--color-green);
 
-
-  /* Nav */
+  /* File Explorer */
+  --file-explorer-background: var(--element-background);
+  --file-explorer-border-color: var(--element-border-color);
+  --file-explorer-item-background-marked: var(--element-background-marked);
+  --file-explorer-item-border-color-hover: var(--element-border-color);
 
   /* Select  */
+  --select-background: var(--element-background);
+  --select-border-color: var(--element-border-color);
+  --select-option-background-marked: var(--element-background-marked);
+  --select-option-border-color-hover: var(--element-border-color);
+
+  /* Nav */
+  --nav-background: var(--element-background);
+  --nav-border-color: var(--element-border-color);
+
+
+  --nav-option-hover: var(--element-background-hover);
+  
+  --nav-option-border-color-hover: var(--accent-color);
+  --nav-option-border-color-marked: var(--accent-color);
+  --nav-option-background-hover: var(--element-background-hover);
+
+
+  --nav-next-btn-border-color: var(--element-border-color);
+  --nav-next-btn-background-hover: var(--element-background-hover);
 
 
   /* TO FIX */

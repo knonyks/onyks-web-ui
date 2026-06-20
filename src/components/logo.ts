@@ -6,7 +6,7 @@ import logo_path from '../assets/logo.png';
 export class OnyksLogo extends LitElement 
 {
     @property({type: Boolean, reflect: true})
-    invert = true;
+    invert = false;
 
     render() 
     {

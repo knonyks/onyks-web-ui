@@ -11,19 +11,20 @@ export interface OnyksFileItem
 @customElement('onyks-file-explorer')
 export class OnyksFileExplorer extends LitElement 
 {
-  @property({ type: Array })
-  content: OnyksFileItem[] = [];
+  // @property({ type: Boolean, reflect: true })
+  // allowFolderSelection: boolean = false;
+
+  @property({ type: String, reflect: true }) 
+  size = "m";
 
   @property({ type: Boolean, reflect: true })
   multiple: boolean = false;
 
-  // @property({ type: Boolean, reflect: true })
-  // allowFolderSelection: boolean = false;
+  @property({ type: Array })
+  content: OnyksFileItem[] = [];
 
-  @property({ type: String, reflect: true })
+  @property({ type: String, reflect: true, attribute: 'empty-alert' })
   emptyAlert: string = "The folder is empty";
-
-  @property({ type: String, reflect: true }) size = "m";
 
   @state()
   private _selectedItems: Set<string> = new Set();
@@ -32,14 +33,15 @@ export class OnyksFileExplorer extends LitElement
     :host  
     {
       display: block;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       padding: 10px;
-      background: var(--surface-element);
-      width: calc(100% - 20px);
+      background: var(--file-explorer-background);
+      width: 600px;
       font-family: var(--font);
+      box-sizing: border-box;
       height: 300px;
       overflow: auto;
-      border: 1px solid var(--surface-border);
+      border: 1px solid var(--file-explorer-border-color);
     }
 
     .item 
@@ -56,24 +58,24 @@ export class OnyksFileExplorer extends LitElement
     
     .item:hover 
     {
-      border: 1px solid var(--surface-border);
+      border: 1px solid var(--file-explorer-item-border-color-hover);
     }
 
     .item.selected 
     {
-      background: var(--surface-marked);
+      background: var(--file-explorer-item-background-marked);
     }
 
     .item:first-child 
     {
-      border-top-left-radius: var(--radius-sm);
-      border-top-right-radius: var(--radius-sm);
+      border-top-left-radius: var(--radius-md);
+      border-top-right-radius: var(--radius-md);
     }
 
     .item:last-child 
     {
-      border-bottom-left-radius: var(--radius-sm);
-      border-bottom-right-radius: var(--radius-sm);
+      border-bottom-left-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
     }
 
     .icon 
@@ -87,14 +89,14 @@ export class OnyksFileExplorer extends LitElement
 
     .icon.folder::before 
     {
-      content: '\\F3D7';
+      content: '\\F3D9';
       font-family: 'bootstrap-icons';
       line-height: 1;
     }
 
     .icon.file::before 
     {
-      content: '\\F35C';
+      content: '\\F392';
       font-family: 'bootstrap-icons';
       line-height: 1;
     }
@@ -109,7 +111,6 @@ export class OnyksFileExplorer extends LitElement
   {
     return this.content.filter((item) => this._selectedItems.has(item.name));
   }
-
 
   private handleItemClick(item: OnyksFileItem): void 
   {

@@ -1,25 +1,29 @@
-import { LitElement, html, css, type PropertyValueMap } from 'lit';
+import { LitElement, html, css, type PropertyValueMap, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { applyStyle } from './_styles';
 
-
 @customElement('onyks-nav')
-export class Onyks_Nav extends LitElement 
+export class OnyksNav extends LitElement 
 {
-  @property({ type: Boolean }) 
-  rounded = false;
-
   @property({ type: String, reflect: true }) 
   size = 'm';
 
-  @state() private is_mobile_menu_open = false;
+  @property({ type: Number, attribute: 'mobile-breakpoint' }) 
+  mobileBreakPoint = 900;
+
+  @property({ type: Number, reflect: true, attribute: 'max-view-items' }) 
+  maxViewItems = 3;
+
+  @state() private isMobile = false;
+  @state() private isMenuOpen = false;
+  @state() private currentPage = 0;
 
   static styles = [css`
     * 
     {
-      font-family: var(--font, inherit);
-      color: var(--text-primary);
+      box-sizing: border-box;
+      color: var(--text-color);
     }
     
     :host 
@@ -27,168 +31,210 @@ export class Onyks_Nav extends LitElement
       display: block;
       width: 100%;
       position: relative;
-      background-color: var(--surface-element);
+      background-color: var(--nav-background);
+      z-index: 1;
     }
 
-    :host([size="s"]) { --nav-height: 50px; }
-    :host([size="m"]) { --nav-height: 64px; }
-    :host([size="l"]) { --nav-height: 72px; }
-    :host([size="xl"]) { --nav-height: 80px; }
+    :host([size="s"])
+    { 
+      --nav-height: 50px; 
+    }
+
+    :host([size="m"]) 
+    {
+      --nav-height: 64px;
+    }
+
+    :host([size="l"])
+    {
+      --nav-height: 72px;
+    }
+
+    :host([size="xl"])
+    {
+      --nav-height: 80px;
+    }
 
     nav 
     {
-
-      color: var(--text-primary);
       height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-sizing: border-box;
       position: relative; 
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid var(--surface-border);
+      border-bottom: 1px solid var(--nav-border-color);
     }
 
-    .rounded { 
-      border-radius: var(--radius-xl); 
-      margin: var(--spacing-sm);
-      border: 1px solid var(--surface-border);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    }
-    
-    .rounded.menu-open { 
-      border-bottom-left-radius: 0; 
-      border-bottom-right-radius: 0; 
-    }
-  `, applyStyle('size', '')];
-  
-  constructor() 
-  {
-    super();
-    this.addEventListener('mobile-menu-toggle', this._handleMenuToggle as EventListener);
-  }
-
-  private _handleMenuToggle(e: CustomEvent) 
-  {
-    this.is_mobile_menu_open = e.detail.isOpen;
-    this.requestUpdate();
-  }
-
-  render() 
-  {
-    const classes = 
+    .desktopWrapper
     {
-      rounded: this.rounded,
-      'menu-open': this.is_mobile_menu_open
-    };
-    return html`
-      <nav class="${classMap(classes)}">
-        <slot></slot>
-      </nav>
-    `;
-  }
-}
-
-@customElement('onyks-nav-content')
-export class Onyks_Nav_Content extends LitElement 
-{
-  @property({ type: Number, reflect: true }) mobilebreakpoint = 900;
-  @property({ type: Number, reflect: true  }) maxviewitems = 3;
-
-  @state() private is_mobile = false;
-  @state() private is_menu_open = false;
-  @state() private current_page = 0;
-
-  static styles = css`
-    :host {
-      position: static; 
       display: flex;
-      align-items: center;
+      height: 100%;
       flex: 1;
-      height: 100%;
+      align-items: center;
       justify-content: center;
-      z-index: 1;
     }
 
-    :host([mobile-mode]) {
-      justify-content: flex-end;
-    }
-
-    .desktop-wrapper {
-      display: flex;
-      height: 100%;
-    }
-
-    .next-btn {
+    .nextBtn 
+    {
       background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      height: calc(100% - 16px);
-      margin: 8px;
+      border: 1px solid var(--nav-next-btn-border-color);
+      height: fit-content;
+      box-sizing: border-box;
       width: fit-content;
-      padding: 0 var(--spacing-md);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 8px;
+      padding: var(--spacing-sm);
       border-radius: var(--radius-md);
       transition: all 0.2s ease;
     }
     
-    .next-btn:hover {
-        background: var(--surface-hover);
-        color: var(--text-primary);
+    .nextBtn:hover 
+    {
+      background: var(--nav-next-btn-background-hover);
     }
 
-    .mobile-wrapper { position: static; }
+    .nextBtn::before
+    {
+      font-family: 'bootstrap-icons';
+      content: '\\F231';
+    }
 
-    .hamburger {
+    .mobileWrapper 
+    {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+
+
+
+    .openMenuBtn 
+    {
       background: transparent;
-      border: none;
+      padding: var(--spacing-sm);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--nav-next-btn-border-color);
+     
       color: inherit;
-      padding: 10px;
+      margin-right: var(--spacing-md);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    .line { display: block; width: 24px; height: 2px; background-color: currentColor; transition: 0.3s; }
-    .hamburger.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger.active .line:nth-child(2) { opacity: 0; }
-    .hamburger.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+      
+    .line 
+    { 
+      display: block; 
+      width: 18px; 
+      height: 2px; 
+      background-color: currentColor; 
+      transition: 0.3s; 
+    }
 
-    .mobile-dropdown-wrapper {
+    .openMenuBtn.active .line:nth-child(1) 
+    { 
+      transform: translateY(8px) rotate(45deg); 
+    }
+
+    .openMenuBtn.active .line:nth-child(2) 
+    {
+      opacity: 0; 
+    }
+
+    .openMenuBtn.active .line:nth-child(3) 
+    { 
+      transform: translateY(-8px) rotate(-45deg); 
+    }
+
+    .mobileDropdownWrapper 
+    {
       position: absolute;
-      top: 100%; 
+      top: calc(100% + 1px); 
       left: 0;
       width: 100%; 
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: var(--surface-element);
+      background-color: var(--nav-background);
       z-index: 999;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-bottom-left-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+      overflow: hidden;
     }
     
-    .mobile-dropdown-wrapper.open {
+    .mobileDropdownWrapper.open 
+    {
       grid-template-rows: 1fr;
-      border-top: 1px solid var(--surface-border); 
     }
 
-    :host-context(onyks-nav[rounded]) .mobile-dropdown-wrapper.open {
-      border-bottom-left-radius: var(--radius-xl);
-      border-bottom-right-radius: var(--radius-xl);
-      margin: 0 var(--spacing-sm);
-      width: calc(100% - calc(var(--spacing-sm) * 2));
-      border: 1px solid var(--surface-border);
+    .dropdownInner 
+    { 
+      overflow: hidden; 
+    }
+    
+    .dropdownContentScroll 
+    { 
+      display: flex;
+      flex-direction: column;
+      max-height: calc(60vh - var(--nav-height) - 20px); 
+      overflow-y: auto;
+    }
+
+
+    ::slotted([slot="nav"])
+    {
+      padding: 0 var(--spacing-md);
+      box-sizing: border-box;
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent; 
+      cursor: pointer;
+      background: transparent;
       border-top: none;
+      border-left: none;
+      border-right: none;
     }
 
-    .dropdown-inner { overflow: hidden; }
-    .dropdown-content-scroll { padding: 8px 0; }
-    ::slotted(*) { display: flex; }
-  `;
+    ::slotted([slot="nav"]:hover) 
+    { 
+      background-color: var(--surface-hover); 
+      color: var(--text-primary);
+    }
+
+    ::slotted([slot="nav"][selected]) 
+    {
+      background-color: var(--surface-hover);
+      border-bottom: 3px solid var(--color-primary);
+    }
+
+    :host([mobile-mode]) ::slotted([slot="nav"]) 
+    {
+      height: fit-content;
+      padding: var(--spacing-md);
+      width: 100%;
+      border-bottom: none;
+    }
+    
+    :host([mobile-mode]) ::slotted([slot="nav"][selected])
+    { 
+      border-left: 3px solid var(--color-primary); 
+      border-bottom: none;
+      background-color: var(--surface-hover);
+    }
+  `, applyStyle('size', '')];
 
   constructor() 
   {
@@ -214,7 +260,7 @@ export class Onyks_Nav_Content extends LitElement
 
   protected updated(_changedProperties: PropertyValueMap<any>): void 
   {
-    if (_changedProperties.has('maxviewitems') || _changedProperties.has('current_page') || _changedProperties.has('is_mobile')) 
+    if (_changedProperties.has('maxViewItems') || _changedProperties.has('currentPage') || _changedProperties.has('isMobile')) 
     {
       this._updateVisibility();
     }
@@ -227,10 +273,10 @@ export class Onyks_Nav_Content extends LitElement
 
   private _checkMobile() 
   {
-    const wasMobile = this.is_mobile;
-    this.is_mobile = window.innerWidth <= this.mobilebreakpoint;
+    const wasMobile = this.isMobile;
+    this.isMobile = window.innerWidth <= this.mobileBreakPoint;
 
-    if (this.is_mobile) 
+    if (this.isMobile) 
     {
       this.setAttribute('mobile-mode', '');
     } 
@@ -239,27 +285,24 @@ export class Onyks_Nav_Content extends LitElement
       this.removeAttribute('mobile-mode');
     }
 
-    if (wasMobile !== this.is_mobile) 
+    if (wasMobile !== this.isMobile) 
     {
       this.toggleMenu(false);
-      this.current_page = 0;
+      this.currentPage = 0;
       this.requestUpdate(); 
     }
   }
 
   private toggleMenu(forceState?: boolean) 
   {
-    const newState = forceState !== undefined ? forceState : !this.is_menu_open;
-    this.is_menu_open = newState;
-    this.dispatchEvent(new CustomEvent('mobile-menu-toggle', 
-    {
-        detail: 
-        { 
-          isOpen: this.is_menu_open 
-        },
-        bubbles: true,
-        composed: true
-    }));
+    this.isMenuOpen = forceState !== undefined ? forceState : !this.isMenuOpen;
+  }
+
+  private get _slottedElements(): HTMLElement[] 
+  {
+    const slot = this.shadowRoot?.querySelector('slot[name="nav"]') as HTMLSlotElement;
+    if (!slot) return [];
+    return slot.assignedElements({ flatten: true }) as HTMLElement[];
   }
 
   private _handleSlotChange()
@@ -268,34 +311,20 @@ export class Onyks_Nav_Content extends LitElement
     this.requestUpdate();
   }
 
-  private get _slottedElements(): HTMLElement[] 
-  {
-    const slot = this.shadowRoot?.querySelector('slot');
-    if (!slot) return [];
-    return (slot.assignedElements({ flatten: true }) as HTMLElement[]);
-  }
-
   private _updateVisibility() 
   {
     const elements = this._slottedElements;
-    const limit = Number(this.maxviewitems);
+    const limit = Number(this.maxViewItems);
 
     elements.forEach((el, index) => 
     {
-      if (this.is_mobile) 
+      if (this.isMobile) 
       {
         el.style.display = 'flex';
-        el.style.width = '100%';
-        el.style.height = '50px'; 
-        el.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
-        el.style.padding = '0'; 
       } 
       else 
       {
-        el.style.width = '';
-        el.style.height = '100%';
-        el.style.borderBottom = '';
-        const start = this.current_page * limit;
+        const start = this.currentPage * limit;
         const end = start + limit;
         el.style.display = (index >= start && index < end) ? '' : 'none';
       }
@@ -306,129 +335,60 @@ export class Onyks_Nav_Content extends LitElement
   {
     e.stopPropagation();
     const elements = this._slottedElements;
-    const limit = Number(this.maxviewitems);
+    const limit = Number(this.maxViewItems);
     if (!elements.length) return;
     const totalPages = Math.ceil(elements.length / limit);
-    this.current_page = (this.current_page + 1) % totalPages;
+    this.currentPage = (this.currentPage + 1) % totalPages;
   };
 
   private _handleOptionClick(e: Event) 
   {
     const target = e.target as HTMLElement;
-    const option = target.closest('onyks-nav-option');
-    if (option && option instanceof Onyks_Nav_Option) 
+    const slottedElements = this._slottedElements;
+    
+    const clickedItem = slottedElements.find(el => el === target || el.contains(target));
+    
+    if (clickedItem) 
     {
-      this._slottedElements.forEach(el => 
-      {
-        if (el instanceof Onyks_Nav_Option) el.selected = false;
-      });
-      option.selected = true;
-      if (this.is_mobile) this.toggleMenu(false);
+      slottedElements.forEach(el => el.removeAttribute('selected'));
+      clickedItem.setAttribute('selected', '');
+      if (this.isMobile) this.toggleMenu(false);
     }
   }
 
-  render() 
+  render()
   {
     const elements = this._slottedElements;
-    const limit = Number(this.maxviewitems);
-    const showNextBtn = !this.is_mobile && elements.length > limit;
-
-    if (this.is_mobile) {
-      return html`
-        <div class="mobile-wrapper">
-           <button class="hamburger ${classMap({ active: this.is_menu_open })}" @click="${() => this.toggleMenu()}">
-              <span class="line"></span>
-              <span class="line"></span>
-              <span class="line"></span>
-           </button>
-           
-           <div class="mobile-dropdown-wrapper ${classMap({ open: this.is_menu_open })}">
-             <div class="dropdown-inner">
-                <div class="dropdown-content-scroll">
-                   <slot @slotchange="${this._handleSlotChange}"></slot>
-                </div>
-             </div>
-           </div>
-        </div>
-      `;
-    }
+    const limit = Number(this.maxViewItems);
+    const showNextBtn = !this.isMobile && elements.length > limit;
 
     return html`
-      <div class="desktop-wrapper">
-        <slot @slotchange="${this._handleSlotChange}"></slot>
-        ${showNextBtn ? html`<div class="next-btn" @click="${this._nextPage}">&#10140;</div>` : ''}
-      </div>
-    `;
-  }
-}
-
-@customElement('onyks-nav-option')
-export class Onyks_Nav_Option extends LitElement 
-{
-  @property({type: String}) href = '';
-  @property({type: Boolean, reflect: true}) selected = false;
-
-  static styles = css`
-    :host 
-    { 
-      display: block; 
-      cursor: pointer; 
-      height: 100%;
-      width: 100%;
-    }
-    
-    .nav-item 
-    {
-      padding: 0 var(--spacing-md);
-      margin: 0; 
-      height: 100%; 
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      color: var(--text-secondary);
-      text-decoration: none;
-      box-sizing: border-box;
-      transition: all 0.2s ease;
-      width: 100%;
-      font-size: inherit;
-      font-weight: 500;
-      border-radius: 0; 
-      border-bottom: 3px solid transparent; 
-    }
-
-    .nav-item:hover { 
-        background-color: var(--surface-hover); 
-        color: var(--text-primary);
-    }
-
-    :host([selected]) .nav-item {
-        color: var(--color-primary);
-        background-color: var(--surface-hover);
-        font-weight: 600;
-        border-bottom: 3px solid var(--color-primary);
-    }
-
-    @media (max-width: 900px) {   
-        .nav-item {
-            margin: 2px 8px;
-            height: 44px;
-            border-radius: var(--radius-sm);
-            border-bottom: none; 
-        }
+      <nav class="${this.isMenuOpen? 'menu-open':nothing}">
         
-        :host([selected]) .nav-item { 
-            border-left: 3px solid var(--color-primary); 
-            border-bottom: none;
-            background-color: var(--surface-hover);
-        }
-    }
-  `;
-
-  render() 
-  {
-    return this.href 
-      ? html`<a class="nav-item" href="${this.href}"><slot></slot></a>`
-      : html`<div class="nav-item"><slot></slot></div>`;
+        ${this.isMobile ? html`
+          <div class="mobileWrapper">
+             <button class="openMenuBtn ${classMap({ active: this.isMenuOpen })}" @click="${() => this.toggleMenu()}">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+             </button>
+             
+             <div class="mobileDropdownWrapper ${classMap({ open: this.isMenuOpen })}">
+               <div class="dropdownInner">
+                  <div class="dropdownContentScroll">
+                     <slot name="nav" @slotchange="${this._handleSlotChange}"></slot>
+                  </div>
+               </div>
+             </div>
+          </div>
+        ` : html`
+          <div class="desktopWrapper">
+            <slot name="nav" @slotchange="${this._handleSlotChange}"></slot>
+            ${showNextBtn ? html`<button class="nextBtn" @click="${this._nextPage}"></button>` : ''}
+          </div>
+        `}
+      </nav>
+    `;
   }
 }
 
@@ -436,8 +396,6 @@ declare global
 {
   interface HTMLElementTagNameMap 
   {
-    'onyks-nav': Onyks_Nav,
-    'onyks-nav-content': Onyks_Nav_Content,
-    "onyks-nav-option":Onyks_Nav_Option
+    'onyks-nav': OnyksNav
   }
 }
