@@ -73,8 +73,14 @@ export const MoreComplicatedExample: Story =
             text-align: justify;
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-md);
-            padding: var(--spacing-lg);
+            gap: var(--onyks-spacing-md);
+            padding: var(--onyks-spacing-lg);
+        }
+        
+        #x *
+        {
+            margin: 0;
+            padding: 0;
         }
     </style>
     <onyks-panel side=${args.side} ?all-round=${args['all-round']} id="x">
@@ -116,8 +122,14 @@ export const MoreComplicatedExample: Story =
                             text-align: justify;
                             display: flex;
                             flex-direction: column;
-                            gap: var(--spacing-md);
-                            padding: var(--spacing-lg);
+                            gap: var(--onyks-spacing-md);
+                            padding: var(--onyks-spacing-lg);
+                        }
+
+                        onyks-panel *
+                        {
+                            margin: 0;
+                            padding: 0;
                         }
                     </style>
 

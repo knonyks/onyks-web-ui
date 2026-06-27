@@ -27,13 +27,12 @@ export class OnyksLogo extends LitElement
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: invert(var(--logo-invert-mode));
             transition: filter 0.3s ease;
         }
 
         :host([invert]) > img
         {
-            filter: invert(calc(1 - var(--logo-invert-mode)));
+            filter: invert(calc(1 - var(--onyks-logo-invert)));
         }
     `;
 }

@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { applyStyle } from './_styles';
+import { onyksStyleScrollbar } from './_styles';
 
 @customElement('onyks-dialog')
 export class OnyksDialog extends LitElement 
@@ -53,6 +53,7 @@ export class OnyksDialog extends LitElement
             transition: opacity 0.3s ease, visibility 0.3s ease;
             visibility: hidden;
             z-index: 1000;
+            font-family: var(--onyks-font);
         }
 
         :host([open])
@@ -72,8 +73,8 @@ export class OnyksDialog extends LitElement
             align-items: center;
             justify-content: center;
             background: hsla(0, 0%, 0%, 0.5);
-            backdrop-filter: var(--dialog-backdrop-filter);
-            padding: var(--spacing-lg);
+            backdrop-filter: blur(4px);
+            padding: var(--onyks-spacing-lg);
             box-sizing: border-box;
         }
 
@@ -92,9 +93,9 @@ export class OnyksDialog extends LitElement
 
         .dialogContainer
         {
-            background: var(--dialog-background);
-            border: 1px solid var(--dialog-border-color);
-            border-radius: var(--radius-md);
+            background: var(--onyks-surface-1);
+            border: 1px solid var(--onyks-surface-1-border);
+            border-radius: var(--onyks-radius-md);
             max-width: 800px;
             width: 100%;
             max-height: 400px;
@@ -112,19 +113,19 @@ export class OnyksDialog extends LitElement
 
         .dialogTitle
         {
-            padding: var(--spacing-md);
+            padding: var(--onyks-spacing-md);
             margin: 0;
-            font-size: var(--size-xl);
+            font-size: var(--onyks-size-xl);
         }
 
         .dialogCloseBtn
         {
             position: absolute;
             cursor: pointer;
-            right: var(--spacing-md);
-            top: var(--spacing-md);
+            right: var(--onyks-spacing-md);
+            top: var(--onyks-spacing-md);
             height: fit-content;
-            font-size: var(--size-xl);
+            font-size: var(--onyks-size-xl);
         }
 
         .dialogCloseBtn::before
@@ -137,31 +138,30 @@ export class OnyksDialog extends LitElement
 
         .dialogContent
         {
-            padding: var(--spacing-md);
+            padding: var(--onyks-spacing-md);
             height: 100%;
             box-sizing: border-box;
             flex: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-sm);
+            gap: var(--onyks-spacing-sm);
             flex-shrink: 0;
         }
 
         .dialogFooter
         {
-            padding: var(--spacing-md);
+            padding: var(--onyks-spacing-md);
             display: flex;
             justify-content: flex-end;
-            gap: var(--spacing-md);
-            background: var(--dialog-footer-background);
+            gap: var(--onyks-spacing-md);
         }
 
         .dialogFooter ::slotted(onyks-button)
         {
             min-width: 100px;
         }
-    `, applyStyle('size', '.dialogContent')];
+    `, onyksStyleScrollbar];
 
     
 
@@ -171,7 +171,7 @@ export class OnyksDialog extends LitElement
                 <div class="dialogContainer" part="container">
                     <div class="dialogTitle" part="title">${this.title}</div>
                     ${this.cornerClose ? html`<div class="dialogCloseBtn" @click="${this._close}"></div>` : ''}
-                    <div class="dialogContent" part="content">
+                    <div class="dialogContent onyks-scrollbar" part="content">
                         <slot></slot>
                     </div>
                 ${this.bottomButtons ? html`

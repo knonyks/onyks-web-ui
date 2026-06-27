@@ -1,6 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { applyStyle } from './_styles';
+import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-path-chain')
 export class OnyksPathChain extends LitElement 
@@ -15,14 +15,16 @@ export class OnyksPathChain extends LitElement
         {
             display: flex;
             flex-shrink: 0;
+            font-family: var(--onyks-font);
         }
 
         .content
         {
-            background-color: var(--path-chain-background);
+            background-color: var(--onyks-accent);
+            color: var(--onyks-on-accent);
             display: block;
-            padding: var(--spacing-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--onyks-spacing-sm);
+            border-radius: var(--onyks-radius-sm);
             cursor: pointer;
             height: fit-content;
             white-space: nowrap;
@@ -77,7 +79,7 @@ export class OnyksPath extends LitElement
     {
         return html`
             ${this.content.map((folder, i) => html`
-                <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
+                <onyks-path-chain class="item onyks-size" @click=${() => this._handleItemClick(i)}>
                     ${folder}
                 </onyks-path-chain>
             `)}
@@ -87,17 +89,17 @@ export class OnyksPath extends LitElement
     static styles = [css`
         :host
         {
-            background-color: var(--path-background);
+            background-color: var(--onyks-surface-1);
             width: 100%;
             height: fit-content;
             display: flex;
             flex-direction: row;
             border-radius: 5px;
-            padding: var(--spacing-sm);
+            padding: var(--onyks-spacing-sm);
             box-sizing: border-box;
             overflow-x: auto;
-            gap: var(--spacing-sm);
-            border: 1px solid var(--path-border-color);
+            gap: var(--onyks-spacing-sm);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         onyks-path-chain:not(:last-child)::after 
@@ -107,9 +109,9 @@ export class OnyksPath extends LitElement
             color: white;
             align-items: center;
             display: flex;
-            margin-left: var(--spacing-sm);
+            margin-left: var(--onyks-spacing-sm);
         }
-    `, applyStyle('size')];
+    `, onyksStyleSize];
 }
 
 declare global 

@@ -10,7 +10,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./general.css": "./dist/general.css"
+    "./onyks-webui.css": "./dist/onyks-webui.css"
   },
   "files": [
     "dist"

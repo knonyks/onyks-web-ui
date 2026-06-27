@@ -40,7 +40,7 @@ export class Onyks_List_Element extends LitElement
         background-color: var(--surface-marked);
     }
 
-    `, style_size(":host")];
+    `, style_size];
 }
 
 declare global 
@@ -102,7 +102,7 @@ export class Onyks_List extends LitElement
 
 
 
-    `, style_scrollbar(":host")];
+    `, style_scrollbar];
 }
 
 declare global 

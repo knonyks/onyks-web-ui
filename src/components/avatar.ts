@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { applyStyle } from './_styles';
+import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-avatar')
 export class OnyksAvatar extends LitElement
@@ -17,18 +17,18 @@ export class OnyksAvatar extends LitElement
 
     render()
     {
-        return html`${this.src}`;
+        return html`<span class="onyks-size">${this.src}</span>`;
     }
 
     static styles = [css`
         :host
         {
             display: flex;
-            padding: var(--spacing-md);
+            padding: var(--onyks-spacing-md);
             cursor: pointer;
             user-select: none;
-            background-color: var(--avatar-background);
-            border: 2px solid var(--avatar-border-color);
+            background-color: var(--onyks-surface-1);
+            border: 1px solid var(--onyks-surface-1-border);
             transition: background-color 0.3s ease;
             justify-content: center;
             align-items: center;
@@ -36,7 +36,7 @@ export class OnyksAvatar extends LitElement
         
         :host(:hover)
         {
-            background-color: var(--avatar-background-hover);
+            background-color: var(--onyks-surface-1-hover);
         }
 
         :host([shape="circle"])
@@ -46,39 +46,39 @@ export class OnyksAvatar extends LitElement
 
         :host([shape="square"])
         {
-            border-radius: var(--spacing-sm);
+            border-radius: var(--onyks-spacing-sm);
         }
 
         :host([size="s"])
         {
-            width: var(--size-sm);
-            height: var(--size-sm);
+            width: var(--onyks-size-sm);
+            height: var(--onyks-size-sm);
         }
 
         :host([size="m"])
         {
-            width: var(--size-md);
-            height: var(--size-md);
+            width: var(--onyks-size-md);
+            height: var(--onyks-size-md);
         }
 
         :host([size="l"])
         {
-            width: var(--size-lg);
-            height: var(--size-lg);
+            width: var(--onyks-size-lg);
+            height: var(--onyks-size-lg);
         }
 
         :host([size="xl"])
         {
-            width: var(--size-xl);
-            height: var(--size-xl);
+            width: var(--onyks-size-xl);
+            height: var(--onyks-size-xl);
         }
 
         :host([size="xl"])
         {
-            width: var(--size-xl);
-            height: var(--size-xl);
+            width: var(--onyks-size-xl);
+            height: var(--onyks-size-xl);
         }
-    `, applyStyle('size')];
+    `, onyksStyleSize];
 }
 
 declare global 

@@ -72,7 +72,7 @@ size=${args.size}
         
         </onyks-file-explorer>
         
-        <onyks-button style="margin-top: var(--spacing-md)" @click=${() => {console.log((document.querySelector('#x') as any)?.getSelectedItems())}}>Get Selected</onyks-button>
+        <onyks-button style="margin-top: var(--onyks-spacing-md)" @click=${() => {console.log((document.querySelector('#x') as any)?.getSelectedItems())}}>Get Selected</onyks-button>
         `,
     parameters:
     {
@@ -145,7 +145,7 @@ export const ExampleInUseWithPathElement: Story =
         }
     }
     return html`
-    <div style="display: flex; gap: var(--spacing-md); flex-direction: column;">
+    <div style="display: flex; gap: var(--onyks-spacing-md); flex-direction: column;">
         <onyks-path id="path" @path-change=${(e:any) => 
         {
             console.log(e.detail.path[e.detail.path.length - 1])
@@ -204,7 +204,7 @@ export const ExampleInUseWithPathElement: Story =
     })
 </script>
 
-<div style="display: flex; gap: var(--spacing-md); flex-direction: column;">
+<div style="display: flex; gap: var(--onyks-spacing-md); flex-direction: column;">
     <onyks-path id="path"></onyks-path>
     <onyks-file-explorer id="explorer" style="width: 100%"></onyks-file-explorer>
 </div>

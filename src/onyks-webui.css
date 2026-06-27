@@ -1,0 +1,81 @@
+:root
+{
+    --onyks-font: 'Inter', sans-serif;
+
+    --onyks-spacing-sm: 8px;
+    --onyks-spacing-md: 16px;
+    --onyks-spacing-lg: 24px;
+    --onyks-spacing-xl: 32px;
+
+    --onyks-size-sm: 0.75rem;
+    --onyks-size-md: 1rem;
+    --onyks-size-lg: 1.25rem;
+    --onyks-size-xl: 1.5rem;
+    
+    --onyks-radius-sm: 4px;
+    --onyks-radius-md: 8px;
+    --onyks-radius-lg: 12px;
+    --onyks-radius-xl: 16px;
+}
+
+/* Default and dark theme */
+:root, [data-onyks-theme="dark"]
+{
+    /* General */
+    --onyks-surface: #1f1f1f;
+    --onyks-on-surface: #fff;
+    
+    /* Elements */
+    --onyks-surface-1: #242529;
+    --onyks-on-surface-1: #fff;
+    --onyks-surface-1-hover: #37383e;
+    --onyks-surface-1-selected: #3e4047;
+    --onyks-surface-1-border: #6c6d70;
+
+    /* Specialized colors */
+    --onyks-accent: #fa5252;
+    --onyks-on-accent: #000000;
+
+    --onyks-success: #88ff80;
+    --onyks-on-success: #000;
+
+    --onyks-warning: #ffdb70;
+    --onyks-on-warning: #000;
+
+    --onyks-info: #0059ff;
+    --onyks-on-info: #fff;
+
+    --onyks-error: #ff5252;
+    --onyks-on-error: #000;
+
+    /* Classic colors */
+    --onyks-red: #ff4949;
+    --onyks-on-red: #fff;
+    
+    --onyks-blue: #0080ff;
+    --onyks-on-blue: #fff;
+
+    --onyks-green: #00ff73;
+    --onyks-on-green: #000;
+
+    --onyks-yellow: #fbff00;
+    --onyks-on-yellow: #000;
+    
+    /* Scrollbar */
+    --onyks-scroll-track: transparent;
+    --onyks-scroll-thumb: #414141;
+    --onyks-scroll-size: 14px;
+
+
+    /* Other */
+    --onyks-logo-invert: 0;
+}
+
+body
+{
+    background-color: var(--onyks-surface);
+    color: var(--onyks-on-surface);
+    font-family: var(--onyks-font);
+}
+
+

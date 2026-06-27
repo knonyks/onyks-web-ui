@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { applyStyle } from './_styles';
+import { applyStyle, onyksStyleSize } from './_styles';
 
 @customElement('onyks-pagination-nav')
 export class OnyksPaginationNav extends LitElement 
@@ -58,13 +58,13 @@ export class OnyksPaginationNav extends LitElement
         }
 
         return html`
-            <button class="btn first" ?disabled="${this.index == 1}" @click="${() => this._changePage(1)}"></button>
-            <button class="btn prev" ?disabled="${this.index === 1}" @click="${() => this._changePage(Number(this.index - 1))}"></button>
+            <button class="onyks-size btn first" ?disabled="${this.index == 1}" @click="${() => this._changePage(1)}"></button>
+            <button class="onyks-size btn prev" ?disabled="${this.index === 1}" @click="${() => this._changePage(Number(this.index - 1))}"></button>
             ${pages.map(p => html`
-                <button class="btn ${p === this.index ? 'active' : ''}" @click="${() => this._changePage(p)}">${p}</button>
+                <button class="onyks-size btn ${p === this.index ? 'active' : ''}" @click="${() => this._changePage(p)}">${p}</button>
             `)}
-            <button class="btn next" ?disabled="${this.index == this.maxIndex}" @click="${() => this._changePage(Number(this.index) + 1)}"></button>
-            <button class="btn last" ?disabled="${this.index == this.maxIndex}" @click="${() => this._changePage(Number(this.maxIndex))}"></button>
+            <button class="onyks-size btn next" ?disabled="${this.index == this.maxIndex}" @click="${() => this._changePage(Number(this.index) + 1)}"></button>
+            <button class="onyks-size btn last" ?disabled="${this.index == this.maxIndex}" @click="${() => this._changePage(Number(this.maxIndex))}"></button>
         `;
     }
 
@@ -73,18 +73,18 @@ export class OnyksPaginationNav extends LitElement
         {
             display: flex;
             flex-direction: row;
-            gap: var(--spacing-sm);
-            font-family: var(--font);
+            gap: var(--onyks-spacing-sm);
+            font-family: var(--onyks-font);
         }
 
         .btn
         {
-            border-radius: var(--radius-md);
-            padding: var(--spacing-sm);
-            min-width: var(--spacing-xl);
+            border-radius: var(--onyks-radius-md);
+            padding: var(--onyks-spacing-sm);
+            min-width: var(--onyks-spacing-xl);
             text-align: center;
-            border: 3px solid var(--pagination-nav-border-color);
-            background-color: var(--pagination-nav-background);
+            border: 3px solid var(--onyks-surface-1-border);
+            background-color: var(--onyks-surface-1);
             color: inherit;
             font-size: inherit;
             cursor: pointer;
@@ -95,13 +95,13 @@ export class OnyksPaginationNav extends LitElement
 
         .btn:hover
         {
-            background-color: var(--pagination-nav-background-hover);
+            background-color: var(--onyks-surface-1-hover);
         }
 
         .active
         {
-            border: 3px solid var(--pagination-nav-border-color-active);
-            background-color: var(--pagination-nav-background-active);
+            border: 3px solid var(--onyks-accent);
+            background-color: var(--onyks-surface-1-selected);
         }
 
         .btn:disabled 
@@ -137,7 +137,7 @@ export class OnyksPaginationNav extends LitElement
             font-family: 'bootstrap-icons';
             display: block;
         }
-    `, applyStyle('size'), applyStyle('font')];
+    `, onyksStyleSize];
 }
 
 declare global 

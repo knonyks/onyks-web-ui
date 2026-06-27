@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { applyStyle } from './_styles';
+import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-alert')
 export class OnyksAlert extends LitElement 
@@ -13,18 +13,18 @@ export class OnyksAlert extends LitElement
 
     render()
     {
-       return html`<span id="icon" part="icon"></span><span id="text" part="text"><slot></slot></span>`;
+       return html`<span id="icon" part="icon"></span><span id="text" part="text" class="onyks-size"><slot></slot></span>`;
     }
 
     static styles = [css`
         :host
         {
-            font-family: var(--font);
-            border-radius: var(--radius-sm);
+            font-family: var(--onyks-font);
+            border-radius: var(--onyks-radius-sm);
             display: flex;
             gap: 10px;
             height: fit-content;
-            padding: var(--spacing-md);
+            padding: var(--onyks-spacing-md);
             box-sizing: border-box;
             flex-shrink: 0;
             vertical-align: middle;
@@ -40,78 +40,78 @@ export class OnyksAlert extends LitElement
 
         :host([size="s"]) > #icon::before
         {
-            font-size: calc(var(--size-sm)*2);
+            font-size: calc(var(--onyks-size-sm)*2);
             font-weight: normal;
             display: inline-block;
-            height: calc(var(--size-sm)*2);
-            width: calc(var(--size-sm)*2);
-            line-height:  calc(var(--size-sm)*2);
+            height: calc(var(--onyks-size-sm)*2);
+            width: calc(var(--onyks-size-sm)*2);
+            line-height:  calc(var(--onyks-size-sm)*2);
             text-align: center;
             vertical-align: middle;
         }
 
         :host([size="m"]) > #icon::before
         {
-            font-size: calc(var(--size-md)*2);
+            font-size: calc(var(--onyks-size-md)*2);
             font-weight: normal;
             display: inline-block;
-            height: calc(var(--size-md)*2);
-            width: calc(var(--size-md)*2);
-            line-height:  calc(var(--size-md)*2);
+            height: calc(var(--onyks-size-md)*2);
+            width: calc(var(--onyks-size-md)*2);
+            line-height: calc(var(--onyks-size-md)*2);
             text-align: center;
             vertical-align: middle;
         }
 
         :host([size="l"]) > #icon::before
         {
-            font-size: calc(var(--size-lg)*2);
+            font-size: calc(var(--onyks-size-lg)*2);
             font-weight: normal;
             display: inline-block;
-            height: calc(var(--size-lg)*2);
-            width: calc(var(--size-lg)*2);
-            line-height:  calc(var(--size-lg)*2);
+            height: calc(var(--onyks-size-lg)*2);
+            width: calc(var(--onyks-size-lg)*2);
+            line-height:  calc(var(--onyks-size-lg)*2);
             text-align: center;
             vertical-align: middle;
         }
 
         :host([size="xl"]) > #icon::before
         {
-            font-size: calc(var(--size-xl)*2);
+            font-size: calc(var(--onyks-size-xl)*2);
             font-weight: normal;
             display: inline-block;
-            height: calc(var(--size-xl)*2);
-            width: calc(var(--size-xl)*2);
-            line-height:  calc(var(--size-xl)*2);
+            height: calc(var(--onyks-size-xl)*2);
+            width: calc(var(--onyks-size-xl)*2);
+            line-height:  calc(var(--onyks-size-xl)*2);
             text-align: center;
             vertical-align: middle;
         }
             
         :host([type="info"])
         { 
-            background-color: var(--alert-info-background);
-            color: var(--alert-info-text-color);
-            border: 1px solid var(--alert-info-border-color);
+            background-color: var(--onyks-info);
+            color: var(--onyks-on-info);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="warning"])
         { 
-            background-color: var(--alert-warning-background);
-            color: var(--alert-warning-text-color);
-            border: 1px solid var(--alert-warning-border-color);
+            background-color: var(--onyks-warning);
+            color: var(--onyks-on-warning);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="error"])
         { 
-            background-color: var(--alert-error-background);
-            color: var(--alert-error-text-color);
-            border: 1px solid var(--alert-error-border-color);
+            background-color: var(--onyks-error);
+            color: var(--onyks-on-error);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="success"])
         { 
-            background-color: var(--alert-success-background);
-            color: var(--alert-success-text-color);
-            border: 1px solid var(--alert-success-border-color);
+            background-color: var(--onyks-success);
+            color: var(--onyks-on-success);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         #icon
@@ -138,7 +138,7 @@ export class OnyksAlert extends LitElement
         {
             content: '\\F337';
         }
-    `, applyStyle('size')]
+    `, onyksStyleSize]
 }
 
 declare global

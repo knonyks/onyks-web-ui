@@ -21,34 +21,36 @@ export class OnyksPanel extends LitElement
             display: block;
             height: 200px;
             width: 200px;
-            background-color: var(--panel-background);
-            padding: var(--spacing-md);
-            border: 3px solid var(--panel-border-color);
+            background-color: var(--onyks-surface-1);
+            padding: var(--onyks-spacing-md);
+            border: 1px solid var(--onyks-surface-1-border);
+            font-family: var(--onyks-font);
+            color: var(--onyks-on-surface-1);
         }
 
         :host([all-round])
         {
-            border-radius: var(--radius-lg);
+            border-radius: var(--onyks-radius-lg);
         }
 
         :host([side="left"]:not([all-round]))
         {
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            border-radius: 0 var(--onyks-radius-lg) var(--onyks-radius-lg) 0;
         }
         
         :host([side="right"]:not([all-round]))
         {
-            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+            border-radius: var(--onyks-radius-lg) 0 0 var(--onyks-radius-lg);
         }
 
         :host([side="top"]:not([all-round]))
         {
-            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            border-radius: 0 0 var(--onyks-radius-lg) var(--onyks-radius-lg);
         }
 
         :host([side="bottom"]:not([all-round]))
         {
-            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            border-radius: var(--onyks-radius-lg) var(--onyks-radius-lg) 0 0;
         }
     `
 }

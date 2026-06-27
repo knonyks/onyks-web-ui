@@ -1,6 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { applyStyle } from './_styles.ts';
+import { onyksStyleScrollbar, onyksStyleSize } from './_styles.ts';
 
 export interface OnyksFileItem 
 {
@@ -18,13 +18,13 @@ export class OnyksFileExplorer extends LitElement
   size = "m";
 
   @property({ type: Boolean, reflect: true })
-  multiple: boolean = false;
+  multiple = false;
 
   @property({ type: Array })
   content: OnyksFileItem[] = [];
 
   @property({ type: String, reflect: true, attribute: 'empty-alert' })
-  emptyAlert: string = "The folder is empty";
+  emptyAlert = "The folder is empty";
 
   @state()
   private _selectedItems: Set<string> = new Set();
@@ -33,16 +33,24 @@ export class OnyksFileExplorer extends LitElement
     :host  
     {
       display: block;
-      border-radius: var(--radius-md);
+      border-radius: var(--onyks-radius-md);
       padding: 10px;
-      background: var(--file-explorer-background);
+      background: var(--onyks-surface-1);
+      color: var(--onyks-on-surface-1);
       width: 600px;
-      font-family: var(--font);
+      font-family: var(--onyks-font);
       box-sizing: border-box;
       height: 300px;
-      overflow: auto;
-      border: 1px solid var(--file-explorer-border-color);
+      border: 1px solid var(--onyks-surface-1-border);
     }
+
+    .explorer
+    {
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+    }
+
 
     .item 
     {
@@ -50,7 +58,7 @@ export class OnyksFileExplorer extends LitElement
       align-items: center;
       padding: 8px;
       cursor: pointer;
-      // border-radius: var(--radius-sm);
+      /* border-radius: var(--onyks-radius-sm); */
       user-select: none;
       transition: background 0.2s;
       border: 1px solid transparent;
@@ -58,24 +66,24 @@ export class OnyksFileExplorer extends LitElement
     
     .item:hover 
     {
-      border: 1px solid var(--file-explorer-item-border-color-hover);
+      border: 1px solid var(--onyks-surface-1-border);
     }
 
     .item.selected 
     {
-      background: var(--file-explorer-item-background-marked);
+      background: var(--onyks-surface-1-selected);
     }
 
     .item:first-child 
     {
-      border-top-left-radius: var(--radius-md);
-      border-top-right-radius: var(--radius-md);
+      border-top-left-radius: var(--onyks-radius-md);
+      border-top-right-radius: var(--onyks-radius-md);
     }
 
     .item:last-child 
     {
-      border-bottom-left-radius: var(--radius-md);
-      border-bottom-right-radius: var(--radius-md);
+      border-bottom-left-radius: var(--onyks-radius-md);
+      border-bottom-right-radius: var(--onyks-radius-md);
     }
 
     .icon 
@@ -105,7 +113,7 @@ export class OnyksFileExplorer extends LitElement
     {
       line-height: 1.2; 
     }
-  `, applyStyle('size', ''), applyStyle('scrollbar', '')];
+  `, onyksStyleScrollbar, onyksStyleSize];
   
   getSelectedItems(): OnyksFileItem[] 
   {
@@ -171,7 +179,7 @@ export class OnyksFileExplorer extends LitElement
     }
 
     return html`
-      <div class="explorer-grid">
+      <div class="explorer onyks-size onyks-scrollbar">
         ${this.content.map(
           (item) => html`
             <div

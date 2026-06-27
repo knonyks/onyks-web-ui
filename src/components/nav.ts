@@ -1,7 +1,7 @@
 import { LitElement, html, css, type PropertyValueMap, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { applyStyle } from './_styles';
+import { onyksStyleScrollbar, onyksStyleSize } from './_styles';
 
 @customElement('onyks-nav')
 export class OnyksNav extends LitElement 
@@ -23,7 +23,7 @@ export class OnyksNav extends LitElement
     * 
     {
       box-sizing: border-box;
-      color: var(--text-color);
+      color: var(--onyks-on-surface-1);
     }
     
     :host 
@@ -31,7 +31,7 @@ export class OnyksNav extends LitElement
       display: block;
       width: 100%;
       position: relative;
-      background-color: var(--nav-background);
+      background-color: var(--onyks-surface-1);
       z-index: 1;
     }
 
@@ -64,7 +64,7 @@ export class OnyksNav extends LitElement
       position: relative; 
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid var(--nav-border-color);
+      border-bottom: 1px solid var(--onyks-surface-1-border);
     }
 
     .desktopWrapper
@@ -79,7 +79,7 @@ export class OnyksNav extends LitElement
     .nextBtn 
     {
       background: transparent;
-      border: 1px solid var(--nav-next-btn-border-color);
+      border: 1px solid var(--onyks-surface-1-border);
       height: fit-content;
       box-sizing: border-box;
       width: fit-content;
@@ -88,14 +88,14 @@ export class OnyksNav extends LitElement
       align-items: center;
       justify-content: center;
       margin: 8px;
-      padding: var(--spacing-sm);
-      border-radius: var(--radius-md);
+      padding: var(--onyks-spacing-sm);
+      border-radius: var(--onyks-radius-md);
       transition: all 0.2s ease;
     }
     
     .nextBtn:hover 
     {
-      background: var(--nav-next-btn-background-hover);
+      background: var(--onyks-surface-1-hover);
     }
 
     .nextBtn::before
@@ -111,18 +111,15 @@ export class OnyksNav extends LitElement
       justify-content: flex-end;
     }
 
-
-
-
     .openMenuBtn 
     {
       background: transparent;
-      padding: var(--spacing-sm);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--nav-next-btn-border-color);
+      padding: var(--onyks-spacing-sm);
+      border-radius: var(--onyks-radius-md);
+      border: 1px solid var(--onyks-surface-1-border);
      
       color: inherit;
-      margin-right: var(--spacing-md);
+      margin-right: var(--onyks-spacing-md);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -162,11 +159,11 @@ export class OnyksNav extends LitElement
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: var(--nav-background);
+      background-color: var(--onyks-surface-1);
       z-index: 999;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      border-bottom-left-radius: var(--radius-md);
-      border-bottom-right-radius: var(--radius-md);
+      border-bottom-left-radius: var(--onyks-radius-md);
+      border-bottom-right-radius: var(--onyks-radius-md);
       overflow: hidden;
     }
     
@@ -191,7 +188,7 @@ export class OnyksNav extends LitElement
 
     ::slotted([slot="nav"])
     {
-      padding: 0 var(--spacing-md);
+      padding: 0 var(--onyks-spacing-md);
       box-sizing: border-box;
       margin: 0;
       height: 100%;
@@ -206,35 +203,35 @@ export class OnyksNav extends LitElement
       border-top: none;
       border-left: none;
       border-right: none;
+      color: var(--onyks-on-surface-1);
     }
 
     ::slotted([slot="nav"]:hover) 
     { 
       background-color: var(--surface-hover); 
-      color: var(--text-primary);
     }
 
     ::slotted([slot="nav"][selected]) 
     {
-      background-color: var(--surface-hover);
-      border-bottom: 3px solid var(--color-primary);
+      background-color: var(--onyks-surface-1-selected);
+      border-bottom: 3px solid var(--onyks-accent);
     }
 
     :host([mobile-mode]) ::slotted([slot="nav"]) 
     {
       height: fit-content;
-      padding: var(--spacing-md);
+      padding: var(--onyks-spacing-md);
       width: 100%;
       border-bottom: none;
     }
     
     :host([mobile-mode]) ::slotted([slot="nav"][selected])
     { 
-      border-left: 3px solid var(--color-primary); 
+      border-left: 3px solid var(--onyks-accent); 
       border-bottom: none;
-      background-color: var(--surface-hover);
+      background-color: var(--onyks-surface-1-hover);
     }
-  `, applyStyle('size', '')];
+  `, onyksStyleSize, onyksStyleScrollbar];
 
   constructor() 
   {
@@ -366,7 +363,7 @@ export class OnyksNav extends LitElement
       <nav class="${this.isMenuOpen? 'menu-open':nothing}">
         
         ${this.isMobile ? html`
-          <div class="mobileWrapper">
+          <div class="mobileWrapper onyks-size">
              <button class="openMenuBtn ${classMap({ active: this.isMenuOpen })}" @click="${() => this.toggleMenu()}">
                 <span class="line"></span>
                 <span class="line"></span>
@@ -375,14 +372,14 @@ export class OnyksNav extends LitElement
              
              <div class="mobileDropdownWrapper ${classMap({ open: this.isMenuOpen })}">
                <div class="dropdownInner">
-                  <div class="dropdownContentScroll">
+                  <div class="dropdownContentScroll onyks-scrollbar">
                      <slot name="nav" @slotchange="${this._handleSlotChange}"></slot>
                   </div>
                </div>
              </div>
           </div>
         ` : html`
-          <div class="desktopWrapper">
+          <div class="desktopWrapper onyks-size">
             <slot name="nav" @slotchange="${this._handleSlotChange}"></slot>
             ${showNextBtn ? html`<button class="nextBtn" @click="${this._nextPage}"></button>` : ''}
           </div>

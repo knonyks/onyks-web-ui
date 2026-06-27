@@ -26,4 +26,4 @@ export * from './components/toast.ts'
 export * from './components/list.ts'
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './general.css';
+import './onyks-webui.css'
