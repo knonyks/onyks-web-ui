@@ -78,7 +78,7 @@
 }
 
 /* Default and dark theme */
-:root, [data-onyks-theme="blue"]
+[data-onyks-theme="blue"]
 {
     /* General */
     --onyks-surface: #180d59;
