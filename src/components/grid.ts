@@ -10,7 +10,6 @@ export class Onyks_Grid extends LitElement {
         :host {
             display: block;
             width: 100%;
-            margin-bottom: 2rem;
             box-sizing: border-box;
         }
         

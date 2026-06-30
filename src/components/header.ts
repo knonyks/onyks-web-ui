@@ -19,36 +19,43 @@ export class OnyksHeader extends LitElement
     {
         font-family: var(--onyks-font);
         display: block;
+        font-weight: bold;
     }
 
     :host([level="1"])
     {
         font-size: var(--onyks-size-4xl);
+        padding: var(--onyks-spacing-xl) 0;
     }
 
     :host([level="2"])
     {
         font-size: var(--onyks-size-3xl);
+        padding: var(--onyks-spacing-xl) 0;
     }
 
     :host([level="3"])
     {
         font-size: var(--onyks-size-2xl);
+        padding: var(--onyks-spacing-xl) 0;
     }
 
     :host([level="4"])
     {
         font-size: var(--onyks-size-xl);
+        padding: var(--onyks-spacing-xl) 0;
     }
 
     :host([level="5"])
     {
         font-size: var(--onyks-size-lg);
+        padding: var(--onyks-spacing-lg) 0;
     }
 
     :host([level="6"])
     {
         font-size: var(--onyks-size-md);
+        padding: var(--onyks-spacing-md) 0;
     }
 `];
 }
