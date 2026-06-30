@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { applyStyle } from './_styles';
 
 @customElement('onyks-select')
 export class OnyksSelect extends LitElement 
@@ -67,7 +66,7 @@ export class OnyksSelect extends LitElement
             overscroll-behavior: contain;
             gap: var(--onyks-spacing-sm);
         }
-    `, applyStyle('size')];
+    `];
 }
 
 @customElement('onyks-select-option')

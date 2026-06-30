@@ -1,6 +1,5 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
-import { applyStyle } from './_styles';
 import { property } from 'lit/decorators.js';
 
 @customElement('onyks-window-bar-button')
@@ -48,7 +47,7 @@ export class OnyksWindowBarButton extends LitElement
         background-color: var(--window-bar-button-fullscreen-background);
     }
 
-    `, applyStyle('size', 'button')];
+    `];
 }
 
 @customElement('onyks-window-bar')
@@ -109,7 +108,7 @@ export class OnyksWindowBar extends LitElement
             border-bottom-right-radius: var(--radius-sm);
         }
 
-    `, applyStyle('size')];
+    `];
 }
 
 

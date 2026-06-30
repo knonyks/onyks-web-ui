@@ -1,10 +1,5 @@
 import { css } from 'lit';
 
-export const applyStyle = (mode: string, selector: string = '') =>
-{
-    return css``;
-};
-
 export const style_scrollbar = css``;
 
 export const style_size = css``;

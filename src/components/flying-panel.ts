@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { style_size } from './_styles';
+
 
 @customElement('onyks-flying-panel')
 export class Onyks_Flying_Panel extends LitElement
@@ -29,7 +29,7 @@ export class Onyks_Flying_Panel extends LitElement
             transition: background-color 0.3s ease;
             border-radius: var(--radius-md);
         }
-    `, style_size(":host")];
+    `];
 }
 
 declare global 
