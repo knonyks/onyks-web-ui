@@ -331,7 +331,7 @@ export class OnyksNav extends LitElement
 
     return html`
       <nav class="${this.isMenuOpen? 'menu-open':nothing}">
-        
+        <slot></slot>
         ${this.isMobile ? html`
           <div class="mobileWrapper onyks-size">
              <button class="openMenuBtn onyks-size ${classMap({ active: this.isMenuOpen })}" @click="${() => this.toggleMenu()}">
