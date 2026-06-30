@@ -1,5 +1,8 @@
 export * from './components/_styles.ts'
 
+
+export * from './components/header.ts'
+
 export * from './components/alert.ts'
 export * from './components/dialog.ts'
 export * from './components/logo.ts'
