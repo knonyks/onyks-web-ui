@@ -1,7 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { applyStyle, onyksStyleSize } from './_styles';
+import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-strip-menu-option')
 export class OnyksStripMenuOption extends LitElement 
