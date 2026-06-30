@@ -76,7 +76,7 @@ export class Onyks_Code_Block extends LitElement {
         :host([size="s"]) { font-size: 12px; }
         :host([size="m"]) { font-size: 14px; }
         :host([size="l"]) { font-size: 16px; }
-    `, style_scrollbar('pre')];
+    `];
 
     @query('code') private _codeElement!: HTMLElement;
 

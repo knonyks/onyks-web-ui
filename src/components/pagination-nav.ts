@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { applyStyle, onyksStyleSize } from './_styles';
+import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-pagination-nav')
 export class OnyksPaginationNav extends LitElement 
