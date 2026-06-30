@@ -117,8 +117,8 @@ export const WithButtons: Story =
                   return `
                     <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''} size="${args.size}">
                       ${args.text}
-                        <onyks-button slot="footer">Cancel</onyks-button>
-                        <onyks-button slot="footer">OK</onyks-button>
+                        <onyks-button slot="footer" background="red">Cancel</onyks-button>
+                        <onyks-button slot="footer" background="yellow">OK</onyks-button>
                     </onyks-dialog>
                   `;
               }
@@ -128,8 +128,8 @@ export const WithButtons: Story =
   render: (args) => html`
     <onyks-dialog ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
       ${args.text}
-        <onyks-button slot="footer">Cancel</onyks-button>
-        <onyks-button slot="footer">OK</onyks-button>
+        <onyks-button slot="footer" background="red">Cancel</onyks-button>
+        <onyks-button slot="footer" background="yellow">OK</onyks-button>
     </onyks-dialog>
   `,
 };
@@ -176,8 +176,8 @@ export const WithLongContent: Story =
                           Fusce a magna tempus nisl rutrum ultrices in vitae est. Morbi commodo velit at 
                           risus volutpat viverra. Phasellus consequat diam id justo rhoncus rhoncus.
                         </p>    
-                        <onyks-button slot="footer">Cancel</onyks-button>
-                        <onyks-button slot="footer">OK</onyks-button>
+                        <onyks-button slot="footer" background="red">Cancel</onyks-button>
+                        <onyks-button slot="footer" background="yellow">OK</onyks-button>
                     </onyks-dialog>
                   `;
               }
@@ -196,8 +196,8 @@ export const WithLongContent: Story =
       Curabitur quis tellus eros. Donec imperdiet vel elit nec vestibulum. Nam vel elementum diam, id rutrum diam.</p>
       <p>Aliquam pretium molestie dictum. Nullam auctor, dui eu vestibulum vulputate, urna purus porta velit, eu porta urna est id massa. Aliquam laoreet, lacus vitae tempus rhoncus, metus augue rutrum ante, vitae tincidunt turpis arcu at mi. Duis at ante in ipsum bibendum aliquet vitae in ipsum. Etiam massa sem, lobortis eu lacinia vel, finibus vel purus. Suspendisse eu sem at elit laoreet fringilla vel id est. Quisque pharetra eleifend tincidunt. Aliquam sodales ex a malesuada aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce a magna tempus nisl rutrum ultrices in vitae est. Morbi commodo velit at risus volutpat viverra. Phasellus consequat diam id justo rhoncus rhoncus.
       </p>      
-  <onyks-button slot="footer">Cancel</onyks-button>
-        <onyks-button slot="footer">OK</onyks-button>
+  <onyks-button slot="footer" background="red">Cancel</onyks-button>
+        <onyks-button slot="footer" background="yellow">OK</onyks-button>
     </onyks-dialog>
   `,
 };
@@ -257,8 +257,8 @@ export const CSSEdit: Story =
                   
                   <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''} size="${args.size}">
                     ${args.text}
-                      <onyks-button slot="footer">Cancel</onyks-button>
-                      <onyks-button slot="footer">OK</onyks-button>
+                      <onyks-button slot="footer" background="red">Cancel</onyks-button>
+                      <onyks-button slot="footer" background="yellow">OK</onyks-button>
                   </onyks-dialog>
                 `;
             }
@@ -291,8 +291,8 @@ export const CSSEdit: Story =
   
   <onyks-dialog id="myDialog" ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
       ${args.text}
-        <onyks-button slot="footer">Cancel</onyks-button>
-        <onyks-button slot="footer">OK</onyks-button>
+        <onyks-button slot="footer" background="red">Cancel</onyks-button>
+        <onyks-button slot="footer" background="yellow">OK</onyks-button>
     </onyks-dialog>
   `,
 };

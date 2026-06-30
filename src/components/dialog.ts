@@ -116,6 +116,7 @@ export class OnyksDialog extends LitElement
             padding: var(--onyks-spacing-md);
             margin: 0;
             font-size: var(--onyks-size-xl);
+            user-select: none;
         }
 
         .dialogCloseBtn
@@ -126,6 +127,7 @@ export class OnyksDialog extends LitElement
             top: var(--onyks-spacing-md);
             height: fit-content;
             font-size: var(--onyks-size-xl);
+            user-select: none;
         }
 
         .dialogCloseBtn::before
@@ -155,6 +157,10 @@ export class OnyksDialog extends LitElement
             display: flex;
             justify-content: flex-end;
             gap: var(--onyks-spacing-md);
+            background-color: var(--onyks-surface-2);
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            user-select: none;
         }
 
         .dialogFooter ::slotted(onyks-button)

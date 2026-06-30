@@ -46,10 +46,10 @@ const meta: Meta =
         }
     },
     render: (args) => html`
-    <onyks-select multiple=${args.multiple} size=${args.size} id="select">
-        <onyks-select-option marked value="${args.value}">${args.value}</onyks-select-option>
-        <onyks-select-option marked value="milk">Milk</onyks-select-option>
-        <onyks-select-option marked value="aubergine">Aubergine</onyks-select-option>
+    <onyks-select ?multiple=${args.multiple} size=${args.size} id="select">
+        <onyks-select-option selected value="${args.value}">${args.value}</onyks-select-option>
+        <onyks-select-option selected value="milk">Milk</onyks-select-option>
+        <onyks-select-option selected value="aubergine">Aubergine</onyks-select-option>
         <onyks-select-option value="garlic">Garlic</onyks-select-option>
         <onyks-select-option value="watermelon">Watermelon</onyks-select-option>
         <onyks-select-option value="pepper">Pepper</onyks-select-option>
@@ -64,7 +64,7 @@ const meta: Meta =
         <onyks-select-option value="oil">Oil</onyks-select-option>
         <onyks-select-option value="vinegar">Vinegar</onyks-select-option>
     </onyks-select>
-    <onyks-button @click=${() => {console.log((document.querySelector("#select") as any)?.getSelectedItems())}} style="margin-top: var(--spacing-md)">Get Selected Items!</onyks-button>
+    <onyks-button @click=${() => {console.log((document.querySelector("#select") as any)?.getSelectedItems())}} style="margin-top: var(--onyks-spacing-md)">Get Selected Items!</onyks-button>
     `,
     parameters:
     {
@@ -83,9 +83,9 @@ const meta: Meta =
                     </script>
 
                     <onyks-select ${args.multiple? 'multiple':''} size="${args.size}" id="select">
-                        <onyks-select-option marked value="${args.value}">${args.value}</onyks-select-option>
-                        <onyks-select-option marked value="milk">Milk</onyks-select-option>
-                        <onyks-select-option marked value="aubergine">Aubergine</onyks-select-option>
+                        <onyks-select-option selected value="${args.value}">${args.value}</onyks-select-option>
+                        <onyks-select-option selected value="milk">Milk</onyks-select-option>
+                        <onyks-select-option selected value="aubergine">Aubergine</onyks-select-option>
                         <onyks-select-option value="garlic">Garlic</onyks-select-option>
                         <onyks-select-option value="watermelon">Watermelon</onyks-select-option>
                         <onyks-select-option value="pepper">Pepper</onyks-select-option>

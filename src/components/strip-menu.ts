@@ -1,16 +1,16 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { applyStyle } from './_styles';
+import { applyStyle, onyksStyleSize } from './_styles';
 
 @customElement('onyks-strip-menu-option')
 export class OnyksStripMenuOption extends LitElement 
 {
     @property({type: String, reflect: true}) 
-    icon = "F62A"; 
+    icon = "F62A";
 
     @property({ type: Boolean, reflect: true })
-    marked = false;
+    selected = false;
 
     @property({type: String, reflect: true})
     size = "xl"
@@ -19,63 +19,39 @@ export class OnyksStripMenuOption extends LitElement
     {
         return html`    
             <style>
-                :host::before 
+                .icon::before 
                 {
                     font-family: 'bootstrap-icons';
                     content: "\\${this.icon}";
                 }
             </style>
+            <div class="icon onyks-size"></div>
         `;
     }
 
     static styles = [css`
-        :host([size="s"])
-        {
-            width: var(--size-sm);
-            height: var(--size-sm);
-        }
-
-        :host([size="m"])
-        {
-            width: var(--size-md);
-            height: var(--size-md);
-        }
-
-        :host([size="l"])
-        {
-            width: var(--size-lg);
-            height: var(--size-lg);
-        }
-
-        :host([size="xl"])
-        {
-            width: var(--size-xl);
-            height: var(--size-xl);
-        }
-
-        :host
+        .icon
         {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--strip-menu-option-background);
-            border: 2px solid var(--strip-menu-border-color);
+            border: 1px solid var(--onyks-surface-1-border);
             transition: background-color 0.3s ease;
-            padding: var(--spacing-md);
-            border-radius: var(--spacing-sm);
+            padding: var(--onyks-spacing-md);
+            border-radius: var(--onyks-spacing-sm);
             cursor: pointer;
         }
 
-        :host(:hover)
+        :host(:hover) .icon
         {
-            background-color: var(--strip-menu-option-background-hover);
+            background-color: var(--onyks-surface-1-hover);
         }
 
-        :host([marked])
+        :host([selected]) .icon
         {
-            background-color: var(--strip-menu-option-background-marked);
+            background-color: var(--onyks-surface-1-selected);
         }
-    `, applyStyle('size')];
+    `, onyksStyleSize];
 }
 
 @customElement('onyks-strip-menu')
@@ -92,14 +68,14 @@ export class OnyksStripMenu extends LitElement
     static styles = [css`
         :host
         {
-            background-color: var(--strip-menu-background);
-            border: 2px solid var(--strip-menu-border-color);
-            border-radius: var(--radius-md);
+            background-color: var(--onyks-surface-1);
+            border: 1px solid var(--onyks-surface-1-border);
+            border-radius: var(--onyks-radius-md);
             display: flex;
-            gap: var(--spacing-sm);
+            gap: var(--onyks-spacing-sm);
             width: fit-content;
             height: fit-content;
-            padding: var(--spacing-sm);
+            padding: var(--onyks-spacing-sm);
         }
 
         :host([type="v"])

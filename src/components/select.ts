@@ -8,29 +8,29 @@ export class OnyksSelect extends LitElement
     @property({ type: Boolean, reflect: true }) multiple = true;
     @property({ type: String, reflect: true }) size = 'm';
 
-    private _handleItemClick(e: any) 
+    private _handleItemClick = (e: any) => 
     {
+        const target = e.composedPath()[0] as OnyksSelectOption;
+        
         if(this.multiple)
         {
-            e.composedPath()[0].marked = !e.composedPath()[0].marked
+            target.selected = !target.selected;
         }
         else
         {
-            this.querySelectorAll('onyks-select-option')
-            Array.from(this.querySelectorAll('onyks-select-option')).filter((x) => 
+            Array.from(this.querySelectorAll('onyks-select-option')).forEach((option) => 
             {
-                return x.marked == true && x != e.composedPath()[0]
-            }).forEach((e) => 
-            {
-                e.marked = false
-            })
-            e.composedPath()[0].marked = !e.composedPath()[0].marked
+                if(option.selected && option !== target) {
+                    option.selected = false;
+                }
+            });
+            target.selected = !target.selected;
         }        
     }
 
     getSelectedItems()
     {
-        let filtered = Array.from(this.querySelectorAll('onyks-select-option')).filter((item) => item.marked == true);
+        let filtered = Array.from(this.querySelectorAll('onyks-select-option')).filter((item) => item.selected == true);
         return filtered.map((e) => e.value)
     }
 
@@ -46,12 +46,12 @@ export class OnyksSelect extends LitElement
     static styles = [css`
         :host
         {
-            background-color: var(--select-background);
-            border: 1px solid var(--select-border-color);
+            background-color: var(--onyks-surface-1);
+            border: 1px solid var(--onyks-surface-1-border);
             width: 400px;
             height: 400px;
-            padding: var(--spacing-md);
-            border-radius: var(--radius-xl);
+            padding: var(--onyks-spacing-md);
+            border-radius: var(--onyks-radius-xl);
             box-sizing: border-box;
             display: block;
         }
@@ -65,7 +65,7 @@ export class OnyksSelect extends LitElement
             overflow-y: auto;
             box-sizing: border-box;
             overscroll-behavior: contain;
-            gap: var(--spacing-sm);
+            gap: var(--onyks-spacing-sm);
         }
     `, applyStyle('size')];
 }
@@ -73,7 +73,7 @@ export class OnyksSelect extends LitElement
 @customElement('onyks-select-option')
 export class OnyksSelectOption extends LitElement 
 {
-    @property({ type: Boolean, reflect: true }) marked = false;
+    @property({ type: Boolean, reflect: true }) selected = false;
     @property({ type: String, reflect: true }) value = "";
 
     render() 
@@ -84,8 +84,8 @@ export class OnyksSelectOption extends LitElement
     static styles = css`
         :host
         {
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
+            padding: var(--onyks-spacing-md);
+            border-radius: var(--onyks-radius-md);
             cursor: pointer;
             box-sizing: border-box;
             border: 1px solid transparent;
@@ -98,12 +98,12 @@ export class OnyksSelectOption extends LitElement
 
         :host(:hover)
         {
-            border: 1px solid var(--select-option-border-color-hover);
+            border: 1px solid var(--onyks-surface-1-hover);
         }
 
-        :host([marked])
+        :host([selected])
         {
-            background-color: var(--select-option-background-marked);
+            background-color: var(--onyks-surface-1-selected);
         }
     `
 }

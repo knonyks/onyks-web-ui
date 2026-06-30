@@ -32,6 +32,9 @@ export class OnyksAvatar extends LitElement
             transition: background-color 0.3s ease;
             justify-content: center;
             align-items: center;
+            width: 200px;
+            height: 200px;
+            user-select: none;
         }
         
         :host(:hover)

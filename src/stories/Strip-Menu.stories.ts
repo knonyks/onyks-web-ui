@@ -24,7 +24,7 @@ const meta: Meta =
                 category: 'parameters'
             }
         },
-        marked: 
+        selected: 
         {
             table: 
             {
@@ -43,11 +43,11 @@ const meta: Meta =
     },
     render: (args) => html`
         <onyks-strip-menu type=${args.type}>
-            <onyks-strip-menu-option size=${args.size} icon=${args.icon[0]} ?marked=${args.marked[0]}></onyks-strip-menu-option>
-            <onyks-strip-menu-option size=${args.size} icon=${args.icon[1]} ?marked=${args.marked[1]}></onyks-strip-menu-option>
-            <onyks-strip-menu-option size=${args.size} icon=${args.icon[2]} ?marked=${args.marked[2]}></onyks-strip-menu-option>
-            <onyks-strip-menu-option size=${args.size} icon=${args.icon[3]} ?marked=${args.marked[3]}></onyks-strip-menu-option>
-            <onyks-strip-menu-option size=${args.size} icon=${args.icon[4]} ?marked=${args.marked[4]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=${args.size} icon=${args.icon[0]} ?selected=${args.selected[0]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=${args.size} icon=${args.icon[1]} ?selected=${args.selected[1]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=${args.size} icon=${args.icon[2]} ?selected=${args.selected[2]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=${args.size} icon=${args.icon[3]} ?selected=${args.selected[3]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=${args.size} icon=${args.icon[4]} ?selected=${args.selected[4]}></onyks-strip-menu-option>
         </onyks-strip-menu>
     `,
     parameters:
@@ -67,11 +67,11 @@ const meta: Meta =
                     const { args } = storyContext;
                     return `
                     <onyks-strip-menu type="${args.type}">
-                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[0]}"${args.marked[0]? " marked":''}></onyks-strip-menu-option>
-                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[1]}"${args.marked[1]? " marked":''}></onyks-strip-menu-option>
-                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[2]}"${args.marked[2]? " marked":''}></onyks-strip-menu-option>
-                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[3]}"${args.marked[3]? " marked":''}></onyks-strip-menu-option>
-                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[4]}"${args.marked[4]? " marked":''}></onyks-strip-menu-option>
+                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[0]}"${args.selected[0]? " selected":''}></onyks-strip-menu-option>
+                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[1]}"${args.selected[1]? " selected":''}></onyks-strip-menu-option>
+                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[2]}"${args.selected[2]? " selected":''}></onyks-strip-menu-option>
+                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[3]}"${args.selected[3]? " selected":''}></onyks-strip-menu-option>
+                        <onyks-strip-menu-option size="${args.size}" icon="${args.icon[4]}"${args.selected[4]? " selected":''}></onyks-strip-menu-option>
                     </onyks-strip-menu>
                     `;
                 }
@@ -90,6 +90,6 @@ export const Base: Story =
     type: 'v',
     size: 'm',
     icon: ['F7CD', 'F62A', 'F7B4', 'F62A', 'F7CD'],
-    marked: [true, false, true, false, true]
+    selected: [true, false, true, false, true]
   }
 };

@@ -16,30 +16,48 @@ const meta: Meta =
             {
                 category: 'parameters'
             }
+        },
+        "mobile-breakpoint": 
+        {
+            control: { type: 'number' },
+            table: 
+            {
+                category: 'parameters'
+            }
+        },
+        "max-view-items": 
+        {
+            control: { type: 'number' },
+            table: 
+            {
+                category: 'parameters'
+            }
         }
     },
     render: (_args) => html`
-    <onyks-nav size="m" mobile-breakpoint="900" max-view-items="4" style="position: relative;">
-        <onyks-logo style="height: 60px; padding: var(--spacing-md); box-sizing: border-box; position: absolute; left: 0;"></onyks-logo>
-        <a href="https://google.com" slot="nav">Element No. 1</a>
-        <div slot="nav">Element No. 2</div>
-        <div slot="nav">Element No. 3</div>
-        <div slot="nav">Element No. 4</div>
-        <div slot="nav">Element No. 5</div>
-        <div slot="nav">Element No. 6</div>
-        <div slot="nav">Element No. 7</div>
-        <div slot="nav">Element No. 8</div>
-        <div slot="nav">Element No. 9</div>
-        <a href="https://google.com" slot="nav">Element No. 1</a>
-        <div slot="nav">Element No. 2</div>
-        <div slot="nav">Element No. 3</div>
-        <div slot="nav">Element No. 4</div>
-        <div slot="nav">Element No. 5</div>
-        <div slot="nav">Element No. 6</div>
-        <div slot="nav">Element No. 7</div>
-        <div slot="nav">Element No. 8</div>
-        <div slot="nav">Element No. 9</div>
-    </onyks-nav>`,
+    <div style="height: 500px;">
+        <onyks-nav size=${_args.size} mobile-breakpoint=${_args['mobile-breakpoint']} max-view-items=${_args['max-view-items']} style="position: relative;">
+            <onyks-logo style="height: 60px; padding: var(--spacing-md); box-sizing: border-box; position: absolute; left: 0;"></onyks-logo>
+            <a href="https://google.com" slot="nav">Element No. 1</a>
+            <div slot="nav">Element No. 2</div>
+            <div slot="nav">Element No. 3</div>
+            <div slot="nav">Element No. 4</div>
+            <div slot="nav">Element No. 5</div>
+            <div slot="nav">Element No. 6</div>
+            <div slot="nav">Element No. 7</div>
+            <div slot="nav">Element No. 8</div>
+            <div slot="nav">Element No. 9</div>
+            <a href="https://google.com" slot="nav">Element No. 1</a>
+            <div slot="nav">Element No. 2</div>
+            <div slot="nav">Element No. 3</div>
+            <div slot="nav">Element No. 4</div>
+            <div slot="nav">Element No. 5</div>
+            <div slot="nav">Element No. 6</div>
+            <div slot="nav">Element No. 7</div>
+            <div slot="nav">Element No. 8</div>
+            <div slot="nav">Element No. 9</div>
+        </onyks-nav>
+    </div>`,
     parameters:
     {
         docs:
@@ -65,8 +83,8 @@ export const Base: Story =
 {
   args: 
   {
-    src: '😍',
-    shape: 'circle',
-    size: 'l'
+    size: 'm',
+    'mobile-breakpoint': 900,
+    'max-view-items': 3
   }
 };

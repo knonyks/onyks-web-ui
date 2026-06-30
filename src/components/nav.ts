@@ -9,7 +9,7 @@ export class OnyksNav extends LitElement
   @property({ type: String, reflect: true }) 
   size = 'm';
 
-  @property({ type: Number, attribute: 'mobile-breakpoint' }) 
+  @property({ type: Number, reflect: true, attribute: 'mobile-breakpoint' }) 
   mobileBreakPoint = 900;
 
   @property({ type: Number, reflect: true, attribute: 'max-view-items' }) 
@@ -36,7 +36,7 @@ export class OnyksNav extends LitElement
     }
 
     :host([size="s"])
-    { 
+    {
       --nav-height: 50px; 
     }
 
@@ -64,7 +64,7 @@ export class OnyksNav extends LitElement
       position: relative; 
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid var(--onyks-surface-1-border);
+      /* border-bottom: 1px solid var(--onyks-surface-1-border); */
     }
 
     .desktopWrapper
@@ -76,23 +76,22 @@ export class OnyksNav extends LitElement
       justify-content: center;
     }
 
-    .nextBtn 
+    .nextBtn, .openMenuBtn
     {
       background: transparent;
       border: 1px solid var(--onyks-surface-1-border);
-      height: fit-content;
-      box-sizing: border-box;
-      width: fit-content;
+      border-radius: var(--onyks-radius-md);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
       margin: 8px;
-      padding: var(--onyks-spacing-sm);
-      border-radius: var(--onyks-radius-md);
       transition: all 0.2s ease;
+      height: 60%;
+      aspect-ratio: 1 / 1;
     }
-    
+ 
     .nextBtn:hover 
     {
       background: var(--onyks-surface-1-hover);
@@ -104,50 +103,20 @@ export class OnyksNav extends LitElement
       content: '\\F231';
     }
 
+
+    .openMenuBtn::before
+    {
+      font-family: 'bootstrap-icons';
+      content: '\\F479';
+    }
+
     .mobileWrapper 
     {
       display: flex;
       flex: 1;
       justify-content: flex-end;
-    }
-
-    .openMenuBtn 
-    {
-      background: transparent;
-      padding: var(--onyks-spacing-sm);
-      border-radius: var(--onyks-radius-md);
-      border: 1px solid var(--onyks-surface-1-border);
-     
-      color: inherit;
-      margin-right: var(--onyks-spacing-md);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-      
-    .line 
-    { 
-      display: block; 
-      width: 18px; 
-      height: 2px; 
-      background-color: currentColor; 
-      transition: 0.3s; 
-    }
-
-    .openMenuBtn.active .line:nth-child(1) 
-    { 
-      transform: translateY(8px) rotate(45deg); 
-    }
-
-    .openMenuBtn.active .line:nth-child(2) 
-    {
-      opacity: 0; 
-    }
-
-    .openMenuBtn.active .line:nth-child(3) 
-    { 
-      transform: translateY(-8px) rotate(-45deg); 
+      height: 100%;
+      align-items: center;
     }
 
     .mobileDropdownWrapper 
@@ -197,10 +166,10 @@ export class OnyksNav extends LitElement
       white-space: nowrap;
       text-decoration: none;
       transition: all 0.2s ease;
-      border-bottom: 3px solid transparent; 
+      /* border-bottom: 3px solid transparent; */
       cursor: pointer;
       background: transparent;
-      border-top: none;
+      /* border-top: none; */
       border-left: none;
       border-right: none;
       color: var(--onyks-on-surface-1);
@@ -227,7 +196,7 @@ export class OnyksNav extends LitElement
     
     :host([mobile-mode]) ::slotted([slot="nav"][selected])
     { 
-      border-left: 3px solid var(--onyks-accent); 
+      border-left: 10px solid var(--onyks-accent); 
       border-bottom: none;
       background-color: var(--onyks-surface-1-hover);
     }
@@ -257,10 +226,11 @@ export class OnyksNav extends LitElement
 
   protected updated(_changedProperties: PropertyValueMap<any>): void 
   {
-    if (_changedProperties.has('maxViewItems') || _changedProperties.has('currentPage') || _changedProperties.has('isMobile')) 
+    if (_changedProperties.has('mobileBreakPoint') || _changedProperties.has('maxViewItems') || _changedProperties.has('currentPage') || _changedProperties.has('isMobile')) 
     {
       this._updateVisibility();
     }
+    this._updateVisibility();
   }
 
   private _handleResize() 
@@ -364,10 +334,7 @@ export class OnyksNav extends LitElement
         
         ${this.isMobile ? html`
           <div class="mobileWrapper onyks-size">
-             <button class="openMenuBtn ${classMap({ active: this.isMenuOpen })}" @click="${() => this.toggleMenu()}">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
+             <button class="openMenuBtn onyks-size ${classMap({ active: this.isMenuOpen })}" @click="${() => this.toggleMenu()}">
              </button>
              
              <div class="mobileDropdownWrapper ${classMap({ open: this.isMenuOpen })}">
@@ -381,7 +348,7 @@ export class OnyksNav extends LitElement
         ` : html`
           <div class="desktopWrapper onyks-size">
             <slot name="nav" @slotchange="${this._handleSlotChange}"></slot>
-            ${showNextBtn ? html`<button class="nextBtn" @click="${this._nextPage}"></button>` : ''}
+            ${showNextBtn ? html`<button class="nextBtn onyks-size" @click="${this._nextPage}"></button>` : ''}
           </div>
         `}
       </nav>

@@ -42,6 +42,7 @@ export class OnyksFileExplorer extends LitElement
       box-sizing: border-box;
       height: 300px;
       border: 1px solid var(--onyks-surface-1-border);
+      user-select: none;
     }
 
     .explorer

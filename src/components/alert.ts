@@ -28,6 +28,7 @@ export class OnyksAlert extends LitElement
             box-sizing: border-box;
             flex-shrink: 0;
             vertical-align: middle;
+            user-select: none;
         }
 
         #text
