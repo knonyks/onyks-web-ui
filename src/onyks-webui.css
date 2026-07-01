@@ -77,7 +77,6 @@
     --onyks-logo-invert: 0;
 }
 
-/* Default and dark theme */
 [data-onyks-theme="blue"]
 {
     /* General */
@@ -87,16 +86,16 @@
     /* Elements */
     --onyks-surface-1: #21117a;
     --onyks-on-surface-1: #fff;
-    --onyks-surface-1-hover: #0f0066;
+    --onyks-surface-1-hover: #1800a0;
     --onyks-surface-1-selected: #1e1457;
-    --onyks-surface-1-border: #31218f;
+    --onyks-surface-1-border: #ffffff;
 
     --onyks-surface-2: #311e9c;
     
 
     /* Specialized colors */
-    --onyks-accent: #ffffff;
-    --onyks-on-accent: #000000;
+    --onyks-accent: #0040ff;
+    --onyks-on-accent: #ffffff;
 
     --onyks-success: #88ff80;
     --onyks-on-success: #000;
@@ -125,7 +124,172 @@
     
     /* Scrollbar */
     --onyks-scroll-track: transparent;
-    --onyks-scroll-thumb: #414141;
+    --onyks-scroll-thumb: #ffffff;
+    --onyks-scroll-size: 14px;
+
+
+    /* Other */
+    --onyks-logo-invert: 0;
+}
+
+[data-onyks-theme="green"]
+{
+    /* General */
+    --onyks-surface: #13410f;
+    --onyks-on-surface: #fff;
+    
+    /* Elements */
+    --onyks-surface-1: #26741f;
+    --onyks-on-surface-1: #fff;
+    --onyks-surface-1-hover: #446e41;
+    --onyks-surface-1-selected: #26911c;
+    --onyks-surface-1-border: #7eff72;
+
+    --onyks-surface-2: #2b5427;
+    
+
+    /* Specialized colors */
+    --onyks-accent: #22ff77;
+    --onyks-on-accent: #000;
+
+    --onyks-success: #88ff80;
+    --onyks-on-success: #000;
+
+    --onyks-warning: #ffdb70;
+    --onyks-on-warning: #000;
+
+    --onyks-info: #0059ff;
+    --onyks-on-info: #fff;
+
+    --onyks-error: #ff5252;
+    --onyks-on-error: #000;
+
+    /* Classic colors */
+    --onyks-red: #ff4949;
+    --onyks-on-red: #fff;
+    
+    --onyks-blue: #0080ff;
+    --onyks-on-blue: #fff;
+
+    --onyks-green: #00ff73;
+    --onyks-on-green: #000;
+
+    --onyks-yellow: #fbff00;
+    --onyks-on-yellow: #000;
+    
+    /* Scrollbar */
+    --onyks-scroll-track: transparent;
+    --onyks-scroll-thumb: #87c743;
+    --onyks-scroll-size: 14px;
+
+
+    /* Other */
+    --onyks-logo-invert: 0;
+}
+
+[data-onyks-theme="light"]
+{
+    /* General */
+    --onyks-surface: #ffffff;
+    --onyks-on-surface: #000;
+    
+    /* Elements */
+    --onyks-surface-1: #c0c0c0;
+    --onyks-on-surface-1: #000;
+    --onyks-surface-1-hover: #818181;
+    --onyks-surface-1-selected: #707070;
+    --onyks-surface-1-border: #000000;
+
+    --onyks-surface-2: #848484;
+    
+
+    /* Specialized colors */
+    --onyks-accent: #0040ff;
+    --onyks-on-accent: #ffffff;
+
+    --onyks-success: #88ff80;
+    --onyks-on-success: #000;
+
+    --onyks-warning: #ffdb70;
+    --onyks-on-warning: #000;
+
+    --onyks-info: #0059ff;
+    --onyks-on-info: #fff;
+
+    --onyks-error: #ff5252;
+    --onyks-on-error: #000;
+
+    /* Classic colors */
+    --onyks-red: #ff4949;
+    --onyks-on-red: #fff;
+    
+    --onyks-blue: #0080ff;
+    --onyks-on-blue: #fff;
+
+    --onyks-green: #00ff73;
+    --onyks-on-green: #000;
+
+    --onyks-yellow: #fbff00;
+    --onyks-on-yellow: #000;
+    
+    /* Scrollbar */
+    --onyks-scroll-track: transparent;
+    --onyks-scroll-thumb: #000;
+    --onyks-scroll-size: 14px;
+
+
+    /* Other */
+    --onyks-logo-invert: 0;
+}
+
+[data-onyks-theme="pink"]
+{
+    /* General */
+    --onyks-surface: #ffaef1;
+    --onyks-on-surface: #000;
+    
+    /* Elements */
+    --onyks-surface-1: #ff58e3;
+    --onyks-on-surface-1: #000;
+    --onyks-surface-1-hover: #d558ff;
+    --onyks-surface-1-selected: #c9aeff;
+    --onyks-surface-1-border: #ff00d4;
+
+    --onyks-surface-2: #ff5cbb;
+    
+
+    /* Specialized colors */
+    --onyks-accent: #bf00ff;
+    --onyks-on-accent: #ffffff;
+
+    --onyks-success: #88ff80;
+    --onyks-on-success: #000;
+
+    --onyks-warning: #ffdb70;
+    --onyks-on-warning: #000;
+
+    --onyks-info: #0059ff;
+    --onyks-on-info: #fff;
+
+    --onyks-error: #ff5252;
+    --onyks-on-error: #000;
+
+    /* Classic colors */
+    --onyks-red: #ff4949;
+    --onyks-on-red: #fff;
+    
+    --onyks-blue: #0080ff;
+    --onyks-on-blue: #fff;
+
+    --onyks-green: #00ff73;
+    --onyks-on-green: #000;
+
+    --onyks-yellow: #fbff00;
+    --onyks-on-yellow: #000;
+    
+    /* Scrollbar */
+    --onyks-scroll-track: transparent;
+    --onyks-scroll-thumb: #ff6daa;
     --onyks-scroll-size: 14px;
 
 

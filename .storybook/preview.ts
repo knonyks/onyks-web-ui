@@ -39,6 +39,7 @@ const preview: Preview = {
           { value: 'light', title: 'Light' },
           { value: 'green', title: 'Green' },
           { value: 'blue', title: 'Blue' },
+          { value: 'pink', title: 'Pink (Uwu)' },
         ],
         dynamicTitle: true,
       },

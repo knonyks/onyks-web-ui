@@ -31,7 +31,7 @@ export class OnyksPathChain extends LitElement
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 300px;
-            color: black;
+            color: var(--onyks-on-accent);
             transition: opacity 0.2s;
         }
 

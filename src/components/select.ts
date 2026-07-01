@@ -1,11 +1,16 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { onyksStyleScrollbar, onyksStyleSize } from './_styles';
 
 @customElement('onyks-select')
 export class OnyksSelect extends LitElement 
 {
-    @property({ type: Boolean, reflect: true }) multiple = true;
+    @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: String, reflect: true }) size = 'm';
+
+    private contentElement: HTMLElement | null = null;
+    private resizeObserver: ResizeObserver | null = null;
+    private mutationObserver: MutationObserver | null = null;
 
     private _handleItemClick = (e: any) => 
     {
@@ -27,6 +32,51 @@ export class OnyksSelect extends LitElement
         }        
     }
 
+    private _checkScroll = () => 
+    {
+        if (this.contentElement) {
+            const hasScroll = this.contentElement.scrollHeight > this.contentElement.clientHeight;
+            if (hasScroll) {
+                this.shadowRoot?.querySelector('.content')?.classList.add('has-scroll');
+            } else {
+                this.shadowRoot?.querySelector('.content')?.classList.remove('has-scroll');
+            }
+        }
+    }
+
+    connectedCallback() 
+    {
+        super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(this._checkScroll);
+        this.mutationObserver = new MutationObserver(this._checkScroll);
+    }
+
+    disconnectedCallback() 
+    {
+        super.disconnectedCallback();
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
+        if (this.mutationObserver) {
+            this.mutationObserver.disconnect();
+        }
+    }
+
+    firstUpdated() 
+    {
+        this.contentElement = this.shadowRoot?.querySelector('.content') as HTMLElement;
+        if (this.contentElement && this.resizeObserver) {
+            this.resizeObserver.observe(this.contentElement);
+        }
+        
+        this.mutationObserver?.observe(this, {
+            childList: true,
+            subtree: true
+        });
+        
+        this._checkScroll();
+    }
+
     getSelectedItems()
     {
         let filtered = Array.from(this.querySelectorAll('onyks-select-option')).filter((item) => item.selected == true);
@@ -36,7 +86,7 @@ export class OnyksSelect extends LitElement
     render()
     {
         return html`
-            <div class="content" @click=${this._handleItemClick}>
+            <div class="content onyks-size onyks-scrollbar" @click=${this._handleItemClick}>
                 <slot></slot>
             </div>
         `;
@@ -66,7 +116,17 @@ export class OnyksSelect extends LitElement
             overscroll-behavior: contain;
             gap: var(--onyks-spacing-sm);
         }
-    `];
+
+        ::slotted(*)
+        {
+            margin-right: 0;
+        }
+
+        .content.has-scroll ::slotted(*)
+        {
+            margin-right: 20px;
+        }
+    `, onyksStyleSize, onyksStyleScrollbar];
 }
 
 @customElement('onyks-select-option')
@@ -97,7 +157,7 @@ export class OnyksSelectOption extends LitElement
 
         :host(:hover)
         {
-            border: 1px solid var(--onyks-surface-1-hover);
+            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([selected])
