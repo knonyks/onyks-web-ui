@@ -3,23 +3,25 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Header',
-    component: 'onyks-header',
+    title: 'ONYKS WebUI/Text',
+    component: 'onyks-text',
     tags: ['autodocs'],
     
     render: (args) => html`
+
     <div style="background-color: var(--onyks-surface);">
-    <onyks-header level="${args.level}">${args.text}</onyks-header>
+    <onyks-text size="${args.size}">${args.text}</onyks-text>
     </div>`,
+
     argTypes: 
     {
-      level: 
+      size: 
       {
-        control: 
+        control:
         { 
           type: 'select' 
         },
-        options: [1, 2, 3, 4, 5, 6],
+        options: ['s', 'm', 'l', 'xl'],
         table: 
         {
           category: 'parameters'
@@ -42,7 +44,7 @@ const meta: Meta =
           transform: (_originalCode: string, storyContext: any) => 
           {
             const { args } = storyContext;
-            return `<onyks-header level="${args.level}">${args.text}</onyks-header>`;
+            return `<onyks-text size="${args.size}">${args.text}</onyks-text>`;
           }
         },
       }
@@ -54,7 +56,7 @@ type Story = StoryObj;
 
 export const Base: Story = {
   args: {
-    level: 1,
+    size: "m",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam \
     hendrerit a orci sit amet molestie. Suspendisse mollis ullamcorper mauris."
   }

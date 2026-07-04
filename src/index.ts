@@ -1,19 +1,23 @@
 export * from './components/_styles.ts'
-
-
-export * from './components/header.ts'
-
 export * from './components/alert.ts'
-export * from './components/dialog.ts'
-export * from './components/logo.ts'
-export * from './components/path.ts'
 export * from './components/avatar.ts'
+export * from './components/button.ts';
+export * from './components/container.ts'
+export * from './components/dialog.ts'
+export * from './components/header.ts'
+export * from './components/text.ts'
+
+
+
+
+export * from './components/path.ts'
+
 export * from './components/pagination-nav.ts'
 export * from './components/panel.ts'
 export * from './components/window-buttons.ts'
 export * from './components/strip-menu.ts'
 
-export * from './components/button.ts';
+
 export * from './components/label.ts'
 export * from './components/nav.ts'
 export * from './components/table.ts'

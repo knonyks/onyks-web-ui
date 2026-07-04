@@ -10,7 +10,7 @@ export class OnyksDialog extends LitElement
     @property({type: Boolean, reflect: true, attribute: 'corner-close' }) cornerClose = false;
     @property({type: Boolean, reflect: true, attribute: 'bottom-buttons' }) bottomButtons = false;
     @property({type: Boolean, reflect: true }) modal = false;
-    @property({type: String, reflect: true }) size = 'm';
+    @property({type: String, reflect: true, attribute: 'scroll-target' }) scrollTarget = 'body';
 
     private _shakeTimeout: number | undefined;
 
@@ -169,7 +169,49 @@ export class OnyksDialog extends LitElement
         }
     `, onyksStyleScrollbar];
 
-    
+    updated(changedProperties: any) 
+    {
+        super.updated(changedProperties);
+
+        if (changedProperties.has('open')) 
+        {
+            if (this.scrollTarget === 'none') 
+            {
+                return;
+            }
+
+            const targetElement = document.querySelector(this.scrollTarget) as HTMLElement | null;
+
+            if (targetElement) 
+            {
+                if (this.open) 
+                {
+                    targetElement.style.overflow = 'hidden';
+                } 
+                else 
+                {
+                    targetElement.style.overflow = '';
+                }
+            } 
+            else 
+            {
+                console.warn(`OnyksDialog: No element found for scroll-target selector "${this.scrollTarget}".`);
+            }
+        }
+    }
+
+    disconnectedCallback() 
+    {
+        super.disconnectedCallback();
+        if (this.open && this.scrollTarget !== 'none') 
+        {
+            const targetElement = document.querySelector(this.scrollTarget) as HTMLElement | null;
+            if (targetElement) 
+            {
+                targetElement.style.overflow = '';
+            }
+        }
+    }
 
     render() {
         return html`

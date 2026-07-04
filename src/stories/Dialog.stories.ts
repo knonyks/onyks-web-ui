@@ -13,15 +13,6 @@ const meta: Meta =
       "corner-close": { control: 'boolean', table: { category: 'parameters' } },
       "bottom-buttons": { control: 'boolean', table: { category: 'parameters' } },
       modal: { control: 'boolean', table: { category: 'parameters' } },
-      size: 
-      {
-        control: { type: 'select' },
-        options: ['s', 'm', 'l', 'xl'],
-        table: 
-        {
-            category: 'parameters'
-        }
-      },
       text: { control: 'text' },
       "dialog-close":
       {
@@ -32,17 +23,27 @@ const meta: Meta =
               category: 'events',
               type: { summary: 'void' },
           }
+      },
+      "scroll-target":
+      {
+          control: 'text',
+          description: 'Selector of the element to block scrolling when the dialog is open. Use "none" to disable scroll blocking.',
+          table:
+          {
+              category: 'parameters',
+              type: { summary: 'string' },
+          }
       }
     },
     render: (args) => html`
-      <onyks-dialog 
+      <onyks-dialog scroll-target="none"
       ?open=${args.open} 
       title="${args.title}" 
       ?no-title="${args.noTitle}" 
       ?corner-close="${args["corner-close"]}" 
       ?modal="${args.modal}"
       ?bottom-buttons="${args["bottom-buttons"]}"
-      size="${args.size}" @dialog-close=${(e: any) => {console.log(e)}}>
+      @dialog-close=${(e: any) => {console.log(e)}}>
         ${args.text}
       </onyks-dialog>
     `,
@@ -61,7 +62,7 @@ const meta: Meta =
                         dialog.addEventListener('dialog-close', console.log)
                       </script>
 
-                      <onyks-dialog${args.open ? ' open' : ''} title="${args.title}" ${args["corner-close"] ? ' corner-close' : ''} ${args["bottom-buttons"] ? ' bottom-buttons' : ''} size="${args.size}">
+                      <onyks-dialog${args.open ? ' open' : ''} title="${args.title}" ${args["corner-close"] ? ' corner-close' : ''} ${args["bottom-buttons"] ? ' bottom-buttons' : ''}>
                         ${args.text}
                       </onyks-dialog>
                     `;
@@ -89,6 +90,7 @@ export const Base: Story =
     "bottom-buttons": false,
     modal: false,
     text: 'A dialog content',
+    'scroll-target': 'none'
   }
 };
 
@@ -103,7 +105,7 @@ export const WithButtons: Story =
     "bottom-buttons": true,
     modal: false,
     text: 'A dialog content',
-    size: 'm',
+    'scroll-target': 'none'
   },
   parameters:
   {
@@ -115,7 +117,7 @@ export const WithButtons: Story =
               {
                   const { args } = storyContext;
                   return `
-                    <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''} size="${args.size}">
+                    <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''}>
                       ${args.text}
                         <onyks-button slot="footer" background="red">Cancel</onyks-button>
                         <onyks-button slot="footer" background="yellow">OK</onyks-button>
@@ -126,7 +128,7 @@ export const WithButtons: Story =
       }
   },
   render: (args) => html`
-    <onyks-dialog ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
+    <onyks-dialog scroll-target="none" ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
       ${args.text}
         <onyks-button slot="footer" background="red">Cancel</onyks-button>
         <onyks-button slot="footer" background="yellow">OK</onyks-button>
@@ -144,7 +146,7 @@ export const WithLongContent: Story =
     "corner-close": false,
     "bottom-buttons": true,
     modal: false,
-    size: 'm',
+    'scroll-target': 'none',
   },
   parameters:
   {
@@ -156,7 +158,7 @@ export const WithLongContent: Story =
               {
                   const { args } = storyContext;
                   return `
-                    <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''} size="${args.size}">
+                    <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''}>
                         <p>
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a est id nisi mattis pretium. 
                           In lobortis leo et arcu dignissim efficitur. Curabitur ac mattis magna. Vivamus vestibulum, urna ut 
@@ -185,7 +187,7 @@ export const WithLongContent: Story =
       }
   },
   render: (args) => html`
-    <onyks-dialog ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
+    <onyks-dialog scroll-target="none" ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
 
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a est id nisi mattis pretium. 
       In lobortis leo et arcu dignissim efficitur. Curabitur ac mattis magna. Vivamus vestibulum, urna ut 
@@ -213,7 +215,7 @@ export const CSSEdit: Story =
     "bottom-buttons": true,
     modal: false,
     text: 'A dialog content',
-    size: 'm',
+    'scroll-target': 'none'
   },
   parameters:
   {
@@ -255,7 +257,7 @@ export const CSSEdit: Story =
                   </style>
                   
                   
-                  <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''} size="${args.size}">
+                  <onyks-dialog ${args.open ? 'open' : ''} title="${args.title}" ${args["corner-close"] ? 'corner-close' : ''} ${args.modal ? 'modal' : ''}${args["bottom-buttons"] ? 'bottom-buttons' : ''}>
                     ${args.text}
                       <onyks-button slot="footer" background="red">Cancel</onyks-button>
                       <onyks-button slot="footer" background="yellow">OK</onyks-button>
@@ -289,7 +291,7 @@ export const CSSEdit: Story =
       }
     </style>  
   
-  <onyks-dialog id="myDialog" ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
+  <onyks-dialog scroll-target="none" id="myDialog" ?open=${args.open} title="${args.title}" ?no-title="${args.noTitle}" ?corner-close="${args["corner-close"]}" ?modal="${args.modal}" ?bottom-buttons="${args["bottom-buttons"]}">
       ${args.text}
         <onyks-button slot="footer" background="red">Cancel</onyks-button>
         <onyks-button slot="footer" background="yellow">OK</onyks-button>

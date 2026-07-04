@@ -6,6 +6,7 @@ import { onyksStyleScrollbar, onyksStyleSize } from './_styles';
 export class OnyksSelect extends LitElement 
 {
     @property({ type: Boolean, reflect: true }) multiple = false;
+    @property({ type: Boolean, reflect: true }) unselect = false;
     @property({ type: String, reflect: true }) size = 'm';
 
     private contentElement: HTMLElement | null = null;
@@ -22,6 +23,8 @@ export class OnyksSelect extends LitElement
         }
         else
         {
+            if(this.unselect && target.selected) return;
+            
             Array.from(this.querySelectorAll('onyks-select-option')).forEach((option) => 
             {
                 if(option.selected && option !== target) {

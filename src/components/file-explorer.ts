@@ -2,18 +2,21 @@ import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { onyksStyleScrollbar, onyksStyleSize } from './_styles.ts';
 
-export interface OnyksFileItem 
+export interface OnyksItem 
 {
-  type: 'folder' | 'file';
+  type: string;
   name: string;
+}
+
+export interface OnyksItemType
+{
+  type: string;
+  icon: string;
 }
 
 @customElement('onyks-file-explorer')
 export class OnyksFileExplorer extends LitElement 
 {
-  // @property({ type: Boolean, reflect: true })
-  // allowFolderSelection: boolean = false;
-
   @property({ type: String, reflect: true }) 
   size = "m";
 
@@ -21,10 +24,14 @@ export class OnyksFileExplorer extends LitElement
   multiple = false;
 
   @property({ type: Array })
-  content: OnyksFileItem[] = [];
+  content: OnyksItem[] = [];
 
   @property({ type: String, reflect: true, attribute: 'empty-alert' })
   emptyAlert = "The folder is empty";
+
+  @property({type: Array, reflect: true, attribute: 'types-icons'})
+  typesIcons: OnyksItemType[] = [{type: 'folder', icon: 'F3D9'}, {type: 'file', icon: 'F392'}];
+  // 
 
   @state()
   private _selectedItems: Set<string> = new Set();
@@ -96,38 +103,19 @@ export class OnyksFileExplorer extends LitElement
       line-height: 1;
     }
 
-    .icon.folder::before 
-    {
-      content: '\\F3D9';
-      font-family: 'bootstrap-icons';
-      line-height: 1;
-    }
-
-    .icon.file::before 
-    {
-      content: '\\F392';
-      font-family: 'bootstrap-icons';
-      line-height: 1;
-    }
-    
     .name 
     {
       line-height: 1.2; 
     }
   `, onyksStyleScrollbar, onyksStyleSize];
   
-  getSelectedItems(): OnyksFileItem[] 
+  getSelectedItems(): OnyksItem[] 
   {
     return this.content.filter((item) => this._selectedItems.has(item.name));
   }
 
-  private handleItemClick(item: OnyksFileItem): void 
+  private handleItemClick(item: OnyksItem): void 
   {
-    // if (item.type === 'folder' && !this.allowFolderSelection) 
-    // {
-    //   this.triggerEnterFolder(item);
-    //   return;
-    // }
     const newSelected = new Set(this._selectedItems);
 
     if (this.multiple) 
@@ -150,7 +138,7 @@ export class OnyksFileExplorer extends LitElement
     this._selectedItems = newSelected;
   }
 
-  private handleItemDblClick(item: OnyksFileItem): void 
+  private handleItemDblClick(item: OnyksItem): void 
   {
     if (item.type === 'folder') 
     {
@@ -158,12 +146,12 @@ export class OnyksFileExplorer extends LitElement
     }
   }
 
-  private triggerEnterFolder(folder: OnyksFileItem): void 
+  private triggerEnterFolder(folder: OnyksItem): void 
   {
     this._selectedItems = new Set();
     
     this.dispatchEvent(
-      new CustomEvent<{ folder: OnyksFileItem }>('enter-folder', 
+      new CustomEvent<{ folder: OnyksItem }>('enter-folder', 
       {
         detail: {folder},
         bubbles: true,
@@ -176,10 +164,29 @@ export class OnyksFileExplorer extends LitElement
   {
     if (!this.content || this.content.length === 0) 
     {
-      return html`<div style="padding: 10px; color: #888;">${this.emptyAlert}</div>`;
+      return html`<div style="padding: var(--onyks-spacing-md); color: var(--onyks-on-surface-1);">${this.emptyAlert}</div>`;
     }
 
+    let itemsTypesStyles = ''
+    this.typesIcons.forEach(element => 
+    {
+      console.log('element', element);
+      itemsTypesStyles += `
+        .icon.${element.type}::before 
+        {
+          content: "\\${element.icon}";
+          font-family: "bootstrap-icons";
+          font-size: 1.2em;
+        }
+      `;
+    });
+
+    console.log(itemsTypesStyles)
+
     return html`
+      <style>
+        ${itemsTypesStyles}
+      </style>
       <div class="explorer onyks-size onyks-scrollbar">
         ${this.content.map(
           (item) => html`

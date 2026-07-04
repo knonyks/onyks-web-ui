@@ -13,12 +13,14 @@ This project is created by ONYKS Student Scientific Club from Warsaw University 
 * **⚡ Blazing Fast:** Built on top of `lit-html` for efficient rendering and minimal bundle size.
 * **🌐 Framework Agnostic:** Drop these components into any application. They are just HTML tags.
 * **🎨 Fully Customizable:** Native support for CSS Custom Properties (Variables) and Shadow DOM styling.
-<!-- * **♿ Accessible:** Components follow WAI-ARIA standards out of the box. -->
 * **📘 TypeScript:** Written in TypeScript with complete type definitions included.
+<!-- * **♿ Accessible:** Components follow WAI-ARIA standards out of the box. -->
 
 ## 📜 Documentation
 
-The documentation with examples is available at this site: [https://knonyks.github.io/onyks-web-ui/](https://knonyks.github.io/onyks-web-ui/)
+The documentation with examples is available at this site: [https://knonyks.github.io/onyks-web-ui/](https://knonyks.github.io/onyks-web-ui/).
+
+The repository of the project is avaiable at this site: [https://github.com/knonyks/onyks-web-ui](https://github.com/knonyks/onyks-web-ui).
 
 ## 📦 Installation
 

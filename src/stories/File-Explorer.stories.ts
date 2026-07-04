@@ -32,6 +32,14 @@ const meta: Meta =
                 category: 'parameters'
             }
         },
+        'types-icons':
+        {
+            description: '**Property  in JavaScript:** `typesIcons`',
+            table: 
+            {
+                category: 'parameters'
+            }
+        },
         'empty-alert': 
         {
             control: { type: 'text' },
@@ -68,7 +76,9 @@ const meta: Meta =
 size=${args.size} 
         ?multiple=${args.multiple} 
         .content=${args.content} 
-        empty-alert=${args['empty-alert']} >
+        empty-alert=${args['empty-alert']} 
+        .typesIcons=${args['types-icons']}
+        >
         
         </onyks-file-explorer>
         
@@ -114,7 +124,8 @@ export const Base: Story =
     size: 'm',
     multiple: false,
     content: [{type: 'folder', name: "Kanye West"}, {type: 'file', name: "Shakira - Waka Waka.mp3"}, {type: 'folder', name: "Marek Grechuta"}],
-    'empty-alert': "This folder is empty!"
+    'empty-alert': "This folder is empty!",
+    'types-icons': [{type: 'folder', icon: 'F3D9'}, {type: 'file', icon: 'F389'}]
   }
 };
 
