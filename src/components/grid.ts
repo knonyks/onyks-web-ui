@@ -5,6 +5,8 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('onyks-grid')
 export class Onyks_Grid extends LitElement {
     @property({ type: Number }) cols = 0;
+    @property({ type: String, reflect: true }) gap = 'm';
+    @property({ type: Number, attribute: 'mobile-breakpoint' }) mobileBreakpoint = 900;
 
     static styles = css`
         :host {
@@ -15,18 +17,15 @@ export class Onyks_Grid extends LitElement {
         
         .grid-container {
             display: grid;
-            gap: 20px;
             width: 100%;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             box-sizing: border-box;
         }
 
-        @media (max-width: 900px) {
-            .grid-container {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-        }
+        :host([gap="s"]) .grid-container { gap: var(--onyks-spacing-sm, 8px); }
+        :host([gap="m"]) .grid-container { gap: var(--onyks-spacing-md, 16px); }
+        :host([gap="l"]) .grid-container { gap: var(--onyks-spacing-lg, 24px); }
+        :host([gap="xl"]) .grid-container { gap: var(--onyks-spacing-xl, 32px); }
     `;
 
     render() {
@@ -35,6 +34,18 @@ export class Onyks_Grid extends LitElement {
             : '';
 
         return html`
+            <style>
+                @media (max-width: ${this.mobileBreakpoint}px) {
+                    .grid-container {
+                        grid-template-columns: 1fr !important;
+                    }
+                    ::slotted(*) {
+                        grid-column: auto !important;
+                        grid-row: auto !important;
+                        transform: none !important;
+                    }
+                }
+            </style>
             <div class="grid-container" style="${gridStyle}">
                 <slot></slot>
             </div>
@@ -48,6 +59,7 @@ export class Onyks_Card extends LitElement {
     @property({ type: String }) title = "";
     @property({ type: Number }) span = 1;
     @property({ type: Number }) rows = 1;
+    @property({ type: String, reflect: true }) size = 'm';
 
     updated(changedProperties: Map<string, any>) {
         if (changedProperties.has('span')) {
@@ -60,15 +72,15 @@ export class Onyks_Card extends LitElement {
 
     static styles = css`
         :host {
-            display: flex;
-            flex-direction: column;
-            background-color: #232428;
-            border: 1px solid #2c2e33;
-            border-radius: 12px;
-            padding: 24px;
+            display: block; 
+            background-color: var(--onyks-surface-1);
+            border: 1px solid var(--onyks-surface-1-border);
+            border-radius: var(--onyks-radius-md);
+            padding: var(--onyks-spacing-lg);
+            
             box-sizing: border-box;
-            color: #e1e1e6;
-            font-family: sans-serif;
+            color: var(--onyks-on-surface-1);
+            font-family: var(--onyks-font);
             height: 100%;
             overflow-wrap: anywhere; 
             word-break: break-word;
@@ -79,22 +91,13 @@ export class Onyks_Card extends LitElement {
         :host(:hover) {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            border-color: #fa5252;
+            border-color: var(--onyks-accent);
             z-index: 1;
         }
 
-        @media (max-width: 900px) {
-            :host {
-                grid-column: auto !important;
-                grid-row: auto !important;
-                transform: none !important; 
-            }
-        }
-
         h2 {
-            margin: 0 0 20px 0;
-            font-size: 1.25rem;
-            color: #fa5252;
+            margin: 0 0 var(--onyks-spacing-md) 0;
+            color: var(--onyks-accent);
             font-weight: 600;
             position: relative;
             padding-bottom: 10px;
@@ -103,6 +106,11 @@ export class Onyks_Card extends LitElement {
             overflow-wrap: anywhere;
         }
 
+        :host([size="s"]) h2 { font-size: var(--onyks-size-sm); }
+        :host([size="m"]) h2 { font-size: var(--onyks-size-md); }
+        :host([size="l"]) h2 { font-size: var(--onyks-size-lg); }
+        :host([size="xl"]) h2 { font-size: var(--onyks-size-xl); }
+
         h2::after {
             content: '';
             position: absolute;
@@ -110,20 +118,19 @@ export class Onyks_Card extends LitElement {
             bottom: 0;
             width: 40px;
             height: 2px;
-            background-color: #fa5252;
+            /* Zaktualizowany akcent */
+            background-color: var(--onyks-accent);
         }
 
         .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            display: block;
             width: 100%;
         }
 
         ::slotted(img) {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
+            border-radius: var(--onyks-radius-sm);
         }
     `;
 
@@ -135,10 +142,8 @@ export class Onyks_Card extends LitElement {
     }
 }
 
-declare global 
-{
-    interface HTMLElementTagNameMap 
-    {
+declare global {
+    interface HTMLElementTagNameMap {
         'onyks-grid': Onyks_Grid,
         'onyks-card': Onyks_Card
     }
