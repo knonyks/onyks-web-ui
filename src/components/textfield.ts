@@ -56,7 +56,7 @@ export class Onyks_Textfield extends LitElement {
         }
 
         * {
-            font-family: var(--font, inherit);
+            font-family: var(--onyks-font);
         }
 
         .wrapper {
@@ -70,19 +70,19 @@ export class Onyks_Textfield extends LitElement {
         input {
             box-sizing: border-box;
             outline: none;
-            border: 2px solid var(--surface-border);
-            background: var(--surface-element);
-            color: var(--text-primary);
+            border: 2px solid var(--onyks-surface-1-border);
+            background: var(--onyks-surface-1);
+            color: var(--onyks-on-surface-1);
             width: 100%;
             height: 100%;
             margin: 0; 
-            border-radius: var(--radius-sm);
+            border-radius: var(--onyks-radius-sm);
             font-family: inherit;
             transition: border-color 0.3s ease;
         }
 
         .is-error input {
-            border-color: var(--color-primary);
+            border-color: var(--onyks-error);
         }
 
         .error-icon {
@@ -90,28 +90,28 @@ export class Onyks_Textfield extends LitElement {
             right: 12px;
             width: 20px;
             height: 20px;
-            color: var(--color-primary);
+            color: var(--onyks-error);
             pointer-events: none;
         }
 
-        .s { padding: calc(var(--spacing-sm) - 2px) var(--spacing-sm); font-size: var(--size-sm); }
-        .m { padding: calc(var(--spacing-md) - 6px) var(--spacing-md); font-size: var(--size-md); }
-        .l { padding: calc(var(--spacing-md) - 2px) var(--spacing-lg); font-size: var(--size-lg); }
-        .xl { padding: calc(var(--spacing-lg) - 6px) var(--spacing-xl); font-size: var(--size-xl); }
+        .s { padding: calc(var(--onyks-spacing-sm) - 2px) var(--onyks-spacing-sm); font-size: var(--onyks-size-sm); }
+        .m { padding: calc(var(--onyks-spacing-md) - 6px) var(--onyks-spacing-md); font-size: var(--onyks-size-md); }
+        .l { padding: calc(var(--onyks-spacing-md) - 2px) var(--onyks-spacing-lg); font-size: var(--onyks-size-lg); }
+        .xl { padding: calc(var(--onyks-spacing-lg) - 6px) var(--onyks-spacing-xl); font-size: var(--onyks-size-xl); }
 
         input:disabled {
             opacity: 0.6;
-            background: var(--surface-hover);
-            border-color: var(--surface-border);
+            background: var(--onyks-surface-2);
+            border-color: var(--onyks-surface-1-hover);
             cursor: not-allowed;
         }
 
         input:focus {
-            border-color: var(--color-info);
+            border-color: var(--onyks-info);
         }
 
         .is-error input:focus {
-            border-color: var(--color-primary);
+            border-color: var(--onyks-error);
         }
     `;
 }

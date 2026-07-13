@@ -4,59 +4,62 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('onyks-checkbox')
 export class Onyks_Checkbox extends LitElement {
     @property({ type: Boolean, reflect: true }) checked = false;
-    @property({ type: String, reflect: true }) size = 'small';
+     @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 's';
 
     static styles = css`
         :host {
             display: inline-block;
-            color: #c1c2c5;
-            --cb-size: calc(var(--size-md) + 6px);
-            --cb-mark-size: calc(var(--size-md) - 2px);
-            --cb-font-size: var(--size-md);
+            color: var(--onyks-on-surface);
+            font-family: var(--onyks-font);
+
+            --cb-size: calc(var(--onyks-size-md) + 6px);
+            --cb-mark-size: calc(var(--onyks-size-md) - 2px);
+            --cb-font-size: var(--onyks-size-md);
         }
 
-        :host([size="small"]) {
-            --cb-size: calc(var(--size-sm) + 6px);
-            --cb-mark-size: calc(var(--size-sm) - 2px);
-            --cb-font-size: var(--size-sm);
+        :host([size="s"]) {
+            --cb-size: calc(var(--onyks-size-sm) + 6px);
+            --cb-mark-size: calc(var(--onyks-size-sm) - 2px);
+            --cb-font-size: var(--onyks-size-sm);
         }
 
-        :host([size="medium"]) {
-            --cb-size: calc(var(--size-md) + 6px);
-            --cb-mark-size: calc(var(--size-md) - 2px);
-            --cb-font-size: var(--size-md);
+        :host([size="m"]) {
+            --cb-size: calc(var(--onyks-size-md) + 6px);
+            --cb-mark-size: calc(var(--onyks-size-md) - 2px);
+            --cb-font-size: var(--onyks-size-md);
         }
 
-        :host([size="large"]) {
-            --cb-size: calc(var(--size-lg) + 6px);
-            --cb-mark-size: calc(var(--size-lg) - 2px);
-            --cb-font-size: var(--size-lg);
+        :host([size="l"]) {
+            --cb-size: calc(var(--onyks-size-lg) + 6px);
+            --cb-mark-size: calc(var(--onyks-size-lg) - 2px);
+            --cb-font-size: var(--onyks-size-lg);
         }
 
-        :host([size="extra-large"]) {
-            --cb-size: calc(var(--size-xl) + 6px);
-            --cb-mark-size: calc(var(--size-xl) - 2px);
-            --cb-font-size: var(--size-xl);
+        :host([size="xl"]) {
+            --cb-size: calc(var(--onyks-size-xl) + 6px);
+            --cb-mark-size: calc(var(--onyks-size-xl) - 2px);
+            --cb-font-size: var(--onyks-size-xl);
         }
 
         .checkbox-wrapper {
             display: inline-flex;
             align-items: center;
-            padding: var(--spacing-sm) var(--spacing-sm);
+            gap: var(--onyks-spacing-sm);
+            padding: var(--onyks-spacing-sm) 0;
             cursor: pointer;
             user-select: none;
         }
 
         input[type="checkbox"] {
             appearance: none;
-            background-color: #232428;
-            margin: 0;
+            background-color: var(--onyks-surface-1);
+            border: 2px solid var(--onyks-surface-1-border);
+            border-radius: var(--onyks-radius-sm);
             
+            margin: 0;
             width: var(--cb-size);
             height: var(--cb-size);
             
-            border: 2px solid #3f4148;
-            border-radius: 4px;
             display: inline-grid;
             place-content: center;
             cursor: pointer;
@@ -65,7 +68,7 @@ export class Onyks_Checkbox extends LitElement {
         }
 
         .checkbox-wrapper:hover input[type="checkbox"] {
-            border-color: #fa5252;
+            border-color: var(--onyks-accent);
         }
 
         input[type="checkbox"]::before {
@@ -75,7 +78,7 @@ export class Onyks_Checkbox extends LitElement {
             
             transform: scale(0);
             transition: 120ms transform ease-in-out;
-            background-color: #fa5252;
+            background-color: var(--onyks-accent);
             transform-origin: center;
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
@@ -85,7 +88,7 @@ export class Onyks_Checkbox extends LitElement {
         }
 
         input[type="checkbox"]:checked {
-            border-color: #fa5252;
+            border-color: var(--onyks-accent);
         }
     `;
 
