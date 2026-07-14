@@ -5,12 +5,26 @@ import { onyksStyleScrollbar } from './_styles';
 @customElement('onyks-dialog')
 export class OnyksDialog extends LitElement 
 {
-    @property({type: Boolean, reflect: true }) open = false;
-    @property({type: String, reflect: true  }) title = '';
-    @property({type: Boolean, reflect: true, attribute: 'corner-close' }) cornerClose = false;
-    @property({type: Boolean, reflect: true, attribute: 'bottom-buttons' }) bottomButtons = false;
-    @property({type: Boolean, reflect: true }) modal = false;
-    @property({type: String, reflect: true, attribute: 'scroll-target' }) scrollTarget = 'body';
+    @property({type: Boolean, reflect: true }) 
+    open = false;
+
+    @property({type: String, reflect: true  }) 
+    title = '';
+
+    @property({type: Boolean, reflect: true, attribute: 'corner-close' }) 
+    cornerClose = false;
+    
+    @property({type: Boolean, reflect: true, attribute: 'bottom-buttons' }) 
+    bottomButtons = false;
+    
+    @property({type: Boolean, reflect: true }) 
+    modal = false;
+
+    @property({type: String, reflect: true, attribute: 'scroll-target' }) 
+    scrollTarget = 'body';
+
+    @property({type: Boolean, reflect: true, attribute: 'no-title' }) 
+    noTitle = false;
 
     private _shakeTimeout: number | undefined;
 
@@ -98,8 +112,8 @@ export class OnyksDialog extends LitElement
             border-radius: var(--onyks-radius-md);
             max-width: 800px;
             width: 100%;
-            max-height: 400px;
-            height: 100%;
+            max-height: 400px; 
+            /* height: 100%; */
             transform: scale(0.9);
             transition: transform 0.3s ease;
             display: flex;
@@ -148,7 +162,7 @@ export class OnyksDialog extends LitElement
             display: flex;
             flex-direction: column;
             gap: var(--onyks-spacing-sm);
-            flex-shrink: 0;
+            /* flex-shrink: 0; */
         }
 
         .dialogFooter
@@ -217,7 +231,8 @@ export class OnyksDialog extends LitElement
         return html`
             <div class="dialogBackdrop" @click="${this._handleBackdropClick}">
                 <div class="dialogContainer" part="container">
-                    <div class="dialogTitle" part="title">${this.title}</div>
+                    ${this.noTitle ? html`<div class="dialogTitle" part="title">${this.title}</div>` : ''}
+
                     ${this.cornerClose ? html`<div class="dialogCloseBtn" @click="${this._close}"></div>` : ''}
                     <div class="dialogContent onyks-scrollbar" part="content">
                         <slot></slot>
