@@ -6,7 +6,8 @@ export class Onyks_Table extends LitElement {
     @property({ type: Array }) data: Record<string, any>[] = [];
     @property({ type: Array }) columns: { key: string, label: string }[] = [];
     @property({ type: Number }) scrollThreshold = 0;
-    @property({ type: String }) maxHeight = '100%'; // Domyślnie dopasowuje się do kontenera
+    @property({ type: String }) maxHeight = '100%';
+    @property({ type: String }) size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     static styles = css`
         :host {
@@ -18,6 +19,9 @@ export class Onyks_Table extends LitElement {
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             box-sizing: border-box;
             overflow: hidden;
+            isolation: isolate; 
+            transform: translateZ(0);
+
             font-family: var(--onyks-font);
             color: var(--onyks-on-surface-1);
         }
@@ -25,12 +29,10 @@ export class Onyks_Table extends LitElement {
         .scroll-wrapper {
             width: 100%;
             overflow: auto;
-            /* Firefox Scrollbars */
             scrollbar-width: thin;
             scrollbar-color: var(--onyks-scroll-thumb) var(--onyks-scroll-track);
         }
 
-        /* Webkit Scrollbars */
         .scroll-wrapper::-webkit-scrollbar { width: var(--onyks-scroll-size); height: var(--onyks-scroll-size); }
         .scroll-wrapper::-webkit-scrollbar-track { background: var(--onyks-scroll-track); }
         .scroll-wrapper::-webkit-scrollbar-corner { background: var(--onyks-scroll-track); }
@@ -45,7 +47,8 @@ export class Onyks_Table extends LitElement {
             display: table;
             width: 100%;
             min-width: max-content;
-            border-collapse: collapse; 
+            border-collapse: separate; 
+            border-spacing: 0;
         }
     `;
 
@@ -65,10 +68,32 @@ export class Onyks_Table extends LitElement {
         this.data = this.data.map((row, idx) => 
             idx === rowIndex ? { ...row, [key]: checked } : row
         );
+
+        this.dispatchEvent(new CustomEvent('checkbox-click', {
+            detail: {
+                type: 'row',
+                rowIndex,
+                key,
+                checked,
+                rowData: this.data[rowIndex]
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
     private _toggleAll(key: string, checked: boolean) {
         this.data = this.data.map(row => ({ ...row, [key]: checked }));
+
+        this.dispatchEvent(new CustomEvent('checkbox-click', {
+            detail: {
+                type: 'all',
+                key,
+                checked
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
     render() {
@@ -89,13 +114,15 @@ export class Onyks_Table extends LitElement {
                                     const isAllChecked = this.data.every(row => row[col.key] === true);
                                     return html`
                                         <onyks-col 
+                                            header
                                             checkbox 
+                                            size=${this.size}
                                             .checked=${isAllChecked}
                                             @checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
                                         ></onyks-col>
                                     `;
                                 }
-                                return html`<onyks-col>${col.label}</onyks-col>`;
+                                return html`<onyks-col header size=${this.size}>${col.label}</onyks-col>`;
                             })}
                         </onyks-row>
 
@@ -107,12 +134,13 @@ export class Onyks_Table extends LitElement {
                                         return html`
                                             <onyks-col 
                                                 checkbox 
+                                                size=${this.size}
                                                 .checked=${value}
                                                 @checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
                                             ></onyks-col>
                                         `;
                                     }
-                                    return html`<onyks-col>${value}</onyks-col>`;
+                                    return html`<onyks-col size=${this.size}>${value}</onyks-col>`;
                                 })}
                             </onyks-row>
                         `)}
@@ -137,13 +165,6 @@ export class Onyks_Row extends LitElement {
         :host(:not([header]):hover) {
             background-color: var(--onyks-surface-1-hover);
         }
-
-        :host([header]) {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background-color: var(--onyks-surface-2);
-        }
     `;
 
     render() {
@@ -153,8 +174,10 @@ export class Onyks_Row extends LitElement {
 
 @customElement('onyks-col')
 export class Onyks_Col extends LitElement {
+    @property({ type: Boolean, reflect: true }) header = false;
     @property({ type: Boolean, reflect: true }) checkbox = false;
     @property({ type: Boolean }) checked = false;
+    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     static styles = css`
         :host {
@@ -167,20 +190,48 @@ export class Onyks_Col extends LitElement {
             white-space: nowrap;
         }
 
-        :host-context(onyks-row[header]) {
+        :host(:first-child) {
+            padding-left: var(--onyks-spacing-xl);
+        }
+
+        :host(:last-child) {
+            padding-right: var(--onyks-spacing-xl);
+        }
+
+        :host([checkbox]) {
+            width: 1%; 
+            padding-left: var(--onyks-spacing-xl);
+            padding-right: var(--onyks-spacing-md);
+        }
+
+        :host([size="s"]) { font-size: var(--onyks-size-sm); }
+        :host([size="m"]) { font-size: var(--onyks-size-md); }
+        :host([size="l"]) { font-size: var(--onyks-size-lg); }
+        :host([size="xl"]) { font-size: var(--onyks-size-xl); }
+
+        :host([header]) {
+            position: sticky;
+            top: 0;
+            z-index: 10;
             color: var(--onyks-accent);
             font-weight: bold;
-            font-size: var(--onyks-size-sm);
             text-transform: uppercase;
             background-color: var(--onyks-surface-1-hover);
             border-bottom: none;
             box-shadow: inset 0 -2px 0 var(--onyks-accent); 
         }
 
-        :host([checkbox]) {
-            width: 48px;
-            padding: var(--onyks-spacing-sm);
+        :host([header]:first-child) {
+            border-top-left-radius: var(--onyks-radius-lg);
         }
+        :host([header]:last-child) {
+            border-top-right-radius: var(--onyks-radius-lg);
+        }
+
+        :host([header][size="s"]) { font-size: calc(var(--onyks-size-sm) * 0.85); }
+        :host([header][size="m"]) { font-size: var(--onyks-size-sm); }
+        :host([header][size="l"]) { font-size: var(--onyks-size-md); }
+        :host([header][size="xl"]) { font-size: var(--onyks-size-lg); }
         
         onyks-checkbox {
             display: inline-flex;
@@ -193,7 +244,7 @@ export class Onyks_Col extends LitElement {
         if (this.checkbox) {
             return html`
                 <onyks-checkbox 
-                    size="m"
+                    size=${this.size}
                     ?checked=${this.checked} 
                     @change=${this._handleChange}
                     @click=${(e: Event) => e.stopPropagation()} 

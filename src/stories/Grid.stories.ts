@@ -75,11 +75,11 @@ const meta: Meta = {
             const { args } = storyContext;
             return `
             <onyks-grid cols="${args.cols}" gap="${args.gap}" mobile-breakpoint="${args.mobileBreakpoint}">
-                <onyks-card title="Karta tła">...</onyks-card>
-                <onyks-card title="GŁÓWNA KARTA" span="${args.cardSpan}" rows="${args.cardRows}" size="${args.cardTitleSize}">
-                    Treść karty...
+                <onyks-card title="Background Card">...</onyks-card>
+                <onyks-card title="Main Card" span="${args.cardSpan}" rows="${args.cardRows}" size="${args.cardTitleSize}">
+                    Something ...
                 </onyks-card>
-                <onyks-card title="Karta tła">...</onyks-card>
+                <onyks-card title="Background Card">...</onyks-card>
             </onyks-grid>`;
           }
         },
@@ -90,7 +90,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const InteraktywnaSiatka: Story = {
+export const Interactive_Grid: Story = {
     args: {
         cols: 3,
         gap: 'm',
