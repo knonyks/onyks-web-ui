@@ -231,7 +231,7 @@ export class OnyksDialog extends LitElement
         return html`
             <div class="dialogBackdrop" @click="${this._handleBackdropClick}">
                 <div class="dialogContainer" part="container">
-                    ${this.noTitle ? html`<div class="dialogTitle" part="title">${this.title}</div>` : ''}
+                    ${this.noTitle ? '': html`<div class="dialogTitle" part="title">${this.title}</div>`}
 
                     ${this.cornerClose ? html`<div class="dialogCloseBtn" @click="${this._close}"></div>` : ''}
                     <div class="dialogContent onyks-scrollbar" part="content">
