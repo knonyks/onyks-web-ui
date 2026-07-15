@@ -12,6 +12,7 @@ export interface OnyksItemType
 {
   type: string;
   icon: string;
+  isLikeDir: boolean;
 }
 
 @customElement('onyks-file-explorer')
@@ -29,8 +30,8 @@ export class OnyksFileExplorer extends LitElement
   @property({ type: String, reflect: true, attribute: 'empty-alert' })
   emptyAlert = "The folder is empty";
 
-  @property({type: Array, reflect: true, attribute: 'types-icons'})
-  typesIcons: OnyksItemType[] = [{type: 'folder', icon: 'F3D9'}, {type: 'file', icon: 'F392'}];
+  @property({type: Array, reflect: true, attribute: 'types'})
+  types: OnyksItemType[] = [{type: 'folder', icon: 'F3D9', isLikeDir: true}, {type: 'file', icon: 'F392', isLikeDir: false}];
   // 
 
   @state()
@@ -140,7 +141,7 @@ export class OnyksFileExplorer extends LitElement
 
   private handleItemDblClick(item: OnyksItem): void 
   {
-    if (item.type === 'folder') 
+    if (this.types.filter((obj) => obj.isLikeDir).find((obj) => obj.type == item.type)) 
     {
       this.triggerEnterFolder(item);
     }
@@ -168,9 +169,8 @@ export class OnyksFileExplorer extends LitElement
     }
 
     let itemsTypesStyles = ''
-    this.typesIcons.forEach(element => 
+    this.types.forEach(element => 
     {
-      console.log('element', element);
       itemsTypesStyles += `
         .icon.${element.type}::before 
         {
@@ -180,8 +180,6 @@ export class OnyksFileExplorer extends LitElement
         }
       `;
     });
-
-    console.log(itemsTypesStyles)
 
     return html`
       <style>
