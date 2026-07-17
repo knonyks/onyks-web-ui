@@ -8,6 +8,7 @@ export class OnyksSelect extends LitElement
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) unselect = false;
     @property({ type: String, reflect: true }) size = 'm';
+    @property({ type: Number }) scrollThreshold = 0;
 
     private contentElement: HTMLElement | null = null;
     private resizeObserver: ResizeObserver | null = null;
@@ -16,6 +17,8 @@ export class OnyksSelect extends LitElement
     private _handleItemClick = (e: any) => 
     {
         const target = e.composedPath()[0] as OnyksSelectOption;
+        
+        if (!target || target.tagName !== 'ONYKS-SELECT-OPTION') return;
         
         if(this.multiple)
         {
@@ -32,7 +35,26 @@ export class OnyksSelect extends LitElement
                 }
             });
             target.selected = !target.selected;
-        }        
+        }
+        
+        this.dispatchEvent(new CustomEvent('change', {
+            detail: {
+                value: target.value,
+                selected: target.selected,
+                option: target
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
+
+    private _handleScroll = (e: Event) => 
+    {
+        const target = e.target as HTMLElement;
+        const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+        if (distanceToBottom <= this.scrollThreshold) {
+            this.dispatchEvent(new CustomEvent('scroll-end', { bubbles: true, composed: true }));
+        }
     }
 
     private _checkScroll = () => 
@@ -89,7 +111,7 @@ export class OnyksSelect extends LitElement
     render()
     {
         return html`
-            <div class="content onyks-size onyks-scrollbar" @click=${this._handleItemClick}>
+            <div class="content onyks-size onyks-scrollbar" @click=${this._handleItemClick} @scroll=${this._handleScroll}>
                 <slot></slot>
             </div>
         `;

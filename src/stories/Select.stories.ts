@@ -33,6 +33,15 @@ const meta: Meta =
                 category: 'parameters'
             }
         },
+        scrollThreshold: 
+        {
+            control: { type: 'number' },
+            description: 'Distance to the bottom (in px), at which the @scroll-end event is triggered.',
+            table: 
+            {
+                category: 'parameters'
+            }
+        },
         'getSelectedItems()': 
         {
             action: 'getSelectedItems()',
@@ -41,12 +50,29 @@ const meta: Meta =
             {
                 category: 'functions',
                 type: { summary: 'string[]' },
-                
             }
+        },
+        // --- DODANE EVENTY ---
+        change: {
+            description: 'Event emitted when an option is clicked. The `detail` object contains: `value`, `selected` status, and the `option` element.',
+            action: 'change',
+            table: { category: 'events' }
+        },
+        'scroll-end': {
+            description: 'Event emitted when scrolling reaches the bottom of the select list (depends on `scrollThreshold`).',
+            action: 'scroll-end',
+            table: { category: 'events' }
         }
     },
     render: (args) => html`
-    <onyks-select ?multiple=${args.multiple} size=${args.size} id="select">
+    <onyks-select 
+        ?multiple=${args.multiple} 
+        size=${args.size} 
+        scrollThreshold=${args.scrollThreshold}
+        id="select"
+        @change=${args.change}
+        @scroll-end=${args['scroll-end']}
+    >
         <onyks-select-option selected value="${args.value}">${args.value}</onyks-select-option>
         <onyks-select-option selected value="milk">Milk</onyks-select-option>
         <onyks-select-option selected value="aubergine">Aubergine</onyks-select-option>
@@ -79,10 +105,21 @@ const meta: Meta =
                     <script>
                         const select = document.querySelector('onyks-select')
                         const btn = document.querySelector('onyks-button')
-                        btn.addEventListener('click;, (e) => {console.log(select.getSelectedItems())})
+                        
+                        btn.addEventListener('click', (e) => {
+                            console.log(select.getSelectedItems())
+                        })
+
+                        select.addEventListener('change', (e) => {
+                            console.log('Zmieniono opcję:', e.detail);
+                        })
+
+                        select.addEventListener('scroll-end', (e) => {
+                            console.log('Koniec scrolla!');
+                        })
                     </script>
 
-                    <onyks-select ${args.multiple? 'multiple':''} size="${args.size}" id="select">
+                    <onyks-select ${args.multiple ? 'multiple' : ''} size="${args.size}" scrollThreshold="${args.scrollThreshold}" id="select">
                         <onyks-select-option selected value="${args.value}">${args.value}</onyks-select-option>
                         <onyks-select-option selected value="milk">Milk</onyks-select-option>
                         <onyks-select-option selected value="aubergine">Aubergine</onyks-select-option>
@@ -116,6 +153,7 @@ export const Base: Story =
     {
         multiple: true,
         size: 'm',
-        value: "Value"
+        value: "Value",
+        scrollThreshold: 10
     }
 };
