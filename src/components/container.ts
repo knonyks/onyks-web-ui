@@ -6,7 +6,7 @@ import { property } from 'lit/decorators.js';
 export class OnyksContainer extends LitElement
 {
     @property({type: String, reflect: true})
-    gap = "m";
+    gap = "";
 
     @property({type: String, reflect: true})
     padding = "m";

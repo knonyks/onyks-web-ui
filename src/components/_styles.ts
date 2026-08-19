@@ -7,19 +7,19 @@ export const style_size = css``;
 export const onyksStyleSize = css`
     :host([size="s"]) .onyks-size
     { 
-        font-size: var(--size-sm, 12px); 
+        font-size: var(--onyks-size-sm, 12px); 
     }
     :host([size="m"]) .onyks-size
     { 
-        font-size: var(--size-md, 16px); 
+        font-size: var(--onyks-size-md, 16px); 
     }
     :host([size="l"]) .onyks-size
     { 
-        font-size: var(--size-lg, 20px); 
+        font-size: var(--onyks-size-lg, 20px); 
     }
     :host([size="xl"]) .onyks-size
     { 
-        font-size: var(--size-xl, 24px); 
+        font-size: var(--onyks-size-xl, 24px); 
     }
 `;
 

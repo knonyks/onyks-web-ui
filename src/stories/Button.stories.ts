@@ -36,7 +36,7 @@ const meta: Meta =
             { 
                 type: 'select' 
             },
-            options: ['red', 'green', 'blue', 'yellow'],
+            options: ['red', 'green', 'blue', 'yellow', 'gray'],
             table: 
             {
                 category: 'parameters'

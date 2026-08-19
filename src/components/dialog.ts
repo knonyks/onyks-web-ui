@@ -63,6 +63,7 @@ export class OnyksDialog extends LitElement
         :host
         {
             display: block;
+            position: fixed
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             visibility: hidden;

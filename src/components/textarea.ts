@@ -80,7 +80,6 @@ export class Onyks_Textarea extends LitElement {
         :host {
             display: inline-block;
             width: 100%;
-            height: fit-content;
             box-sizing: border-box;
         }
 
@@ -91,6 +90,7 @@ export class Onyks_Textarea extends LitElement {
         .wrapper {
             position: relative;
             width: 100%;
+            height: 100%;
             display: grid;
             overflow: hidden;
             border-radius: var(--onyks-radius-sm);
@@ -102,7 +102,7 @@ export class Onyks_Textarea extends LitElement {
             height: 100%;
             resize: none !important;
             border: 2px solid var(--onyks-surface-1-border);
-            border-radius: var(--onyks-radius-s);
+            border-radius: var(--onyks-radius-sm);
             background-color: var(--onyks-surface-1);
             color: var(--onyks-on-surface);
             font-family: inherit;

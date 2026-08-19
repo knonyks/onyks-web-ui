@@ -56,17 +56,20 @@
     --onyks-on-error: #000;
 
     /* Classic colors */
-    --onyks-red: #ff4949;
-    --onyks-on-red: #fff;
+    --onyks-red: #ef4444;
+    --onyks-on-red: #ffffff;
     
-    --onyks-blue: #0080ff;
-    --onyks-on-blue: #fff;
+    --onyks-blue: #3b82f6;
+    --onyks-on-blue: #ffffff;
 
-    --onyks-green: #00ff73;
-    --onyks-on-green: #000;
+    --onyks-green: #10b981;
+    --onyks-on-green: #ffffff;
 
-    --onyks-yellow: #fbff00;
-    --onyks-on-yellow: #000;
+    --onyks-yellow: #f59e0b;
+    --onyks-on-yellow: #ffffff;
+
+    --onyks-gray: #64748b;
+    --onyks-on-gray: #ffffff;
     
     /* Scrollbar */
     --onyks-scroll-track: transparent;

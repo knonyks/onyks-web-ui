@@ -1,10 +1,16 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+export interface TableColumn {
+    key: string;
+    label: string;
+    hidden?: boolean; 
+}
+
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
     @property({ type: Array }) data: Record<string, any>[] = [];
-    @property({ type: Array }) columns: { key: string, label: string }[] = [];
+    @property({ type: Array }) columns: TableColumn[] = [];
     @property({ type: Number }) scrollThreshold = 0;
     @property({ type: String }) maxHeight = '100%';
     @property({ type: String }) size: 's' | 'm' | 'l' | 'xl' = 'm';
@@ -13,21 +19,20 @@ export class Onyks_Table extends LitElement {
         :host {
             display: block;
             width: 100%; 
+            height: 100%; 
             background-color: var(--onyks-surface-1);
             border: 1px solid var(--onyks-surface-1-border);
             border-radius: var(--onyks-radius-lg);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             box-sizing: border-box;
-            overflow: hidden;
-            isolation: isolate; 
-            transform: translateZ(0);
-
+            overflow: hidden; 
             font-family: var(--onyks-font);
             color: var(--onyks-on-surface-1);
         }
 
         .scroll-wrapper {
             width: 100%;
+            height: 100%;
             overflow: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--onyks-scroll-thumb) var(--onyks-scroll-track);
@@ -46,7 +51,6 @@ export class Onyks_Table extends LitElement {
         .table-container {
             display: table;
             width: 100%;
-            min-width: max-content;
             border-collapse: separate; 
             border-spacing: 0;
         }
@@ -61,86 +65,83 @@ export class Onyks_Table extends LitElement {
     }
 
     getSelectedRows() {
-        return this.data.filter(row => Object.values(row).some(val => val === true));
+        const safeData = this.data || [];
+        return safeData.filter(row => Object.values(row).some(val => val === true));
     }
 
     private _updateRowSelection(rowIndex: number, key: string, checked: boolean) {
-        this.data = this.data.map((row, idx) => 
+        const safeData = this.data || [];
+        this.data = safeData.map((row, idx) => 
             idx === rowIndex ? { ...row, [key]: checked } : row
         );
 
         this.dispatchEvent(new CustomEvent('checkbox-click', {
-            detail: {
-                type: 'row',
-                rowIndex,
-                key,
-                checked,
-                rowData: this.data[rowIndex]
-            },
-            bubbles: true,
-            composed: true
+            detail: { type: 'row', rowIndex, key, checked, rowData: this.data[rowIndex] },
+            bubbles: true, composed: true
         }));
     }
 
     private _toggleAll(key: string, checked: boolean) {
-        this.data = this.data.map(row => ({ ...row, [key]: checked }));
+        const safeData = this.data || [];
+        this.data = safeData.map(row => ({ ...row, [key]: checked }));
 
         this.dispatchEvent(new CustomEvent('checkbox-click', {
-            detail: {
-                type: 'all',
-                key,
-                checked
-            },
-            bubbles: true,
-            composed: true
+            detail: { type: 'all', key, checked },
+            bubbles: true, composed: true
         }));
     }
 
     render() {
-        const hasData = this.data && this.data.length > 0;
-        const cols = this.columns.length > 0 
-            ? this.columns 
-            : (hasData ? Object.keys(this.data[0]).map(k => ({ key: k, label: k })) : []);
+        const safeData = this.data || [];
+        const safeColumns = this.columns || [];
+        
+        const hasData = safeData.length > 0;
+        
+        let cols: TableColumn[] = safeColumns.length > 0 
+            ? safeColumns 
+            : (hasData && safeData[0] ? Object.keys(safeData[0]).map(k => ({ key: k, label: k, hidden: false })) : []);
+
+        const visibleCols = cols.filter(col => !col.hidden);
 
         return html`
-            <div class="scroll-wrapper" style="max-height: ${this.maxHeight};" @scroll=${this._handleScroll}>
+            <div class="scroll-wrapper" style="max-height: ${this.maxHeight || '100%'};" @scroll=${this._handleScroll}>
                 <div class="table-container">
-                    ${(hasData || this.columns.length) ? html`
+                    ${(hasData || safeColumns.length > 0) ? html`
                         
                         <onyks-row header>
-                            ${cols.map(col => {
-                                const isBooleanCol = hasData && typeof this.data[0][col.key] === 'boolean';
+                            ${visibleCols.map(col => {
+                                const isBooleanCol = hasData && safeData[0] && typeof safeData[0][col.key] === 'boolean';
                                 if (isBooleanCol) {
-                                    const isAllChecked = this.data.every(row => row[col.key] === true);
+                                    const isAllChecked = safeData.every(row => row[col.key] === true);
                                     return html`
                                         <onyks-col 
                                             header
                                             checkbox 
-                                            size=${this.size}
+                                            size=${this.size || 'm'}
                                             .checked=${isAllChecked}
                                             @checkbox-change=${(e: CustomEvent) => this._toggleAll(col.key, e.detail.checked)}
                                         ></onyks-col>
                                     `;
                                 }
-                                return html`<onyks-col header size=${this.size}>${col.label}</onyks-col>`;
+                                return html`<onyks-col header size=${this.size || 'm'}>${col.label}</onyks-col>`;
                             })}
                         </onyks-row>
 
-                        ${this.data.map((row, rowIndex) => html`
+                        ${safeData.map((row, rowIndex) => html`
                             <onyks-row>
-                                ${cols.map(col => {
+                                ${visibleCols.map(col => {
                                     const value = row[col.key]; 
                                     if (typeof value === 'boolean') {
                                         return html`
                                             <onyks-col 
                                                 checkbox 
-                                                size=${this.size}
+                                                size=${this.size || 'm'}
                                                 .checked=${value}
                                                 @checkbox-change=${(e: CustomEvent) => this._updateRowSelection(rowIndex, col.key, e.detail.checked)}
                                             ></onyks-col>
                                         `;
                                     }
-                                    return html`<onyks-col size=${this.size}>${value}</onyks-col>`;
+                                    return html`<onyks-col size=${this.size || 'm'}>${value}</onyks-col>`;
                                 })}
                             </onyks-row>
                         `)}
@@ -178,6 +179,7 @@ export class Onyks_Col extends LitElement {
     @property({ type: Boolean, reflect: true }) checkbox = false;
     @property({ type: Boolean }) checked = false;
     @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 'm';
+    @property({ type: Boolean, reflect: true }) hide = false;
 
     static styles = css`
         :host {
@@ -190,13 +192,12 @@ export class Onyks_Col extends LitElement {
             white-space: nowrap;
         }
 
-        :host(:first-child) {
-            padding-left: var(--onyks-spacing-xl);
+        :host([hide]) {
+            display: none !important;
         }
 
-        :host(:last-child) {
-            padding-right: var(--onyks-spacing-xl);
-        }
+        :host(:first-child) { padding-left: var(--onyks-spacing-xl); }
+        :host(:last-child) { padding-right: var(--onyks-spacing-xl); }
 
         :host([checkbox]) {
             width: 1%; 
@@ -219,14 +220,11 @@ export class Onyks_Col extends LitElement {
             background-color: var(--onyks-surface-1-hover);
             border-bottom: none;
             box-shadow: inset 0 -2px 0 var(--onyks-accent); 
+            background-clip: padding-box; 
         }
 
-        :host([header]:first-child) {
-            border-top-left-radius: var(--onyks-radius-lg);
-        }
-        :host([header]:last-child) {
-            border-top-right-radius: var(--onyks-radius-lg);
-        }
+        :host([header]:first-child) { border-top-left-radius: var(--onyks-radius-lg); }
+        :host([header]:last-child) { border-top-right-radius: var(--onyks-radius-lg); }
 
         :host([header][size="s"]) { font-size: calc(var(--onyks-size-sm) * 0.85); }
         :host([header][size="m"]) { font-size: var(--onyks-size-sm); }
@@ -244,7 +242,7 @@ export class Onyks_Col extends LitElement {
         if (this.checkbox) {
             return html`
                 <onyks-checkbox 
-                    size=${this.size}
+                    size=${this.size || 'm'}
                     ?checked=${this.checked} 
                     @change=${this._handleChange}
                     @click=${(e: Event) => e.stopPropagation()} 
@@ -259,8 +257,7 @@ export class Onyks_Col extends LitElement {
         this.checked = target.checked;
         this.dispatchEvent(new CustomEvent('checkbox-change', {
             detail: { checked: this.checked },
-            bubbles: true,
-            composed: true
+            bubbles: true, composed: true
         }));
     }
 }
