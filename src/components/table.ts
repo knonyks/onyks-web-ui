@@ -10,7 +10,7 @@ export interface TableColumn {
 @customElement('onyks-table')
 export class Onyks_Table extends LitElement {
     @property({ type: Array }) data: Record<string, any>[] = [];
-    @property({ type: Array }) columns: TableColumn[] = [];
+    @property({ type: Array, reflect: true }) columns: TableColumn[] = [];
     @property({ type: Number }) scrollThreshold = 0;
     @property({ type: String }) maxHeight = '100%';
     @property({ type: String }) size: 's' | 'm' | 'l' | 'xl' = 'm';
@@ -67,13 +67,6 @@ export class Onyks_Table extends LitElement {
     getSelectedRows() {
         const safeData = this.data || [];
         return safeData.filter(row => Object.values(row).some(val => val === true));
-    }
-
-    setColumnVisibility(key: string, hidden: boolean) {
-        if (!this.columns || this.columns.length === 0) return;
-        this.columns = this.columns.map(col => 
-            col.key === key ? { ...col, hidden: hidden } : col
-        );
     }
 
     refresh() {
