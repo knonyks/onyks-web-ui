@@ -31,6 +31,7 @@ export * from './components/checkbox.ts'
 export * from './components/file-explorer.ts'
 export * from './components/toast.ts'
 export * from './components/list.ts'
+export * from './components/loading-bar.ts'
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './onyks-webui.css'
