@@ -69,6 +69,17 @@ export class Onyks_Table extends LitElement {
         return safeData.filter(row => Object.values(row).some(val => val === true));
     }
 
+    setColumnVisibility(key: string, hidden: boolean) {
+        if (!this.columns || this.columns.length === 0) return;
+        this.columns = this.columns.map(col => 
+            col.key === key ? { ...col, hidden: hidden } : col
+        );
+    }
+
+    refresh() {
+        this.requestUpdate();
+    }
+
     private _updateRowSelection(rowIndex: number, key: string, checked: boolean) {
         const safeData = this.data || [];
         this.data = safeData.map((row, idx) => 

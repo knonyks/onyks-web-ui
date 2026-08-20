@@ -28,6 +28,20 @@ export class OnyksDialog extends LitElement
 
     private _shakeTimeout: number | undefined;
 
+    connectedCallback() 
+    {
+        super.connectedCallback();
+        this.addEventListener('transitionend', this._handleTransitionEnd);
+    }
+
+    private _handleTransitionEnd = (e: TransitionEvent) => 
+    {
+        if (e.target === this && e.propertyName === 'opacity' && !this.open) 
+        {
+            this.dispatchEvent(new CustomEvent('close-end', { bubbles: true, composed: true }));
+        }
+    }
+
     private _close() 
     {
         this.dispatchEvent(new CustomEvent('dialog-close', { bubbles: true, composed: true }));
@@ -63,7 +77,7 @@ export class OnyksDialog extends LitElement
         :host
         {
             display: block;
-            position: fixed
+            position: fixed; /* POPRAWKA: Brakowało średnika! */
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             visibility: hidden;
@@ -218,6 +232,8 @@ export class OnyksDialog extends LitElement
     disconnectedCallback() 
     {
         super.disconnectedCallback();
+        this.removeEventListener('transitionend', this._handleTransitionEnd);
+        
         if (this.open && this.scrollTarget !== 'none') 
         {
             const targetElement = document.querySelector(this.scrollTarget) as HTMLElement | null;
@@ -248,7 +264,6 @@ export class OnyksDialog extends LitElement
         `;
     }
 }
-
 
 declare global 
 {

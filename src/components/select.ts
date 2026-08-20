@@ -7,6 +7,7 @@ export class OnyksSelect extends LitElement
 {
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) unselect = false;
+    @property({ type: String, reflect: true }) select: 'true' | 'false' | boolean = 'true';
     @property({ type: String, reflect: true }) size = 'm';
     @property({ type: Number }) scrollThreshold = 0;
 
@@ -16,6 +17,8 @@ export class OnyksSelect extends LitElement
 
     private _handleItemClick = (e: any) => 
     {
+        if (String(this.select) === 'false') return;
+
         const target = e.composedPath()[0] as OnyksSelectOption;
         
         if (!target || target.tagName !== 'ONYKS-SELECT-OPTION') return;
@@ -150,6 +153,13 @@ export class OnyksSelect extends LitElement
         .content.has-scroll ::slotted(*)
         {
             margin-right: 20px;
+        }
+
+        /* ZMIANA: Reagujemy na atrybut select="false" */
+        :host([select="false"]) ::slotted(*)
+        {
+            pointer-events: none;
+            cursor: default;
         }
     `, onyksStyleSize, onyksStyleScrollbar];
 }

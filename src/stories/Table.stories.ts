@@ -33,6 +33,24 @@ const meta: Meta = {
             table: { category: 'Table Properties' }
         },
 
+        // --- METODY (FUNKCJE) ---
+        'getSelectedRows()': {
+            description: 'Returns an array of currently selected rows (objects where any boolean value is true).',
+            control: false,
+            table: { category: 'Functions (JS)' }
+        },
+        'setColumnVisibility(key, hidden)': {
+            description: 'Changes the visibility of a specific column on the fly and immediately re-renders the table. Example: `table.setColumnVisibility("desc", true)`',
+            control: false,
+            table: { category: 'Functions (JS)' }
+        },
+        'refresh()': {
+            description: 'Forces the table to re-render. Useful if you mutate the `data` or `columns` arrays directly instead of replacing them.',
+            control: false,
+            table: { category: 'Functions (JS)' }
+        },
+
+        // --- EVENTY ---
         'checkbox-click': {
             description: 'Event emitted when a checkbox is clicked.',
             action: 'checkbox-click',
@@ -44,6 +62,7 @@ const meta: Meta = {
             table: { category: 'Events' }
         },
 
+        // --- DOKUMENTACJA SUB-KOMPONENTÓW W TABELI ---
         row_header: {
             name: 'header', 
             description: 'Removes hover effects and applies header row styling.',
@@ -62,8 +81,8 @@ const meta: Meta = {
             control: false,
             table: { category: 'Sub-components (Manual HTML)', subcategory: '<onyks-col>', type: { summary: 'boolean' } }
         },
-        col_hidden: {
-            name: 'hidden',
+        col_hide: {
+            name: 'hide',
             description: 'Hides the column completely (display: none). Must be applied to the header and all corresponding cells in that column.',
             control: false,
             table: { category: 'Sub-components (Manual HTML)', subcategory: '<onyks-col>', type: { summary: 'boolean' } }
@@ -106,8 +125,9 @@ const sampleColumns = [
 
 export const Dynamic_JS: Story = {
     render: (args) => html`
-        <div style="height: 300px;">
+        <div style="display: flex; flex-direction: column; gap: 16px; height: 350px;">
             <onyks-table 
+                id="dynamic-table"
                 .data=${args.data} 
                 .columns=${args.columns}
                 size=${args.size}
@@ -116,6 +136,21 @@ export const Dynamic_JS: Story = {
                 @checkbox-click=${args['checkbox-click']}
                 @scroll-end=${args['scroll-end']}
             ></onyks-table>
+            
+            <!-- Przycisk demonstrujący użycie getSelectedRows() -->
+            <div>
+                <button 
+                    style="padding: 8px 16px; cursor: pointer; background: var(--onyks-surface-2, #3a3c40); color: white; border: none; border-radius: 4px;"
+                    @click=${() => {
+                        const table = document.getElementById('dynamic-table') as any;
+                        const selected = table.getSelectedRows();
+                        console.log('Selected rows:', selected);
+                        alert(`Selected rows count: ${selected.length}. Check console for details!`);
+                    }}
+                >
+                    Get Selected Rows
+                </button>
+            </div>
         </div>
     `,
     args: {
@@ -124,6 +159,28 @@ export const Dynamic_JS: Story = {
         columns: sampleColumns,
         maxHeight: '100%',
         scrollThreshold: 10
+    },
+    parameters: {
+        docs: {
+            source: {
+                transform: () => `
+<!-- HTML -->
+<onyks-table id="my-table"></onyks-table>
+<button id="get-rows-btn">Get Selected Rows</button>
+
+<!-- JavaScript -->
+<script>
+    const table = document.getElementById('my-table');
+    const btn = document.getElementById('get-rows-btn');
+
+    btn.addEventListener('click', () => {
+        const selectedRows = table.getSelectedRows();
+        console.log('Selected rows:', selectedRows);
+    });
+</script>
+`
+            }
+        }
     }
 };
 
@@ -143,9 +200,9 @@ export const Hidden_Columns_JS: Story = {
         data: sampleData,
         columns: [
             { key: 'selected', label: '' },
-            { key: 'id', label: 'UUID', hidden: true },
+            { key: 'id', label: 'UUID', hidden: true }, // UKRYTE
             { key: 'name', label: 'Part Name' },
-            { key: 'desc', label: 'Description', hidden: true }, 
+            { key: 'desc', label: 'Description', hidden: true }, // UKRYTE
             { key: 'code', label: 'Value' },
             { key: 'status', label: 'Availability' }
         ],
@@ -160,16 +217,61 @@ export const Hidden_Columns_JS: Story = {
     }
 };
 
+export const Interactive_Visibility: Story = {
+    render: (args) => html`
+        <div style="display: flex; flex-direction: column; gap: 16px; height: 350px;">
+            <div>
+                <button 
+                    id="toggle-desc-btn"
+                    style="padding: 8px 16px; cursor: pointer; background: var(--onyks-blue, #0080ff); color: white; border: none; border-radius: 4px;"
+                    @click=${(e: Event) => {
+                        const table = document.getElementById('interactive-table') as any;
+                        const btn = e.target as HTMLButtonElement;
+                        const isHidden = btn.dataset.hidden === 'true';
+                        
+                        table.setColumnVisibility('desc', !isHidden);
+                        
+                        btn.dataset.hidden = (!isHidden).toString();
+                        btn.innerText = !isHidden ? 'Show Description Column' : 'Hide Description Column';
+                    }}
+                >
+                    Hide Description Column
+                </button>
+            </div>
+            <onyks-table 
+                id="interactive-table"
+                .data=${args.data} 
+                .columns=${args.columns}
+                size=${args.size}
+                maxHeight=${args.maxHeight}
+            ></onyks-table>
+        </div>
+    `,
+    args: {
+        size: 'm',
+        data: sampleData,
+        columns: sampleColumns,
+        maxHeight: '100%'
+    },
+    parameters: {
+        docs: {
+            description: {
+                story: 'This example demonstrates how to dynamically hide or show columns using JavaScript. Click the button to toggle the visibility of the **Description** column using the `setColumnVisibility(key, hidden)` method.'
+            }
+        }
+    }
+};
+
 export const Manual_HTML_With_Hidden: Story = {
     render: (args) => html`
         <div style="height: 300px;">
             <onyks-table size=${args.size} maxHeight=${args.maxHeight}>
-            
+                
                 <onyks-row header>
                     <onyks-col header checkbox size=${args.size}></onyks-col>
                     <onyks-col header size=${args.size}>UUID</onyks-col>
                     <onyks-col header size=${args.size}>Part Name</onyks-col>
-                    <onyks-col header size=${args.size}>Description</onyks-col>
+                    <onyks-col header hide size=${args.size}>Description (HIDDEN)</onyks-col>
                     <onyks-col header size=${args.size}>Value</onyks-col>
                 </onyks-row>
 
@@ -177,7 +279,7 @@ export const Manual_HTML_With_Hidden: Story = {
                     <onyks-col checkbox size=${args.size}></onyks-col>
                     <onyks-col size=${args.size}>2b9893e6-0080-443e-aa70</onyks-col>
                     <onyks-col size=${args.size}>Part 18</onyks-col>
-                    <onyks-col size=${args.size}>Description 18</onyks-col>
+                    <onyks-col hide size=${args.size}>Description 18</onyks-col>
                     <onyks-col size=${args.size}>cpc1e4</onyks-col>
                 </onyks-row>
 
@@ -185,7 +287,7 @@ export const Manual_HTML_With_Hidden: Story = {
                     <onyks-col checkbox checked size=${args.size}></onyks-col>
                     <onyks-col size=${args.size}>c5d751bb-7f3e-4c50-9718</onyks-col>
                     <onyks-col size=${args.size}>Part 19</onyks-col>
-                    <onyks-col size=${args.size}>Description 19</onyks-col>
+                    <onyks-col hide size=${args.size}>Description 19</onyks-col>
                     <onyks-col size=${args.size}>8x968i</onyks-col>
                 </onyks-row>
 
@@ -202,7 +304,7 @@ export const Manual_HTML_With_Hidden: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'In Manual HTML mode, you can hide columns by adding the `hidden` attribute to the `<onyks-col>` tag. **Important:** You must add the `hidden` attribute to the corresponding column in the header AND in every row to keep the table layout intact.'
+                story: 'In Manual HTML mode, you can hide columns by adding the `hide` attribute to the `<onyks-col>` tag. **Important:** You must add the `hide` attribute to the corresponding column in the header AND in every row to keep the table layout intact.'
             }
         }
     }
