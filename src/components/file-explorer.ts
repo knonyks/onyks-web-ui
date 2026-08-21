@@ -32,7 +32,6 @@ export class OnyksFileExplorer extends LitElement
 
   @property({type: Array, reflect: true, attribute: 'types'})
   types: OnyksItemType[] = [{type: 'folder', icon: 'F3D9', isLikeDir: true}, {type: 'file', icon: 'F392', isLikeDir: false}];
-  // 
 
   @state()
   private _selectedItems: Set<string> = new Set();

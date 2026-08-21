@@ -7,6 +7,7 @@ export class Onyks_FileUpload extends LitElement {
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
     @property({ type: String }) accept = '';
+    @property({ type: String }) message = 'Drag a file here or click';
     @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     static styles = [css`
@@ -60,10 +61,9 @@ export class Onyks_FileUpload extends LitElement {
     `, onyksStyleSize];
 
     @state() private _isDragging = false;
-    @state() private _displayText = 'Przeciągnij plik tutaj lub kliknij';
+    @state() private _displayText = '';
     
-    @query('input[type="file"]') 
-    private _inputElement!: HTMLInputElement;
+    @query('input[type="file"]') private _inputElement!: HTMLInputElement;
     
     get files(): FileList | null {
         return this._inputElement ? this._inputElement.files : null;
@@ -71,7 +71,7 @@ export class Onyks_FileUpload extends LitElement {
 
     private _updateDisplayText(files: FileList | null) {
         if (!files || files.length === 0) {
-            this._displayText = 'Przeciągnij plik tutaj lub kliknij';
+            this._displayText = '';
         } else if (files.length === 1) {
             this._displayText = files[0].name;
         } else {
@@ -83,6 +83,13 @@ export class Onyks_FileUpload extends LitElement {
         this.dispatchEvent(new Event('change', { 
             bubbles: true, 
             composed: true
+        }));
+    }
+
+    private _handleCancel() {
+        this.dispatchEvent(new Event('cancel', { 
+            bubbles: true, 
+            composed: true 
         }));
     }
 
@@ -118,6 +125,14 @@ export class Onyks_FileUpload extends LitElement {
         this._dispatchChangeEvent();
     }
 
+    reset () {
+        if (this._inputElement) {
+            this._inputElement.value = '';
+            this._updateDisplayText(null);
+            this._dispatchChangeEvent();
+        }
+    }
+
     render() {
         return html`
             <label 
@@ -132,9 +147,9 @@ export class Onyks_FileUpload extends LitElement {
                     ?disabled=${this.disabled}
                     accept=${this.accept}
                     @change=${this._handleChange}
+                    @cancel=${this._handleCancel}
                 >
-                <!-- DODANO KLASĘ onyks-size -->
-                <span class="text onyks-size">${this._displayText}</span>
+                <span class="text onyks-size">${this._displayText || this.message}</span>
             </label>
         `;
     }
