@@ -56,7 +56,7 @@ const meta: Meta =
         {
             description: 
             {
-            story: "Strip Menu uses Bootstrap Icons for the options. We need to find CSS code and put it in \
+            story: "Strip Menu uses Bootstrap Icons for the options. We need to find CSS code (Code point) and put it in \
             the strip menu option parameter - ,,icon'' ; for example if we want to use \
             icon (https://icons.getbootstrap.com/icons/0-circle/) we have to put ,,F840'' code: icon=\"F840\"" 
             },

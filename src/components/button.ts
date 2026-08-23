@@ -3,23 +3,57 @@ import { customElement, property } from 'lit/decorators.js';
 import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-button')
-export class Onyks_Button extends LitElement {
-    @property({ type: String, reflect: true }) size = 'm';
-    @property({ type: String, reflect: true }) background: 'red' | 'blue' | 'green' | 'yellow' | 'gray' = 'red';
-    @property({ type: String }) type = 'button';
-    @property({ type: String, reflect: true }) href = "";
-    @property({ type: Boolean, reflect: true }) disabled = false;
+export class OnyksButton extends LitElement 
+{
+    @property({ type: String, reflect: true }) 
+    size = 'm';
     
-    render() {
-        if(this.href) {
+    @property({ type: String, reflect: true }) 
+    background: 'red' | 'blue' | 'green' | 'yellow' | 'gray' = 'red';
+    
+    @property({ type: String, reflect: true }) 
+    type = 'button';
+    
+    @property({ type: String, reflect: true }) 
+    href = "";
+    
+    @property({ type: Boolean, reflect: true }) 
+    disabled = false;
+    
+    @property({type: String, reflect: true}) 
+    icon = ''
+    
+    render()
+    {
+        if(this.href) 
+        {
             return html`
-                <a class="onyks-size btn" href="${this.href}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.disabled ? '-1' : '0'}">
+                <style>
+                    .icon::before 
+                    {
+                        font-family: 'bootstrap-icons';
+                        content: "\\${this.icon}";
+                    }
+                    
+                </style>
+
+                <a class="onyks-size btn icon" href="${this.href}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.disabled ? '-1' : '0'}">
                     <slot></slot>
                 </a>
             `;
-        } else {
+        } 
+        else 
+        {
             return html`
-                <button class="onyks-size btn" type="${this.type}" ?disabled="${this.disabled}">
+                <style>
+                    .icon::before 
+                    {
+                        font-family: 'bootstrap-icons';
+                        content: "\\${this.icon}";
+                    }
+                </style>
+
+                <button class="onyks-size btn icon" type="${this.type}" ?disabled="${this.disabled}">
                     <slot></slot>
                 </button>
             `;
@@ -27,7 +61,8 @@ export class Onyks_Button extends LitElement {
     }
 
     static styles = [css`
-        :host {
+        :host 
+        {
             display: inline-block;
             vertical-align: middle;
             height: fit-content;
@@ -36,91 +71,95 @@ export class Onyks_Button extends LitElement {
             user-select: none;
         }
 
-        .btn {
+        .btn 
+        {
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
             display: inline-flex;
+            gap: var(--onyks-spacing-sm);
             width: 100%;
-            padding: var(--onyks-spacing-sm) var(--onyks-spacing-md); /* Lekko poszerzony padding boczny */
+            padding: var(--onyks-spacing-sm) var(--onyks-spacing-md); 
             border: 1px solid transparent;
             cursor: pointer;
             font-family: var(--onyks-font, inherit);
-            font-weight: 500; /* Pogrubienie tekstu poprawia czytelność na przyciskach */
+            font-weight: 500;
             text-decoration: none;
             text-align: center;
             border-radius: var(--onyks-radius-md, 8px);
             line-height: 1.5;
             
-            /* BAZOWY EFEKT 3D */
             transform: translateY(-4px); 
             transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
             
-            /* Domyślny cień (nadpisywany przez warianty kolorystyczne) */
             --btn-shadow: hsl(from var(--onyks-surface-1-border, #999) h s 30%);
             box-shadow: 0 7px 0 var(--btn-shadow);
         }
 
-        /* --- WARIANTY KOLORYSTYCZNE --- */
-        :host([background="red"]) .btn {
+        :host([background="red"]) .btn 
+        {
             background-color: var(--onyks-red);
             color: var(--onyks-on-red);
             --btn-shadow: hsl(from var(--onyks-red) h s 30%);
         }
 
-        :host([background="blue"]) .btn {
+        :host([background="blue"]) .btn 
+        {
             background-color: var(--onyks-blue);
             color: var(--onyks-on-blue);
             --btn-shadow: hsl(from var(--onyks-blue) h s 30%);
         }
 
-        :host([background="green"]) .btn {
+        :host([background="green"]) .btn 
+        {
             background-color: var(--onyks-green);
             color: var(--onyks-on-green);
             --btn-shadow: hsl(from var(--onyks-green) h s 30%);
         }
 
-        :host([background="yellow"]) .btn {
+        :host([background="yellow"]) .btn 
+        {
             background-color: var(--onyks-yellow);
             color: var(--onyks-on-yellow);
             --btn-shadow: hsl(from var(--onyks-yellow) h s 30%);
         }
 
-        :host([background="gray"]) .btn {
+        :host([background="gray"]) .btn 
+        {
             background-color: var(--onyks-gray);
             color: var(--onyks-on-gray);
             --btn-shadow: hsl(from var(--onyks-gray) h s 30%);
         }
 
-        /* --- INTERAKCJE (Wspólne dla wszystkich kolorów!) --- */
-        
-        /* Hover - przycisk lekko opada */
-        .btn:hover:not(:disabled) {
+        .btn:hover:not(:disabled) 
+        {
             transform: translateY(0px);
             box-shadow: 0 3px 0 var(--btn-shadow); 
         }
 
-        /* Active - przycisk wciśnięty do końca (DODANE) */
-        .btn:active:not(:disabled) {
+        .btn:active:not(:disabled) 
+        {
             transform: translateY(3px);
             box-shadow: 0 0px 0 var(--btn-shadow);
         }
 
-        /* Disabled */
-        button:disabled, a[aria-disabled="true"] {
+        button:disabled, a[aria-disabled="true"] 
+        {
             opacity: 0.6;
             pointer-events: none;
             cursor: not-allowed;
-            /* Wyłączony przycisk traci efekt 3D, żeby wyglądał na nieaktywny */
             transform: translateY(3px);
             box-shadow: 0 0px 0 var(--btn-shadow);
         }
     `, onyksStyleSize];
 
-    constructor() {
+    constructor() 
+    {
         super();
-        this.addEventListener('click', (e: Event) => {
-            if (this.disabled) {
+        this.addEventListener('click', (e: Event) => 
+        {
+            if (this.disabled) 
+            {
                 e.preventDefault();
                 e.stopImmediatePropagation();
             }
@@ -128,8 +167,10 @@ export class Onyks_Button extends LitElement {
     }
 }
 
-declare global {
-    interface HTMLElementTagNameMap {
-        'onyks-button': Onyks_Button
+declare global 
+{
+    interface HTMLElementTagNameMap 
+    {
+        'onyks-button': OnyksButton
     }
 }

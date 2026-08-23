@@ -37,7 +37,11 @@ const meta: Meta =
       },
       text: 
       {
-        control: { type: 'text' }
+        control: { type: 'text' },
+        table: 
+        {
+          category: 'slot'
+        }
       },
     },
     parameters:
@@ -118,10 +122,9 @@ export const CSSEdit: Story = {
         description: 
         {
           story: 'There is a possibility to edit the text element. For example we can \
-          change the color of the text or text alignment. The text element is a span element \
-          with part="text" attribute. The text element is a child of the onyks-alert element. \
+          change the color of the text or text alignment. The text element is a child of the onyks-alert element. \
           Also we can edit the icon element. For example we can change the content of the icon or \
-          change the color of the icon. The icon element is a span element with part="icon" attribute. \
+          change the color of the icon. \
           The icon element is a child of the onyks-alert element. The icon element has a ::before pseudo-element \
           ',
         },

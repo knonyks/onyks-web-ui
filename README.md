@@ -1,4 +1,4 @@
-![](/src/assets/banner.png)
+![](https://github.com/knonyks/onyks-web-ui/blob/main/src/assets/banner.png?raw=true)
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 

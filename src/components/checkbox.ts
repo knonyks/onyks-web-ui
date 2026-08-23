@@ -2,12 +2,17 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('onyks-checkbox')
-export class Onyks_Checkbox extends LitElement {
-    @property({ type: Boolean, reflect: true }) checked = false;
-     @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 's';
+export class OnyksCheckbox extends LitElement
+{
+    @property({ type: Boolean, reflect: true }) 
+    checked = false;
+    
+    @property({ type: String, reflect: true }) 
+    size: 's' | 'm' | 'l' | 'xl' = 's';
 
     static styles = css`
-        :host {
+        :host 
+        {
             display: inline-block;
             color: var(--onyks-on-surface);
             font-family: var(--onyks-font);
@@ -17,31 +22,36 @@ export class Onyks_Checkbox extends LitElement {
             --cb-font-size: var(--onyks-size-md);
         }
 
-        :host([size="s"]) {
+        :host([size="s"]) 
+        {
             --cb-size: calc(var(--onyks-size-sm) + 6px);
             --cb-mark-size: calc(var(--onyks-size-sm) - 2px);
             --cb-font-size: var(--onyks-size-sm);
         }
 
-        :host([size="m"]) {
+        :host([size="m"]) 
+        {
             --cb-size: calc(var(--onyks-size-md) + 6px);
             --cb-mark-size: calc(var(--onyks-size-md) - 2px);
             --cb-font-size: var(--onyks-size-md);
         }
 
-        :host([size="l"]) {
+        :host([size="l"]) 
+        {
             --cb-size: calc(var(--onyks-size-lg) + 6px);
             --cb-mark-size: calc(var(--onyks-size-lg) - 2px);
             --cb-font-size: var(--onyks-size-lg);
         }
 
-        :host([size="xl"]) {
+        :host([size="xl"]) 
+        {
             --cb-size: calc(var(--onyks-size-xl) + 6px);
             --cb-mark-size: calc(var(--onyks-size-xl) - 2px);
             --cb-font-size: var(--onyks-size-xl);
         }
 
-        .checkbox-wrapper {
+        .checkbox-wrapper 
+        {
             display: inline-flex;
             align-items: center;
             gap: var(--onyks-spacing-sm);
@@ -50,7 +60,8 @@ export class Onyks_Checkbox extends LitElement {
             user-select: none;
         }
 
-        input[type="checkbox"] {
+        input[type="checkbox"] 
+        {
             appearance: none;
             background-color: var(--onyks-surface-1);
             border: 2px solid var(--onyks-surface-1-border);
@@ -67,11 +78,13 @@ export class Onyks_Checkbox extends LitElement {
             flex-shrink: 0;
         }
 
-        .checkbox-wrapper:hover input[type="checkbox"] {
+        .checkbox-wrapper:hover input[type="checkbox"] 
+        {
             border-color: var(--onyks-accent);
         }
 
-        input[type="checkbox"]::before {
+        input[type="checkbox"]::before 
+        {
             content: "";
             width: var(--cb-mark-size);
             height: var(--cb-mark-size);
@@ -83,11 +96,13 @@ export class Onyks_Checkbox extends LitElement {
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
 
-        input[type="checkbox"]:checked::before {
+        input[type="checkbox"]:checked::before 
+        {
             transform: scale(1);
         }
 
-        input[type="checkbox"]:checked {
+        input[type="checkbox"]:checked 
+        {
             border-color: var(--onyks-accent);
         }
     `;
@@ -115,5 +130,13 @@ export class Onyks_Checkbox extends LitElement {
             bubbles: true,
             composed: true
         }));
+    }
+}
+
+declare global 
+{
+    interface HTMLElementTagNameMap 
+    {
+        'onyks-checkbox': OnyksCheckbox
     }
 }

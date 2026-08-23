@@ -13,6 +13,7 @@ const meta: Meta =
     href=${args.href}
     ?disabled=${args.disabled}
     type=${args.type}
+    icon=${args.icon}
     >
     ${args.text}</onyks-alert>`,
 
@@ -37,6 +38,17 @@ const meta: Meta =
                 type: 'select' 
             },
             options: ['red', 'green', 'blue', 'yellow', 'gray'],
+            table: 
+            {
+                category: 'parameters'
+            }
+        },
+        icon: 
+        {
+            control: 
+            { 
+                type: 'text'
+            },
             table: 
             {
                 category: 'parameters'
@@ -78,19 +90,29 @@ const meta: Meta =
         },
         text: 
         {
-            control: { type: 'text' }
+            control: { type: 'text' },
+            table: 
+            {
+                category: 'slot'
+            }
         },
     },
     parameters:
     {
       docs: 
       {
+        description: 
+            {
+            story: "Button uses Bootstrap Icons for the icon. We need to find CSS code (Code point) and put it in \
+            the ,,icon'' parameter. For example if we want to use \
+            icon (https://icons.getbootstrap.com/icons/0-circle/) we have to put ,,F840'' code: icon=\"F840\"" 
+            },
         source: 
         {
           transform: (_originalCode: string, storyContext: any) => 
           {
             const { args } = storyContext;
-            return `<onyks-button size="${args.size}" type="${args.type}" background="${args.background}" href="${args.href}"${args.disabled? ' disabled': ''}>${args.text}</onyks-alert>`;
+            return `<onyks-button size="${args.size}" ${args.icon? 'icon="' + args.icon + '"': ''} type="${args.type}" background="${args.background}" href="${args.href}"${args.disabled? ' disabled': ''}>${args.text}</onyks-alert>`;
           }
         },
       }
@@ -107,6 +129,7 @@ export const Info: Story = {
     text: "Click me!",
     background: 'yellow',
     href: 'https://google.com',
-    disabled: false
+    disabled: false,
+    icon: 'F2C0'
   }
 };

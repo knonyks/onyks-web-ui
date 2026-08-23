@@ -1,8 +1,14 @@
-export * from './components/_styles.ts'
 export * from './components/alert.ts'
 export * from './components/avatar.ts'
 export * from './components/button.ts';
 export * from './components/container.ts'
+
+
+
+
+
+export * from './components/_styles.ts'
+
 export * from './components/dialog.ts'
 export * from './components/header.ts'
 export * from './components/text.ts'
