@@ -1,4 +1,4 @@
-![](/public/banner.png)
+![](./src/assets/banner.png)
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 
