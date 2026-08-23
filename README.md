@@ -1,12 +1,10 @@
-![](./src/assets/banner.png)
+![](/src/assets/banner.png)
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 
 **ONYKS WebUI** provides a set of reusable, accessible, and highly performant interface elements. By leveraging the native Web Components standard, these elements work in any framework (React, Vue, Angular, Svelte) or with no framework at all.
 
 This project is created by ONYKS Student Scientific Club from Warsaw University of Technology. Details about the student club at [ https://www.onyks.elka.pw.edu.pl/](https://www.onyks.elka.pw.edu.pl/)
-
-
 
 ## ✨ Features
 
@@ -15,7 +13,6 @@ This project is created by ONYKS Student Scientific Club from Warsaw University 
 * **🎨 Fully Customizable:** Native support for CSS Custom Properties (Variables) and Shadow DOM styling.
 * **📘 TypeScript:** Written in TypeScript with complete type definitions included.
 <!-- * **♿ Accessible:** Components follow WAI-ARIA standards out of the box. -->
-
 ## 📜 Documentation
 
 The documentation with examples is available at this site: [https://knonyks.github.io/onyks-web-ui/](https://knonyks.github.io/onyks-web-ui/).
