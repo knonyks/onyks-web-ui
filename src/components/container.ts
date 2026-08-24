@@ -1,6 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-container')
 export class OnyksContainer extends LitElement
@@ -9,7 +10,7 @@ export class OnyksContainer extends LitElement
     gap = "";
 
     @property({type: String, reflect: true})
-    padding = "m";
+    padding = "";
 
     @property({type: String, reflect: true})
     type = "stack"; //grid, stack, group
@@ -45,84 +46,84 @@ export class OnyksContainer extends LitElement
             flex-direction: column;
         }
 
-    :host([type="group"]) 
-    {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
+        :host([type="group"]) 
+        {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
 
-    :host([type="grid"]) 
-    {
-        display: grid;
-        grid-template-columns: repeat(var(--cols, 1), 1fr);
-    }
+        :host([type="grid"]) 
+        {
+            display: grid;
+            grid-template-columns: repeat(var(--cols, 1), 1fr);
+        }
 
-    :host([gap="s"]) 
-    {
-        gap: var(--onyks-spacing-sm); 
-    }
+        :host([gap="s"]) 
+        {
+            gap: var(--onyks-spacing-sm); 
+        }
 
-    :host([gap="m"]) 
-    {
-        gap: var(--onyks-spacing-md); 
-    }
+        :host([gap="m"]) 
+        {
+            gap: var(--onyks-spacing-md); 
+        }
 
-    :host([gap="l"]) 
-    {
-        gap: var(--onyks-spacing-lg);
-    }
+        :host([gap="l"]) 
+        {
+            gap: var(--onyks-spacing-lg);
+        }
 
-    :host([gap="xl"]) 
-    {
-        gap: var(--onyks-spacing-xl);
-    }
+        :host([gap="xl"]) 
+        {
+            gap: var(--onyks-spacing-xl);
+        }
 
-    :host([padding="s"]) 
-    { 
-        padding: var(--onyks-spacing-sm); 
-    }
+        :host([padding="s"]) 
+        { 
+            padding: var(--onyks-spacing-sm); 
+        }
+            
+        :host([padding="m"]) 
+        { 
+            padding: var(--onyks-spacing-md); 
+        }
+
+        :host([padding="l"]) 
+        { 
+            padding: var(--onyks-spacing-lg); 
+        }
+
+        :host([padding="xl"]) 
+        { 
+            padding: var(--onyks-spacing-xl); 
+        }
+
+        :host([align="center"]) 
+        {
+            align-items: center; 
+        }
+
+        :host([align="end"]) 
+        {
+            align-items: flex-end; 
+        }
         
-    :host([padding="m"]) 
-    { 
-        padding: var(--onyks-spacing-md); 
-    }
+        :host([justify="between"]) 
+        {
+            justify-content: space-between; 
+        }
 
-    :host([padding="l"]) 
-    { 
-        padding: var(--onyks-spacing-lg); 
-    }
+        :host([justify="center"]) 
+        {
+            justify-content: center; 
+        }
 
-    :host([padding="xl"]) 
-    { 
-        padding: var(--onyks-spacing-xl); 
-    }
-
-    :host([align="center"]) 
-    {
-        align-items: center; 
-    }
-
-    :host([align="end"]) 
-    {
-        align-items: flex-end; 
-    }
-    
-    :host([justify="between"]) 
-    {
-        justify-content: space-between; 
-    }
-
-    :host([justify="center"]) 
-    {
-        justify-content: center; 
-    }
-
-    :host([justify="end"]) 
-    {
-        justify-content: flex-end; 
-    }
-`];
+        :host([justify="end"]) 
+        {
+            justify-content: flex-end; 
+        }
+    `, OnyksStyles.scroll(':host')];
 }
 
 declare global 

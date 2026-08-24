@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { classMap } from 'lit/directives/class-map.js';
 
 const meta: Meta = 
 {
@@ -13,7 +14,8 @@ const meta: Meta =
       "corner-close": { control: 'boolean', table: { category: 'parameters' } },
       "bottom-buttons": { control: 'boolean', table: { category: 'parameters' } },
       modal: { control: 'boolean', table: { category: 'parameters' } },
-      text: { control: 'text' },
+      'no-title': { control: 'boolean', table: { category: 'parameters' } },
+      text: { control: 'text', table: { category: 'slot' } },
       "dialog-close":
       {
           action: 'dialog-close',
@@ -43,19 +45,44 @@ const meta: Meta =
               category: 'parameters',
               type: { summary: 'string' },
           }
+      },
+      "size":
+      {
+          control: 
+          { 
+              type: 'select' 
+          },
+          options: ['s', 'm', 'l', 'xl'],
+          table: 
+          {
+              category: 'parameters'
+          }
+      },
+      "title-size":
+      {
+        control: 
+        { 
+            type: 'select' 
+        },
+        options: ['s', 'm', 'l', 'xl'],
+        table: 
+        {
+            category: 'parameters'
+        }
       }
     },
     render: (args) => html`
       <onyks-dialog scroll-target="none"
-      no-title
+      ?no-title=${args['no-title']} 
       ?open=${args.open} 
       title="${args.title}" 
-      ?no-title="${args.noTitle}" 
       ?corner-close="${args["corner-close"]}" 
       ?modal="${args.modal}"
       ?bottom-buttons="${args["bottom-buttons"]}"
-      @dialog-close=${args['dialog-close']}
-      @close-end=${args['close-end']}>
+      size="${args['size']}"
+      title-size="${args['title-size']}"
+      @dialog-close=${console.log}
+      @close-end=${console.log}>
         ${args.text}
       </onyks-dialog>
     `,
@@ -71,11 +98,11 @@ const meta: Meta =
                     return `
                       <script>
                         const dialog = document.querySelector('onyks-dialog')
-                        dialog.addEventListener('dialog-close', () => console.log('Dialog is closing...'))
-                        dialog.addEventListener('close-end', () => console.log('Dialog closing animation finished!'))
+                        dialog.addEventListener('dialog-close', console.log)
+                        dialog.addEventListener('close-end', console.log)
                       </script>
 
-                      <onyks-dialog${args.open ? ' open' : ''} title="${args.title}" ${args["corner-close"] ? ' corner-close' : ''} ${args["bottom-buttons"] ? ' bottom-buttons' : ''}>
+                      <onyks-dialog${args.open ? ' open' : ''} title="${args.title}"${args["corner-close"] ? ' corner-close' : ''}${args["bottom-buttons"] ? ' bottom-buttons' : ''}${args["modal"] ? ' modal' : ''} scroll-target="${args['scroll-target']}" size="${args.size}" title-size="${args['title-size']}"${args["no-title"] ? ' no-title' : ''}>
                         ${args.text}
                       </onyks-dialog>
                     `;
@@ -103,7 +130,10 @@ export const Base: Story =
     "bottom-buttons": false,
     modal: false,
     text: 'A dialog content',
-    'scroll-target': 'none'
+    'scroll-target': 'none',
+    size: 'm',
+    'title-size': 'm',
+    'no-title': false
   }
 };
 
@@ -118,7 +148,9 @@ export const WithButtons: Story =
     "bottom-buttons": true,
     modal: false,
     text: 'A dialog content',
-    'scroll-target': 'none'
+    'scroll-target': 'none',
+    size: 'm',
+    'title-size': 'm'
   },
   parameters:
   {
@@ -160,6 +192,8 @@ export const WithLongContent: Story =
     "bottom-buttons": true,
     modal: false,
     'scroll-target': 'none',
+    size: 'm',
+    'title-size': 'm'
   },
   parameters:
   {
@@ -264,7 +298,9 @@ export const CSSEdit: Story =
     "bottom-buttons": true,
     modal: false,
     text: 'A dialog content',
-    'scroll-target': 'none'
+    'scroll-target': 'none',
+    size: 'm',
+    'title-size': 'm'
   },
   parameters:
   {

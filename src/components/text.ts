@@ -1,8 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
-import { onyksStyleSize } from './_styles';
-
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-text')
 export class OnyksText extends LitElement
@@ -12,7 +11,7 @@ export class OnyksText extends LitElement
 
     render()
     {
-        return html`<div class="onyks-size"><slot></slot></div>`;
+        return html`<span class=""><slot></slot></span>`;
     }
 
     static styles = [css`
@@ -21,7 +20,7 @@ export class OnyksText extends LitElement
         font-family: var(--onyks-font);
         display: block;
     }
-`, onyksStyleSize];
+`, OnyksStyles.size('span')];
 }
 
 declare global 

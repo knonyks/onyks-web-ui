@@ -1,57 +1,81 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-const meta: Meta = {
+const meta: Meta = 
+{
     title: 'ONYKS WebUI/Checkbox',
     component: 'onyks-checkbox',
     tags: ['autodocs'],
     render: (args) => html`
+        
+
         <onyks-checkbox 
             ?checked=${args.checked}
             size=${args.size}
+            @change=${console.log}
         >
             ${args.label} </onyks-checkbox>
     `,
 
-    argTypes: {
-        checked: {
+    argTypes: 
+    {
+        checked: 
+        {
             control: { type: 'boolean' },
-            description: 'Whether the checkbox is checked',
-            table: { category: 'Checkbox Properties' }
+            table: { category: 'parameter' }
         },
-        size: {
+        size:
+        {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
-            description: 'Size of the checkbox',
-            table: { category: 'Checkbox Properties' }
+            table: { category: 'parameter' }
         },
-        label: {
+        label: 
+        {
             control: { type: 'text' },
-            description: 'Label for the checkbox',
-            table: { category: 'Checkbox Properties' }
-        }
+            table: { category: 'parameter' }
+        },
+        "change":
+        {
+            action: 'change',
+            description: 'Emitted when the checkbox was changed.',
+            table: 
+            {
+                category: 'events',
+                type: { summary: '{ checked: true/false }' },
+            }
+        },
     },
 
-    parameters: {
-      docs: {
-        source: {
-          transform: (_originalCode: string, storyContext: any) => {
-            const { args } = storyContext;
-            return `
-            <onyks-checkbox size="${args.size}"${args.checked ? ' checked' : ''}>
-                ${args.label}
-            </onyks-checkbox>`;
-          }
-        },
-      }
+    parameters: 
+    {
+        docs: 
+        {
+            source: 
+            {
+                transform: (_originalCode: string, storyContext: any) => 
+                {
+                    const { args } = storyContext;
+                    return `
+                    <script>
+                        let checkbox = document.querySelector('onyks-checkbox')
+                        checkbox.addEventListener('change', console.log)
+                    </script>
+                    
+                    <onyks-checkbox size="${args.size}"${args.checked ? ' checked' : ''}>${args.label}</onyks-checkbox>`;
+                }
+            },
+        }
     },
 };
 
 export default meta;
 type Story = StoryObj;
 
-export const Checkbox: Story = {
-    args: {
+export const Base: Story = 
+{
+    args: 
+    {
         checked: false,
         size: 'm',
         label: 'Checkbox Label'

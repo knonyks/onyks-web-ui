@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { onyksStyleScrollbar } from './_styles';
+import '../onyks-web-ui.css'
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-dialog')
 export class OnyksDialog extends LitElement 
@@ -25,6 +26,12 @@ export class OnyksDialog extends LitElement
 
     @property({type: Boolean, reflect: true, attribute: 'no-title' }) 
     noTitle = false;
+
+    @property({type: String, reflect: true, attribute: 'size'})
+    size = 'xl'
+
+    @property({type: String, reflect: true, attribute: 'title-size'})
+    titleSize = 'xl'
 
     private _shakeTimeout: number | undefined;
 
@@ -144,7 +151,7 @@ export class OnyksDialog extends LitElement
         {
             padding: var(--onyks-spacing-md);
             margin: 0;
-            font-size: var(--onyks-size-xl);
+
             user-select: none;
         }
 
@@ -155,7 +162,7 @@ export class OnyksDialog extends LitElement
             right: var(--onyks-spacing-md);
             top: var(--onyks-spacing-md);
             height: fit-content;
-            font-size: var(--onyks-size-xl);
+
             user-select: none;
         }
 
@@ -196,7 +203,7 @@ export class OnyksDialog extends LitElement
         {
             min-width: 100px;
         }
-    `, onyksStyleScrollbar];
+    `, OnyksStyles.size('.dialogTitle', 'title-size'), OnyksStyles.size('.dialogCloseBtn', 'title-size') , OnyksStyles.size('.dialogContent', 'size')];
 
     updated(changedProperties: any) 
     {
@@ -244,14 +251,16 @@ export class OnyksDialog extends LitElement
         }
     }
 
-    render() {
+    render() 
+    {
+
         return html`
             <div class="dialogBackdrop" @click="${this._handleBackdropClick}">
                 <div class="dialogContainer" part="container">
                     ${this.noTitle ? '': html`<div class="dialogTitle" part="title">${this.title}</div>`}
 
                     ${this.cornerClose ? html`<div class="dialogCloseBtn" @click="${this._close}"></div>` : ''}
-                    <div class="dialogContent onyks-scrollbar" part="content">
+                    <div class="dialogContent onyks-scrollbar onyks-size" part="content">
                         <slot></slot>
                     </div>
                 ${this.bottomButtons ? html`

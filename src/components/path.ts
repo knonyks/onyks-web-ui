@@ -1,6 +1,6 @@
 import {LitElement, css, html, type PropertyValues} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import { onyksStyleSize } from './_styles';
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-path-chain')
 export class OnyksPathChain extends LitElement 
@@ -79,7 +79,7 @@ export class OnyksPath extends LitElement
     {
         return html`
             ${this.content.map((folder, i) => html`
-                <onyks-path-chain class="item onyks-size" @click=${() => this._handleItemClick(i)}>
+                <onyks-path-chain class="item" @click=${() => this._handleItemClick(i)}>
                     ${folder}
                 </onyks-path-chain>
             `)}
@@ -111,7 +111,7 @@ export class OnyksPath extends LitElement
             display: flex;
             margin-left: var(--onyks-spacing-sm);
         }
-    `, onyksStyleSize];
+    `, OnyksStyles.size('onyks-path-chain', 'size'), OnyksStyles.scroll(':host')];
 }
 
 declare global 

@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { onyksStyleSize } from './_styles';
+import { OnyksStyles } from '../utils/styles';
+
 
 @customElement('onyks-button')
 export class OnyksButton extends LitElement 
@@ -34,10 +35,9 @@ export class OnyksButton extends LitElement
                         font-family: 'bootstrap-icons';
                         content: "\\${this.icon}";
                     }
-                    
                 </style>
 
-                <a class="onyks-size btn icon" href="${this.href}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.disabled ? '-1' : '0'}">
+                <a class="btn icon" href="${this.href}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.disabled ? '-1' : '0'}">
                     <slot></slot>
                 </a>
             `;
@@ -53,7 +53,7 @@ export class OnyksButton extends LitElement
                     }
                 </style>
 
-                <button class="onyks-size btn icon" type="${this.type}" ?disabled="${this.disabled}">
+                <button class="btn icon" type="${this.type}" ?disabled="${this.disabled}">
                     <slot></slot>
                 </button>
             `;
@@ -63,7 +63,7 @@ export class OnyksButton extends LitElement
     static styles = [css`
         :host 
         {
-            display: inline-block;
+            display: block;
             vertical-align: middle;
             height: fit-content;
             width: fit-content;
@@ -79,6 +79,7 @@ export class OnyksButton extends LitElement
             display: inline-flex;
             gap: var(--onyks-spacing-sm);
             width: 100%;
+            height: 100%;
             padding: var(--onyks-spacing-sm) var(--onyks-spacing-md); 
             border: 1px solid transparent;
             cursor: pointer;
@@ -151,7 +152,7 @@ export class OnyksButton extends LitElement
             transform: translateY(3px);
             box-shadow: 0 0px 0 var(--btn-shadow);
         }
-    `, onyksStyleSize];
+    `, OnyksStyles.size('.btn')];
 
     constructor() 
     {

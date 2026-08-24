@@ -122,10 +122,12 @@ export class OnyksCheckbox extends LitElement
         `;
     }
 
-    private _handleChange(e: Event) {
+    private _handleChange(e: Event) 
+    {
         const target = e.target as HTMLInputElement;
         this.checked = target.checked;
-        this.dispatchEvent(new CustomEvent('change', {
+        this.dispatchEvent(new CustomEvent('change', 
+        {
             detail: { checked: this.checked },
             bubbles: true,
             composed: true

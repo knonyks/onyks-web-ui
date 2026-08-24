@@ -25,7 +25,7 @@ export default defineConfig({
     rollupOptions: {
       external: [/^lit/],
       output: {
-        assetFileNames: 'onyks-webui.css'
+        assetFileNames: 'onyks-web-ui.css'
       }
     }
   },

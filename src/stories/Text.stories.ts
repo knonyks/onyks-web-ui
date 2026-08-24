@@ -32,6 +32,10 @@ const meta: Meta =
         control:
         {
             type: 'text'
+        },
+        table: 
+        {
+          category: 'slot'
         }
       }
     },
