@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { classMap } from 'lit/directives/class-map.js';
 
 const meta: Meta = 
 {
