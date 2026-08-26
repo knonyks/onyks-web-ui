@@ -64,9 +64,9 @@ export class Onyks_Table extends LitElement {
         }
     }
 
-    getSelectedRows() {
-        const safeData = this.data || [];
-        return safeData.filter(row => Object.values(row).some(val => val === true));
+    getSelectedRows(selectionKey = 'selected') 
+    {
+        return (this.data || []).filter(row => row[selectionKey] === true);
     }
 
     refresh() {
