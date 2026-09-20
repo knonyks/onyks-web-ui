@@ -19,10 +19,6 @@
     --onyks-radius-md: 8px;
     --onyks-radius-lg: 12px;
     --onyks-radius-xl: 16px;
-
-    --sb-track-color: #232E33;
-    --sb-thumb-color: #6BAF8D;
-    --sb-size: 14px;
 }
 
 /* Default and dark theme */
@@ -32,7 +28,7 @@
     --onyks-surface: #1f1f1f;
     --onyks-on-surface: #fff;
     
-    /* Elements */
+    /* Surface 1 */
     --onyks-surface-1: #242529;
     --onyks-on-surface-1: #fff;
     --onyks-surface-1-hover: #37383e;
@@ -40,6 +36,7 @@
     --onyks-surface-1-border: #6c6d70;
     --onyks-surface-1-placeholder: #98999e; /* DODAJ DO INNYCH MOTYWÓW POZDRAWIAM UWU */
 
+    /* Surface 2 */
     --onyks-surface-2: #3a3c40;
     
 

@@ -24,9 +24,29 @@ export class OnyksContainer extends LitElement
     @property({type: String, reflect: true})
     justify = "start"; //start, center, end, between
 
+    @property({ type: Number, attribute: 'mobile-breakpoint' }) 
+    mobileBreakpoint = 300;
+
     render()
     {
-        return html`<slot></slot>`;
+        return html`
+        <style>
+            @media (max-width: ${this.mobileBreakpoint}px) 
+            {
+                :host([type="grid"])  
+                {
+                    grid-template-columns: 1fr !important;
+                }
+                ::slotted(*) 
+                {
+                    grid-column: auto !important;
+                    grid-row: auto !important;
+                    transform: none !important;
+                    width: 100%;
+                }
+            }
+        </style>
+        <slot></slot>`;
     }
 
     updated(changedProperties: any) 

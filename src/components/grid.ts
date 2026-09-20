@@ -55,7 +55,7 @@ export class Onyks_Grid extends LitElement {
 
 // --- KARTA ---
 @customElement('onyks-card')
-export class Onyks_Card extends LitElement {
+export class OnyksCard extends LitElement {
     @property({ type: String }) title = "";
     @property({ type: Number }) span = 1;
     @property({ type: Number }) rows = 1;
@@ -145,6 +145,6 @@ export class Onyks_Card extends LitElement {
 declare global {
     interface HTMLElementTagNameMap {
         'onyks-grid': Onyks_Grid,
-        'onyks-card': Onyks_Card
+        'onyks-card': OnyksCard
     }
 }

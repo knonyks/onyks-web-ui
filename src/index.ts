@@ -4,12 +4,15 @@ import './onyks-web-ui.css'
 export * from './components/alert.ts'
 export * from './components/avatar.ts'
 export * from './components/button.ts';
+export * from './components/checkbox.ts'
 export * from './components/container.ts'
+
+
 export * from './components/dialog.ts'
 export * from './components/header.ts'
 export * from './components/text.ts'
 export * from './components/path.ts'
-export * from './components/checkbox.ts'
+
 
 // TO CHECK
 

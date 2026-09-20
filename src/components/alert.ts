@@ -91,28 +91,24 @@ export class OnyksAlert extends LitElement
         { 
             background-color: var(--onyks-info);
             color: var(--onyks-on-info);
-            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="warning"])
         { 
             background-color: var(--onyks-warning);
             color: var(--onyks-on-warning);
-            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="error"])
         { 
             background-color: var(--onyks-error);
             color: var(--onyks-on-error);
-            border: 1px solid var(--onyks-surface-1-border);
         }
 
         :host([type="success"])
         { 
             background-color: var(--onyks-success);
             color: var(--onyks-on-success);
-            border: 1px solid var(--onyks-surface-1-border);
         }
 
         #icon

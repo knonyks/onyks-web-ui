@@ -15,6 +15,7 @@ const meta: Meta =
         cols="${args.cols}"
         align="${args.align}"
         justify="${args.justify}"
+        mobile-breakpoint="${args['mobile-breakpoint']}"
     >
         <onyks-button background="red">First</onyks-button>
         <onyks-button background="blue">Second</onyks-button>
@@ -94,7 +95,13 @@ const meta: Meta =
             {
                 category: 'parameters'
             }
-        }
+        },
+        'mobile-breakpoint': 
+        {
+            control: { type: 'number' },
+            description: 'Screen width (in pixels), at which the grid switches to a single-column mode',
+            table: { category: 'parameters' }
+        },
     }
 };
 
@@ -108,7 +115,8 @@ export const Base: Story = {
     type: 'stack',
     cols: 0,
     align: 'start',
-    justify: 'start'
+    justify: 'start',
+    'mobile-breakpoint': 300
   },
 };
 
