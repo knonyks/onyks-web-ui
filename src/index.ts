@@ -6,13 +6,12 @@ export * from './components/avatar.ts'
 export * from './components/button.ts';
 export * from './components/checkbox.ts'
 export * from './components/container.ts'
-
-
 export * from './components/dialog.ts'
 export * from './components/header.ts'
 export * from './components/text.ts'
 export * from './components/path.ts'
-
+export * from './components/file-explorer.ts'
+export * from './components/card.ts'
 
 // TO CHECK
 
@@ -39,11 +38,11 @@ export * from './components/table.ts'
 export * from './components/text-help.ts'
 export * from './components/textfield.ts'
 export * from './components/textarea.ts'
-export * from './components/grid.ts'
+
 export * from './components/file-upload.ts'
 export * from './components/select.ts'
 
-export * from './components/file-explorer.ts'
+
 export * from './components/toast.ts'
 export * from './components/list.ts'
 export * from './components/loading-bar.ts'

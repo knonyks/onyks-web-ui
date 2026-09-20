@@ -73,7 +73,7 @@ const meta: Meta =
     },
     render: (args) => html`
         <onyks-file-explorer id="x"
-size=${args.size} 
+        size=${args.size} 
         ?multiple=${args.multiple} 
         .content=${args.content} 
         empty-alert=${args['empty-alert']} 
@@ -123,7 +123,27 @@ export const Base: Story =
   {
     size: 'm',
     multiple: false,
-    content: [{type: 'folder', name: "Kanye West"}, {type: 'file', name: "Shakira - Waka Waka.mp3"}, {type: 'folder', name: "Marek Grechuta"}],
+    content: [
+      {type: 'folder', name: "Kanye West"},
+      {type: 'file', name: "Shakira - Waka Waka.mp3"},
+      {type: 'folder', name: "Marek Grechuta"},
+      {type: 'file', name: "The Weeknd - Blinding Lights.mp3"},
+      {type: 'file', name: "Adele - Someone Like You.mp3"},
+      {type: 'file', name: "Ed Sheeran - Shape of You.mp3"},
+      {type: 'file', name: "Taylor Swift - Love Story.mp3"},
+      {type: 'file', name: "Beyoncé - Halo.mp3"},
+      {type: 'file', name: "Rihanna - Work.mp3"},
+      {type: 'file', name: "Bruno Mars - Uptown Funk.mp3"},
+      {type: 'file', name: "Sia - Cheap Thrills.mp3"},
+      {type: 'file', name: "Justin Bieber - Sorry.mp3"},
+      {type: 'file', name: "Selena Gomez - Good for You.mp3"},
+      {type: 'file', name: "Katy Perry - Roar.mp3"},
+      {type: 'file', name: "Lady Gaga - Poker Face.mp3"},
+      {type: 'file', name: "Ariana Grande - Thank U, Next.mp3"},
+      {type: 'file', name: "Dua Lipa - Don't Start Now.mp3"},
+      {type: 'file', name: "Harry Styles - Adore You.mp3"},
+      {type: 'file', name: "Billie Eilish - Bad Guy.mp3"},
+    ],
     'empty-alert': "This folder is empty!",
     'types': [{type: 'folder', icon: 'F3D9', isLikeDir: true}, {type: 'file', icon: 'F389', isLikeDir: false}]
   }
