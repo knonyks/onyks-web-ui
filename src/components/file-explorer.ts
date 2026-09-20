@@ -1,6 +1,6 @@
 import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { onyksStyleScrollbar, onyksStyleSize } from './_styles.ts';
+import { OnyksStyles } from '../utils/styles';
 
 export interface OnyksItem 
 {
@@ -107,7 +107,7 @@ export class OnyksFileExplorer extends LitElement
     {
       line-height: 1.2; 
     }
-  `, onyksStyleScrollbar, onyksStyleSize];
+  `, OnyksStyles.size('.alert'), OnyksStyles.scroll('.explorer') ,OnyksStyles.size('.item')];
   
   getSelectedItems(): OnyksItem[] 
   {
@@ -164,7 +164,7 @@ export class OnyksFileExplorer extends LitElement
   {
     if (!this.content || this.content.length === 0) 
     {
-      return html`<div style="padding: var(--onyks-spacing-md); color: var(--onyks-on-surface-1);">${this.emptyAlert}</div>`;
+      return html`<div class="alert" style="padding: var(--onyks-spacing-md); color: var(--onyks-on-surface-1);">${this.emptyAlert}</div>`;
     }
 
     let itemsTypesStyles = ''
@@ -184,7 +184,7 @@ export class OnyksFileExplorer extends LitElement
       <style>
         ${itemsTypesStyles}
       </style>
-      <div class="explorer onyks-size onyks-scrollbar">
+      <div class="explorer">
         ${this.content.map(
           (item) => html`
             <div

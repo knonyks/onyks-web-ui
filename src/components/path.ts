@@ -97,7 +97,7 @@ export class OnyksPath extends LitElement
             border-radius: 5px;
             padding: var(--onyks-spacing-sm);
             box-sizing: border-box;
-            overflow-x: auto;
+            overflow-x: scroll;
             gap: var(--onyks-spacing-sm);
             border: 1px solid var(--onyks-surface-1-border);
         }
