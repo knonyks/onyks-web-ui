@@ -33,7 +33,7 @@ export class OnyksContainer extends LitElement
     @queryAssignedElements({flatten: true})
     _assignedElements!: Array<HTMLElement>;
 
-    private _observer = new MutationObserver((mutations) => 
+    private _observer = new MutationObserver((_mutations) => 
     {
         this._applyGridStyles();
     });
