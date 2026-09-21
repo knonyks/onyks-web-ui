@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit'
-import {customElement} from 'lit/decorators.js'
+import {customElement, queryAssignedElements} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
 import { OnyksStyles } from '../utils/styles';
 
@@ -17,6 +17,9 @@ export class OnyksContainer extends LitElement
 
     @property({type: Number, reflect: true})
     cols = 0;
+    
+    @property({type: Number, reflect: true})
+    rows = 0;
 
     @property({type: String, reflect: true})
     align = "start"; //start, center, end
@@ -26,6 +29,20 @@ export class OnyksContainer extends LitElement
 
     @property({ type: Number, attribute: 'mobile-breakpoint' }) 
     mobileBreakpoint = 300;
+
+    @queryAssignedElements({flatten: true})
+    _assignedElements!: Array<HTMLElement>;
+
+    private _observer = new MutationObserver((mutations) => 
+    {
+        this._applyGridStyles();
+    });
+
+    disconnectedCallback() 
+    {
+        super.disconnectedCallback();
+        this._observer.disconnect();
+    }
 
     render()
     {
@@ -46,7 +63,59 @@ export class OnyksContainer extends LitElement
                 }
             }
         </style>
-        <slot></slot>`;
+        <slot @slotchange=${this._handleSlotChange}></slot>`;
+    }
+
+    _handleSlotChange() 
+    {
+        this._applyGridStyles();
+        this._updateObservers();
+    }
+
+    _updateObservers() 
+    {
+        this._observer.disconnect();
+
+        if (this._assignedElements) 
+        {
+            this._assignedElements.forEach(el => 
+            {
+                this._observer.observe(el, 
+                {
+                    attributes: true,
+                    attributeFilter: ['cols', 'rows'] 
+                });
+            });
+        }
+    }
+
+    _applyGridStyles() 
+    {
+        if (!this._assignedElements) return;
+
+        if (this.type === 'grid') 
+        {
+            this._assignedElements.forEach((el) => 
+            {
+                if (el.hasAttribute('cols')) 
+                {
+                    el.style.gridColumn = `span ${el.getAttribute('cols')}`;
+                } 
+                else 
+                {
+                    el.style.removeProperty('grid-column');
+                }
+            
+                if (el.hasAttribute('rows')) 
+                {
+                    el.style.gridRow = `span ${el.getAttribute('rows')}`;
+                } 
+                else 
+                {
+                    el.style.removeProperty('grid-row');
+                }
+            });
+        }
     }
 
     updated(changedProperties: any) 
@@ -56,6 +125,11 @@ export class OnyksContainer extends LitElement
         {
             this.style.setProperty('--cols', `${this.cols}`);
         }
+        if (changedProperties.has('rows')) 
+        {
+            this.style.setProperty('--rows', `${this.rows}`);
+        }
+        this._applyGridStyles();
     }
 
     static styles = [css`
@@ -77,6 +151,7 @@ export class OnyksContainer extends LitElement
         {
             display: grid;
             grid-template-columns: repeat(var(--cols, 1), 1fr);
+            grid-template-rows: repeat(var(--rows, 1), 1fr);
         }
 
         :host([gap="s"]) 

@@ -59,28 +59,9 @@ export class OnyksCard extends LitElement
 {
     @property({ type: String }) 
     title = "";
-    
-    @property({ type: Number }) 
-    span = 1;
-    
-    @property({ type: Number }) 
-    rows = 1;
-    
+        
     @property({ type: String, reflect: true }) 
     size = 'm';
-
-    updated(changedProperties: Map<string, any>) 
-    {
-        if (changedProperties.has('span')) 
-        {
-            this.style.gridColumn = `span ${this.span}`;
-        }
-
-        if (changedProperties.has('rows')) 
-        {
-            this.style.gridRow = `span ${this.rows}`;
-        }
-    }
 
     static styles = [css`
         :host 

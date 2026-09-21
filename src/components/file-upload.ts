@@ -3,7 +3,8 @@ import { customElement, property, state, query } from 'lit/decorators.js';
 import { onyksStyleSize } from './_styles';
 
 @customElement('onyks-file-upload')
-export class Onyks_FileUpload extends LitElement {
+export class Onyks_FileUpload extends LitElement 
+{
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
     @property({ type: String }) accept = '';
