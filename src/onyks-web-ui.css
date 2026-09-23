@@ -76,10 +76,6 @@
     --onyks-scroll-track: transparent;
     --onyks-scroll-thumb: #717171;
     --onyks-scroll-size: 14px;
-
-
-    /* Other */
-    --onyks-logo-invert: 0;
 }
 
 [data-onyks-theme="blue"]

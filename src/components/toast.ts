@@ -2,115 +2,66 @@ import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
 
 @customElement('onyks-toast')
-export class Onyks_Toast extends LitElement 
+export class OnyksToast extends LitElement 
 {
     @property({type: String, reflect: true})
     size = 'm';
 
     @property({type: String, reflect: true})
-    position = 'bottom-right';
-
-    @property({type: String, reflect: true})
     type = 'success';
 
-    @property({type: Number})
-    duration = 3000;
+    @property({type: Boolean, reflect: true,  attribute: 'corner-close' })
+    cornerClose = false;
 
-    override connectedCallback() 
+    @property({type: Number, reflect: true})
+    duration = 0
+
+    render() 
+    {
+       return html`
+          <onyks-alert
+            size="${this.size}"
+            type="${this.type}"
+            ?corner-close="${this.cornerClose}"
+            @close=${this.remove}
+          >
+            <slot></slot>
+          </onyks-alert>
+       `;
+    }
+
+    private _timer: any = undefined
+
+    connectedCallback() 
     {
         super.connectedCallback();
-        
-        const containerClass = `toast-container-${this.position}`;
-
-        if (this.parentElement?.classList.contains(containerClass)) 
+        if (this.duration > 0) 
         {
-            if (this.duration > 0) 
-            {
-                setTimeout(() => this.removeToast(), this.duration);
-            }
-            return;
+            this._timer = setTimeout(() => this.remove(), this.duration);
         }
-
-        this.setupContainer(containerClass);
     }
 
-    private setupContainer(containerClass: string) 
+    disconnectedCallback() 
     {
-        let container = document.body.querySelector(`.${containerClass}`) as HTMLElement;
-
-        if (!container) {
-            container = document.createElement('div');
-            container.className = containerClass;
-            
-            container.style.position = 'fixed';
-            container.style.display = 'flex';
-            container.style.justifyContent = 'right';
-            // container.style.alignContent = 'center';
-            // container.style.flexDirection = this.position.startsWith('bottom') ? 'column-reverse' : 'column';
-            // container.style.gap = '12px';
-            // container.style.zIndex = '9999';
-            // container.style.boxSizing = 'border-box';
-            // container.style.width = '100%';
-            // container.style.maxWidth = '300px';
-            container.style.pointerEvents = 'none';
-            // container.style.width = '25%';
-            // container.style.backgroundColor = 'red'
-
-            if (this.position.includes('top'))
-            {
-                container.style.top = '20px';
-            }
-            
-            if (this.position.includes('bottom'))
-            {
-                container.style.bottom = '20px';
-                container.style.width = 'calc(100% - 40px)';
-            }
-
-            if (this.position.includes('left'))
-            {
-                container.style.left = '20px';
-                container.style.width = 'calc(100% - 40px)';
-            }
-
-            if (this.position.includes('right'))
-            {
-                container.style.right = '20px';
-                container.style.width = 'calc(100% - 40px)';
-            }
-
-            if (this.position.includes('center')) 
-            {
-                container.style.left = '50%';
-                container.style.transform = 'translateX(-50%)';
-            }
-
-            document.body.appendChild(container);
-        }
-
-        container.appendChild(this);
+        super.disconnectedCallback();
+        clearTimeout(this._timer);
     }
 
-    private removeToast() 
+    public remove() 
     {
         this.style.animation = 'fadeOut 0.3s ease forwards';
         setTimeout(() => 
         {
-            this.remove();
+            super.remove();
         }, 300);
-    }
-
-    render() 
-    {
-       return html`<onyks-alert size="${this.size}" type="${this.type}"><slot></slot></onyks-alert>`;
     }
 
     static override styles = [css`
         :host 
         {
             display: block;
-            width: fit-content;
             pointer-events: auto;
+            width: 100%;
             animation: slideIn 0.3s ease-out forwards;
         }
 
@@ -141,10 +92,44 @@ export class Onyks_Toast extends LitElement
     `, ]
 }
 
+
+@customElement('onyks-toast-container')
+export class OnyksToastContainer extends LitElement
+{
+    render() 
+    {
+       return html`<slot></slot>`;
+    }
+
+    static override styles = [css`
+        :host
+        {
+            display: flex;
+            max-width: 400px;
+            width: 100%;
+            gap: var(--onyks-spacing-md);
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+    `]
+
+    static addToast(content: any, duration: number = 0, cornerClose: boolean = false, size: string = 'm', type: string = 'info')
+    {
+        const toast = new OnyksToast()
+        toast.duration = duration
+        toast.innerHTML = content
+        toast.cornerClose = cornerClose
+        toast.size = size
+        toast.type = type
+        return toast
+    }
+}
+
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-toast': Onyks_Toast
+        'onyks-toast': OnyksToast,
+        'onyks-toast-container': OnyksToastContainer
     }
 }

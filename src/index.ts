@@ -48,4 +48,4 @@ export * from './components/list.ts'
 export * from './components/loading-bar.ts'
 export * from  './components/file-upload.ts';
 
-
+export * from './components/loader.ts'

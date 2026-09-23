@@ -11,9 +11,21 @@ export class OnyksAlert extends LitElement
     @property({type: String, reflect: true})
     type = 'info';
 
+    @property({type: Boolean, reflect: true, attribute: 'corner-close' }) 
+    cornerClose = false;
+
     render()
     {
-        return html`<span id="icon" part="icon"></span><span id="text" part="text"><slot></slot></span>`;
+        return html`
+        
+        <span id="icon" part="icon"></span><span id="text" part="text"><slot></slot></span>
+        ${this.cornerClose?  html`<span id="close" @click="${this._close}"></span>`:html``}`;
+    }
+
+    private _close() 
+    {
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        // this.open = false;
     }
 
     static styles = [css`
@@ -31,13 +43,20 @@ export class OnyksAlert extends LitElement
             user-select: none;
         }
 
+        :host([size="m"]) > #close::before
+        {
+            display: block;
+            content: '\\F659';
+            font-weight: bold;
+        }
+
         #text
         {
             align-items: center;
             display: flex;
             text-align: inherit;
+            width: 100%;
         }
-
 
         :host([size="s"]) > #icon::before
         {
@@ -111,7 +130,7 @@ export class OnyksAlert extends LitElement
             color: var(--onyks-on-success);
         }
 
-        #icon
+        #icon, #close
         {
             font-family: 'bootstrap-icons';
         }
@@ -135,7 +154,7 @@ export class OnyksAlert extends LitElement
         {
             content: '\\F337';
         }
-    `, OnyksStyles.size('#text')]
+    `, OnyksStyles.size('#text'), OnyksStyles.size('#close')]
 }
 
 declare global
