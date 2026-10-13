@@ -131,7 +131,7 @@ export class Onyks_Textarea extends LitElement {
         }
 
         textarea:focus {
-            border-color: var(--onyks-info); 
+            border-color: var(--onyks-accent); 
         }   
 
         textarea:disabled {

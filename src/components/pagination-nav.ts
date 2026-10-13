@@ -83,7 +83,7 @@ export class OnyksPaginationNav extends LitElement
             padding: var(--onyks-spacing-sm);
             min-width: var(--onyks-spacing-xl);
             text-align: center;
-            border: 3px solid var(--onyks-surface-1-border);
+            border: 1px solid var(--onyks-surface-1-border);
             background-color: var(--onyks-surface-1);
             color: inherit;
             font-size: inherit;
@@ -100,7 +100,7 @@ export class OnyksPaginationNav extends LitElement
 
         .active
         {
-            border: 3px solid var(--onyks-accent);
+            border: 1px solid var(--onyks-accent);
             background-color: var(--onyks-surface-1-selected);
         }
 

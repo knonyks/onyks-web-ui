@@ -136,6 +136,14 @@ export class OnyksFileExplorer extends LitElement
     }
 
     this._selectedItems = newSelected;
+    this.dispatchEvent(
+      new CustomEvent<{ items: OnyksItem[] }>('select', 
+      {
+        detail: { items: this.content.filter(item => this._selectedItems.has(item.name)) },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   private handleItemDblClick(item: OnyksItem): void 

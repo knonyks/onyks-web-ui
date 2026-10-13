@@ -64,7 +64,7 @@ export class OnyksCheckbox extends LitElement
         {
             appearance: none;
             background-color: var(--onyks-surface-1);
-            border: 2px solid var(--onyks-surface-1-border);
+            border: 1px solid var(--onyks-surface-1-border);
             border-radius: var(--onyks-radius-sm);
             
             margin: 0;

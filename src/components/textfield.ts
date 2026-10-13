@@ -107,7 +107,7 @@ export class Onyks_Textfield extends LitElement {
         }
 
         input:focus {
-            border-color: var(--onyks-info);
+            border-color: var(--onyks-accent);
         }
 
         .is-error input:focus {

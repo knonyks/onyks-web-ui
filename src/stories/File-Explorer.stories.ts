@@ -78,6 +78,7 @@ const meta: Meta =
         .content=${args.content} 
         empty-alert=${args['empty-alert']} 
         .types=${args['types']}
+        @select=${(e: CustomEvent) => console.log(e.detail.items)}
         >
         
         </onyks-file-explorer>

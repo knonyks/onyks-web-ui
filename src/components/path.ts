@@ -92,6 +92,7 @@ export class OnyksPath extends LitElement
             background-color: var(--onyks-surface-1);
             width: 100%;
             height: fit-content;
+            min-height: calc(1em + var(--onyks-spacing-sm) * 4 + 2px);
             display: flex;
             flex-direction: row;
             border-radius: 5px;
