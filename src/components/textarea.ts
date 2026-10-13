@@ -93,7 +93,7 @@ export class Onyks_Textarea extends LitElement {
             height: 100%;
             display: grid;
             overflow: hidden;
-            border-radius: var(--onyks-radius-sm);
+            border-radius: var(--onyks-radius-md);
         }
 
         textarea {
@@ -101,8 +101,8 @@ export class Onyks_Textarea extends LitElement {
             width: 100%;
             height: 100%;
             resize: none !important;
-            border: 2px solid var(--onyks-surface-1-border);
-            border-radius: var(--onyks-radius-sm);
+            border: 1px solid var(--onyks-surface-1-border);
+            border-radius: var(--onyks-radius-md);
             background-color: var(--onyks-surface-1);
             color: var(--onyks-on-surface);
             font-family: inherit;

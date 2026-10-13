@@ -23,19 +23,20 @@ export class OnyksToast extends LitElement
             size="${this.size}"
             type="${this.type}"
             ?corner-close="${this.cornerClose}"
-            @close=${this.remove}
+            @close=${() => this.remove()}
           >
             <slot></slot>
           </onyks-alert>
        `;
     }
 
-    private _timer: any = undefined
+    private _timer: ReturnType<typeof setTimeout> | undefined
+    private _isRemoving = false
 
     connectedCallback() 
     {
         super.connectedCallback();
-        if (this.duration > 0) 
+        if (this.duration > 0)
         {
             this._timer = setTimeout(() => this.remove(), this.duration);
         }
@@ -49,11 +50,17 @@ export class OnyksToast extends LitElement
 
     public remove() 
     {
-        this.style.animation = 'fadeOut 0.3s ease forwards';
-        setTimeout(() => 
-        {
-            super.remove();
-        }, 300);
+        if (this._isRemoving) return;
+        this._isRemoving = true;
+        clearTimeout(this._timer);
+        const animation = this.animate(
+            [
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0.9)' },
+            ],
+            { duration: 300, easing: 'ease', fill: 'forwards' },
+        );
+        animation.finished.then(() => super.remove());
     }
 
     static override styles = [css`

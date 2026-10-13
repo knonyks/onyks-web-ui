@@ -70,13 +70,13 @@ export class Onyks_Textfield extends LitElement {
         input {
             box-sizing: border-box;
             outline: none;
-            border: 2px solid var(--onyks-surface-1-border);
+            border: 1px solid var(--onyks-surface-1-border);
             background: var(--onyks-surface-1);
             color: var(--onyks-on-surface-1);
             width: 100%;
             height: 100%;
             margin: 0; 
-            border-radius: var(--onyks-radius-sm);
+            border-radius: var(--onyks-radius-md);
             font-family: inherit;
             transition: border-color 0.3s ease;
         }

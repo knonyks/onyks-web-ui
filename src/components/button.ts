@@ -149,8 +149,8 @@ export class OnyksButton extends LitElement
             opacity: 0.6;
             pointer-events: none;
             cursor: not-allowed;
-            transform: translateY(3px);
-            box-shadow: 0 0px 0 var(--btn-shadow);
+            // transform: translateY(3px);
+            // box-shadow: 0 0px 0 var(--btn-shadow);
         }
     `, OnyksStyles.size('.btn')];
 
