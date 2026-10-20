@@ -70,6 +70,24 @@ export class Onyks_FileUpload extends LitElement
         return this._inputElement ? this._inputElement.files : null;
     }
 
+    removeFile(file: File | number): boolean {
+        const files = this.files;
+        if (!files) return false;
+
+        const index = typeof file === 'number' ? file : Array.from(files).indexOf(file);
+        if (index < 0 || index >= files.length) return false;
+
+        const updatedFiles = new DataTransfer();
+        Array.from(files).forEach((currentFile, currentIndex) => {
+            if (currentIndex !== index) updatedFiles.items.add(currentFile);
+        });
+
+        this._inputElement.files = updatedFiles.files;
+        this._updateDisplayText(this._inputElement.files);
+        this._dispatchChangeEvent();
+        return true;
+    }
+
     private _updateDisplayText(files: FileList | null) {
         if (!files || files.length === 0) {
             this._displayText = '';
