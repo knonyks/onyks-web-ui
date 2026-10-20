@@ -98,8 +98,10 @@ export class Onyks_FileUpload extends LitElement
         }
     }
 
-    private _dispatchChangeEvent() {
-        this.dispatchEvent(new Event('change', { 
+    private _dispatchChangeEvent() 
+    {
+        this.dispatchEvent(new CustomEvent('change', {
+            detail: { files: this.files ? Array.from(this.files) : [] },
             bubbles: true, 
             composed: true
         }));
