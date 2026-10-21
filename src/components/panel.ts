@@ -1,5 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
+import { OnyksStyles } from '../utils/styles'
 
 @customElement('onyks-panel')
 export class OnyksPanel extends LitElement 
@@ -15,7 +16,7 @@ export class OnyksPanel extends LitElement
         return html`<slot></slot>`
     }
 
-    static styles = css`
+    static styles = [css`
         :host 
         {
             display: block;
@@ -52,7 +53,7 @@ export class OnyksPanel extends LitElement
         {
             border-radius: var(--onyks-radius-lg) var(--onyks-radius-lg) 0 0;
         }
-    `
+    `, OnyksStyles.size(), OnyksStyles.scroll(':host')]
 }
 
 

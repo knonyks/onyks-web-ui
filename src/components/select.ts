@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { onyksStyleScrollbar, onyksStyleSize } from './_styles';
+import { onyksStyleSize } from './_styles';
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-select')
 export class OnyksSelect extends LitElement 
@@ -114,7 +115,7 @@ export class OnyksSelect extends LitElement
     render()
     {
         return html`
-            <div class="content onyks-size onyks-scrollbar" @click=${this._handleItemClick} @scroll=${this._handleScroll}>
+            <div class="content onyks-size" @click=${this._handleItemClick} @scroll=${this._handleScroll}>
                 <slot></slot>
             </div>
         `;
@@ -155,13 +156,13 @@ export class OnyksSelect extends LitElement
             margin-right: 20px;
         }
 
-        /* ZMIANA: Reagujemy na atrybut select="false" */
+
         :host([select="false"]) ::slotted(*)
         {
             pointer-events: none;
             cursor: default;
         }
-    `, onyksStyleSize, onyksStyleScrollbar];
+    `, OnyksStyles.size(), OnyksStyles.scroll('.content')];
 }
 
 @customElement('onyks-select-option')
