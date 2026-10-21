@@ -33,6 +33,7 @@ export class OnyksNav extends LitElement
       position: relative;
       background-color: var(--onyks-surface-1);
       z-index: 1;
+      border-bottom: 1px solid var(--onyks-surface-1-border);
     }
 
     :host([size="s"])
