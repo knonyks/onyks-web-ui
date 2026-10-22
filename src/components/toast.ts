@@ -31,7 +31,6 @@ export class OnyksToast extends LitElement
 
     private _timer: ReturnType<typeof setTimeout> | undefined;
     
-
     static styles = css`
         :host 
         {
@@ -56,7 +55,6 @@ export class OnyksToast extends LitElement
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(20px); }
         }
-
   `;
 
     connectedCallback() 
@@ -178,10 +176,35 @@ export class OnyksToastContainer extends LitElement
         this.toasts = [...this.toasts, { id, message, type, duration }];
     };
 
-    _removeToast(e: any) 
+    async _removeToast(e: CustomEvent<{ id: string }>)
     {
         const id = Number(e.detail.id);
+        const positions = new Map(
+            Array.from(this.renderRoot.querySelectorAll('onyks-toast'), toast =>
+                [toast, toast.getBoundingClientRect().top] as const)
+        );
+
         this.toasts = this.toasts.filter(t => t.id !== id);
+        await this.updateComplete;
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        for (const toast of this.renderRoot.querySelectorAll('onyks-toast'))
+        {
+            const previousTop = positions.get(toast);
+            if (previousTop === undefined) continue;
+
+            const offset = previousTop - toast.getBoundingClientRect().top;
+            if (offset === 0) continue;
+
+            toast.animate(
+                [
+                    { transform: `translateY(${offset}px)` },
+                    { transform: 'translateY(0)' },
+                ],
+                { duration: 300, easing: 'ease-out' }
+            );
+        }
     }
 
     render() 
