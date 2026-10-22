@@ -78,4 +78,26 @@ export class OnyksStyles
 
         `
     }
+
+    static gap = (selector: string = '', property: string = 'gap') =>
+    {
+        return css`
+            :host([${unsafeCSS(property)}="s"]) ${unsafeCSS(selector)}
+            { 
+                gap: var(--onyks-spacing-sm, 4px); 
+            }
+            :host([${unsafeCSS(property)}="m"]) ${unsafeCSS(selector)}
+            { 
+                gap: var(--onyks-spacing-md, 8px); 
+            }
+            :host([${unsafeCSS(property)}="l"]) ${unsafeCSS(selector)}
+            { 
+                gap: var(--onyks-spacing-lg, 12px); 
+            }
+            :host([${unsafeCSS(property)}="xl"]) ${unsafeCSS(selector)}
+            { 
+                gap: var(--onyks-spacing-xl, 16px); 
+            }
+        `
+    }
 }

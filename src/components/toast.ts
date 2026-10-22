@@ -1,134 +1,205 @@
 import {LitElement, css, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
+import type {TemplateResult} from 'lit'
+import {customElement, property, state} from 'lit/decorators.js'
+import { OnyksStyles } from '../utils/styles';
+import { repeat } from 'lit/directives/repeat.js';
+
+export type OnyksToastType = 'info' | 'success' | 'error' | 'warning';
+
+export interface OnyksToastDetail 
+{
+    message: string | TemplateResult;
+    type?: OnyksToastType;
+    duration?: number;
+}
+
+declare global 
+{
+    interface WindowEventMap 
+    {
+        'show-toast': CustomEvent<OnyksToastDetail>;
+    }
+}
 
 @customElement('onyks-toast')
 export class OnyksToast extends LitElement 
 {
-    @property({type: String, reflect: true})
-    size = 'm';
+    @property({ attribute: false }) message = '';
+    @property({ type: String, reflect: true }) type = 'info';
+    @property({ type: Number }) duration = 4000;
+    @property({ type: Boolean, reflect: true }) closing = false;
 
-    @property({type: String, reflect: true})
-    type = 'success';
+    private _timer: ReturnType<typeof setTimeout> | undefined;
+    
 
-    @property({type: Boolean, reflect: true,  attribute: 'corner-close' })
-    cornerClose = false;
+    static styles = css`
+        :host 
+        {
+            display: block;
+            animation: slideIn 0.3s ease forwards;
+            pointer-events: auto;
+        }
 
-    @property({type: Number, reflect: true})
-    duration = 0
+        @keyframes slideIn
+        {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    render() 
-    {
-       return html`
-          <onyks-alert
-            size="${this.size}"
-            type="${this.type}"
-            ?corner-close="${this.cornerClose}"
-            @close=${() => this.remove()}
-          >
-            <slot></slot>
-          </onyks-alert>
-       `;
-    }
+        :host([closing]) 
+        {
+            animation: slideOut 0.3s ease forwards;
+        }
 
-    private _timer: ReturnType<typeof setTimeout> | undefined
-    private _isRemoving = false
+        @keyframes slideOut 
+        {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+
+  `;
 
     connectedCallback() 
     {
         super.connectedCallback();
-        if (this.duration > 0)
-        {
-            this._timer = setTimeout(() => this.remove(), this.duration);
-        }
+        this._startTimer();
     }
 
     disconnectedCallback() 
     {
         super.disconnectedCallback();
-        clearTimeout(this._timer);
+        this._clearTimer();
     }
 
-    public remove() 
+    _startTimer() 
     {
-        if (this._isRemoving) return;
-        this._isRemoving = true;
-        clearTimeout(this._timer);
-        const animation = this.animate(
-            [
-                { opacity: 1, transform: 'scale(1)' },
-                { opacity: 0, transform: 'scale(0.9)' },
-            ],
-            { duration: 300, easing: 'ease', fill: 'forwards' },
-        );
-        animation.finished.then(() => super.remove());
+        if (this.duration > 0) 
+        {
+            this._timer = setTimeout(() => this._close(), this.duration);
+        }
     }
 
-    static override styles = [css`
-        :host 
-        {
-            display: block;
-            pointer-events: auto;
-            width: 100%;
-            animation: slideIn 0.3s ease-out forwards;
-        }
+    _clearTimer() 
+    {
+        clearTimeout(this._timer);
+    }
 
-        .toast-content 
-        {
-            box-sizing: border-box;
-            padding: var(--spacing-md, 16px);
-            border-radius: var(--radius-md, 8px);
-            background-color: var(--bg-surface, #ffffff);
-            color: var(--text-primary, #000000);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            max-width: 100px;
-            border-left: 4px solid gray;
-            font-family: var(--font, sans-serif);
-        }
+    _close() 
+    {
+        if (this.closing) return;
+        this._clearTimer();
+        this.closing = true;
 
-        @keyframes slideIn 
+        this.addEventListener('animationend', (e) => 
         {
-            from { opacity: 0; transform: translateY(15px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
+            if (e.target !== this) return;
+            this.dispatchEvent(
+            new CustomEvent('toast-remove', 
+                {
+                    bubbles: true,
+                    composed: true,
+                    detail: { id: this.id },
+                })
+            );
+        }, { once: true });
+    }
 
-        @keyframes fadeOut 
-        {
-            from { opacity: 1; transform: scale(1); }
-            to { opacity: 0; transform: scale(0.9); }
-        }
-    `, ]
+  render() 
+  {
+    return html`
+    <onyks-alert role="status" type="${this.type}" closable @close="${this._close}">
+        ${this.message}
+    </onyks-alert>
+    `;
+  }
 }
 
 
 @customElement('onyks-toast-container')
 export class OnyksToastContainer extends LitElement
 {
-    render() 
+    @property({ type: String, reflect: true }) gap = 'm';
+    @state() toasts: Array<{ id: number; message: string | TemplateResult; type: OnyksToastType; duration: number }> = [];
+
+    static show(message: string | TemplateResult, type: OnyksToastType = 'info', duration = 4000): void 
     {
-       return html`<slot></slot>`;
+        window.dispatchEvent(new CustomEvent<OnyksToastDetail>('show-toast', 
+            {
+                detail: { message, type, duration },
+            })
+        );
+    } 
+
+    static success(message: string | TemplateResult, duration = 4000): void 
+    {
+        this.show(message, 'success', duration);
     }
 
-    static override styles = [css`
-        :host
-        {
-            display: flex;
-            max-width: 400px;
-            width: 100%;
-            gap: var(--onyks-spacing-md);
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-    `]
-
-    static addToast(content: any, duration: number = 0, cornerClose: boolean = false, size: string = 'm', type: string = 'info')
+    static error(message: string | TemplateResult, duration = 4000): void 
     {
-        const toast = new OnyksToast()
-        toast.duration = duration
-        toast.innerHTML = content
-        toast.cornerClose = cornerClose
-        toast.size = size
-        toast.type = type
-        return toast
+        this.show(message, 'error', duration);
+    }
+
+    static info(message: string | TemplateResult, duration = 4000): void 
+    {
+        this.show(message, 'info', duration);
+    }
+
+    static styles = [css`
+        :host 
+        {
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            max-width: 360px;
+            width: 100%;
+            height: 300px;
+            pointer-events: none;
+        }
+  `, OnyksStyles.gap()];
+
+    connectedCallback() 
+    {
+        super.connectedCallback();
+        this.setAttribute('aria-live', 'polite');
+        window.addEventListener('show-toast', this._onShowToast);
+    }
+
+    disconnectedCallback() 
+    {
+        super.disconnectedCallback();
+        window.removeEventListener('show-toast', this._onShowToast);
+    }
+
+    _onShowToast = (e: any) => 
+    {
+        const { message, type, duration = 4000 } = e.detail;
+        const id = Date.now() + Math.random();
+        this.toasts = [...this.toasts, { id, message, type, duration }];
+    };
+
+    _removeToast(e: any) 
+    {
+        const id = Number(e.detail.id);
+        this.toasts = this.toasts.filter(t => t.id !== id);
+    }
+
+    render() 
+    {
+        return html`
+        ${repeat(
+          this.toasts,
+          (t) => t.id,
+          (t) => html`
+                <onyks-toast
+                .id="${t.id}"
+                .message="${t.message}"
+                .type="${t.type}"
+                .duration="${t.duration}"
+                @toast-remove="${this._removeToast}"
+                ></onyks-toast>
+            `)}
+        `;
     }
 }
 

@@ -11,15 +11,15 @@ export class OnyksAlert extends LitElement
     @property({type: String, reflect: true})
     type = 'info';
 
-    @property({type: Boolean, reflect: true, attribute: 'corner-close' }) 
-    cornerClose = false;
+    @property({type: Boolean, reflect: true, attribute: 'closable' }) 
+    closable = false;
 
     render()
     {
         return html`
         
         <span id="icon" part="icon"></span><span id="text" part="text"><slot></slot></span>
-        ${this.cornerClose?  html`<span id="close" @click="${this._close}"></span>`:html``}`;
+        ${this.closable?  html`<span id="close" @click="${this._close}"></span>`:html``}`;
     }
 
     private _close() 
