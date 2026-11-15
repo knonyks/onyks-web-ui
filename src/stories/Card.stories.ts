@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Stable/Card',
+    title: 'ONYKS WebUI/Card',
     component: 'onyks-card',
     tags: ['autodocs'],
     render: (args) => html`

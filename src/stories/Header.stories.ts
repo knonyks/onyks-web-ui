@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Stable/Header',
+    title: 'ONYKS WebUI/Header',
     component: 'onyks-header',
     tags: ['autodocs'],
     

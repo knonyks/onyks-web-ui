@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Stable/Checkbox',
+    title: 'ONYKS WebUI/Checkbox',
     component: 'onyks-checkbox',
     tags: ['autodocs'],
     render: (args) => html`
@@ -18,13 +18,13 @@ const meta: Meta =
         checked: 
         {
             control: { type: 'boolean' },
-            table: { category: 'parameter' }
+            table: { category: 'properties' }
         },
         size:
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
-            table: { category: 'parameter' }
+            table: { category: 'properties' }
         },
         "change":
         {

@@ -4,7 +4,6 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Installation and usage
 
-### How to install and use
 To install the package (for example, with npm), run:
 ```bash
 # for the latest unstable version of the project
@@ -23,7 +22,7 @@ You can now use the package's elements in your project.
 
 ### Custom elements with the ONYKS WebUI style
 
-When creating custom elements, use the CSS variables listed below to match the ONYKS WebUI styles for fonts, text sizes, spacing, and border radius.
+When creating custom elements, use the CSS variables listed below to match the ONYKS WebUI styles for fonts, text sizes, spacing etc.
 
 #### Font
 ```css
@@ -34,6 +33,8 @@ font-family: var(--onyks-font);
 ```css
 /* Available variables: --onyks-size-sm, --onyks-size-md, --onyks-size-lg,
    --onyks-size-xl, --onyks-size-2xl, --onyks-size-3xl, --onyks-size-4xl */
+
+/* Examples */
 font-size: var(--onyks-size-sm);
 ```
 
@@ -41,6 +42,9 @@ font-size: var(--onyks-size-sm);
 ```css
 /* Available variables: --onyks-spacing-sm, --onyks-spacing-md,
    --onyks-spacing-lg, --onyks-spacing-xl */
+
+/* Examples */
+gap: var(--onyks-spacing-md);
 padding: var(--onyks-spacing-md) 0 0 0;
 margin: var(--onyks-spacing-md) 0 0 0;
 ```
@@ -49,5 +53,7 @@ margin: var(--onyks-spacing-md) 0 0 0;
 ```css
 /* Available variables: --onyks-radius-sm, --onyks-radius-md,
    --onyks-radius-lg, --onyks-radius-xl */
+
+/* Examples */
 border-radius: var(--onyks-radius-sm);
 ```
