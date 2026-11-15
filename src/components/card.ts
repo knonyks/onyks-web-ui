@@ -11,13 +11,13 @@ export class OnyksCard extends LitElement
     @property({ type: String, reflect: true }) 
     size = 'm';
 
-    @property({ type: String, attribute: 'title-size' }) 
+    @property({ type: String, attribute: 'title-size', reflect: true }) 
     titleSize = "m";
         
-    @property({ type: String, attribute: 'padding' })
+    @property({ type: String, attribute: 'padding', reflect: true })
     padding = 'm'
 
-    @property({ type: String, attribute: 'gap' })
+    @property({ type: String, attribute: 'gap', reflect: true })
     gap = 'm'
 
     @property({ type: Boolean, reflect: true })

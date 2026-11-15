@@ -6,39 +6,45 @@ import { OnyksStyles } from '../utils/styles';
 @customElement('onyks-container')
 export class OnyksContainer extends LitElement
 {
-    @property({type: String, reflect: true})
-    gap = "";
+    @property({ type: String, reflect: true })
+    gap = '';
 
-    @property({type: String, reflect: true})
-    padding = "";
+    @property({ type: String, reflect: true })
+    padding = '';
 
-    @property({type: String, reflect: true})
-    type = "stack"; //grid, stack, group
+    @property({ type: String, reflect: true })
+    type = 'stack'; // grid, stack, group
 
-    @property({type: Number, reflect: true})
+    @property({ type: Number, reflect: true })
     cols = 0;
-    
-    @property({type: Number, reflect: true})
+
+    @property({ type: Number, reflect: true })
     rows = 0;
 
-    @property({type: String, reflect: true})
-    align = "start"; //start, center, end
+    @property({ type: String, reflect: true })
+    align = 'start'; // start, center, end
 
-    @property({type: String, reflect: true})
-    justify = "start"; //start, center, end, between
+    @property({ type: String, reflect: true })
+    justify = 'start'; // start, center, end, between
 
-    @property({ type: Number, attribute: 'mobile-breakpoint' }) 
+    @property({ type: Number, attribute: 'mobile-breakpoint', reflect: true })
     mobileBreakpoint = 300;
 
-    @queryAssignedElements({flatten: true})
+    @queryAssignedElements({ flatten: true })
     _assignedElements!: Array<HTMLElement>;
 
-    private _observer = new MutationObserver((_mutations) => 
+    private _observer = new MutationObserver(() =>
     {
         this._applyGridStyles();
     });
 
-    disconnectedCallback() 
+    connectedCallback()
+    {
+        super.connectedCallback();
+        this._updateObservers();
+    }
+
+    disconnectedCallback()
     {
         super.disconnectedCallback();
         this._observer.disconnect();
@@ -48,14 +54,12 @@ export class OnyksContainer extends LitElement
     {
         return html`
         <style>
-            @media (max-width: ${this.mobileBreakpoint}px) 
-            {
-                :host([type="grid"])  
-                {
+            @media (max-width: ${this.mobileBreakpoint}px) {
+                :host([type='grid']) {
                     grid-template-columns: 1fr !important;
                 }
-                ::slotted(*) 
-                {
+
+                ::slotted(*) {
                     grid-column: auto !important;
                     grid-row: auto !important;
                     transform: none !important;
@@ -66,158 +70,159 @@ export class OnyksContainer extends LitElement
         <slot @slotchange=${this._handleSlotChange}></slot>`;
     }
 
-    _handleSlotChange() 
+    _handleSlotChange()
     {
         this._applyGridStyles();
         this._updateObservers();
     }
 
-    _updateObservers() 
+    _updateObservers()
     {
         this._observer.disconnect();
 
-        if (this._assignedElements) 
+        if (!this._assignedElements?.length) return;
+
+        this._assignedElements.forEach((el) =>
         {
-            this._assignedElements.forEach(el => 
-            {
-                this._observer.observe(el, 
-                {
-                    attributes: true,
-                    attributeFilter: ['cols', 'rows'] 
-                });
+            this._observer.observe(el, {
+                attributes: true,
+                attributeFilter: ['subcols', 'subrows']
             });
-        }
+        });
     }
 
-    _applyGridStyles() 
+    _applyGridStyles()
     {
-        if (!this._assignedElements) return;
+        const assigned = this._assignedElements ?? [];
 
-        if (this.type === 'grid') 
+        if (this.type !== 'grid')
         {
-            this._assignedElements.forEach((el) => 
+            assigned.forEach((el) =>
             {
-                if (el.hasAttribute('cols')) 
-                {
-                    el.style.gridColumn = `span ${el.getAttribute('cols')}`;
-                } 
-                else 
-                {
-                    el.style.removeProperty('grid-column');
-                }
-            
-                if (el.hasAttribute('rows')) 
-                {
-                    el.style.gridRow = `span ${el.getAttribute('rows')}`;
-                } 
-                else 
-                {
-                    el.style.removeProperty('grid-row');
-                }
+                el.style.removeProperty('grid-column');
+                el.style.removeProperty('grid-row');
             });
+            return;
         }
+
+        const safeCols = Number.isFinite(this.cols) && this.cols > 0 ? this.cols : 1;
+        const safeRows = Number.isFinite(this.rows) && this.rows > 0 ? this.rows : 1;
+
+        this.style.setProperty('--cols', `${safeCols}`);
+        this.style.setProperty('--rows', `${safeRows}`);
+
+        assigned.forEach((el) =>
+        {
+            const subcols = el.getAttribute('subcols');
+            const subrows = el.getAttribute('subrows');
+
+            el.style.gridColumn = subcols ? `span ${subcols}` : '';
+            el.style.gridRow = subrows ? `span ${subrows}` : '';
+        });
     }
 
-    updated(changedProperties: any) 
+    updated(changedProperties: any)
     {
         super.updated(changedProperties);
-        if (changedProperties.has('cols')) 
+
+        if (changedProperties.has('cols') || changedProperties.has('type'))
         {
-            this.style.setProperty('--cols', `${this.cols}`);
+            this.style.setProperty('--cols', `${Math.max(this.cols, 1)}`);
         }
-        if (changedProperties.has('rows')) 
+
+        if (changedProperties.has('rows') || changedProperties.has('type'))
         {
-            this.style.setProperty('--rows', `${this.rows}`);
+            this.style.setProperty('--rows', `${Math.max(this.rows, 1)}`);
         }
+
         this._applyGridStyles();
+        this._updateObservers();
     }
 
     static styles = [css`
 
-        :host([type="stack"]) 
+        :host([type='stack']) 
         {
             display: flex;
             flex-direction: column;
         }
 
-        :host([type="group"]) 
-        {
+        :host([type='group']) {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
         }
 
-        :host([type="grid"]) 
-        {
+        :host([type='grid']) {
             display: grid;
-            grid-template-columns: repeat(var(--cols, 1), 1fr);
-            grid-template-rows: repeat(var(--rows, 1), 1fr);
+            grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
+            grid-template-rows: repeat(var(--rows, 1), minmax(0, 1fr));
         }
 
-        :host([gap="s"]) 
-        {
-            gap: var(--onyks-spacing-sm); 
+        :host([type='grid']) ::slotted(*) {
+            width: 100%;
+            height: 100%;
         }
 
-        :host([gap="m"]) 
-        {
-            gap: var(--onyks-spacing-md); 
+        :host([gap='s']) {
+            gap: var(--onyks-spacing-sm);
         }
 
-        :host([gap="l"]) 
-        {
+        :host([gap='m']) {
+            gap: var(--onyks-spacing-md);
+        }
+
+        :host([gap='l']) {
             gap: var(--onyks-spacing-lg);
         }
 
-        :host([gap="xl"]) 
-        {
+        :host([gap='xl']) {
             gap: var(--onyks-spacing-xl);
         }
 
-        :host([padding="s"]) 
-        { 
-            padding: var(--onyks-spacing-sm); 
-        }
-            
-        :host([padding="m"]) 
-        { 
-            padding: var(--onyks-spacing-md); 
+        :host([padding='s']) {
+            padding: var(--onyks-spacing-sm);
         }
 
-        :host([padding="l"]) 
-        { 
-            padding: var(--onyks-spacing-lg); 
+        :host([padding='m']) {
+            padding: var(--onyks-spacing-md);
         }
 
-        :host([padding="xl"]) 
-        { 
-            padding: var(--onyks-spacing-xl); 
+        :host([padding='l']) {
+            padding: var(--onyks-spacing-lg);
         }
 
-        :host([align="center"]) 
+        :host([padding='xl']) {
+            padding: var(--onyks-spacing-xl);
+        }
+
+        :host([align='center']) {
+            align-items: center;
+        }
+
+        :host([align='end']) {
+            align-items: flex-end;
+        }
+
+        :host([justify='between']) {
+            justify-content: space-between;
+        }
+
+        :host([justify='center']) {
+            justify-content: center;
+        }
+
+        :host([justify='end']) {
+            justify-content: flex-end;
+        }
+
+        ::slotted(*) 
         {
-            align-items: center; 
+            text-align: initial;
+            box-sizing: border-box;
         }
 
-        :host([align="end"]) 
-        {
-            align-items: flex-end; 
-        }
         
-        :host([justify="between"]) 
-        {
-            justify-content: space-between; 
-        }
-
-        :host([justify="center"]) 
-        {
-            justify-content: center; 
-        }
-
-        :host([justify="end"]) 
-        {
-            justify-content: flex-end; 
-        }
     `, OnyksStyles.scroll(':host')];
 }
 
