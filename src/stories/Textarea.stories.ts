@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Textarea',
+    title: 'ONYKS WebUI/Unstable or unverified/Textarea',
     component: 'onyks-textarea',
     tags: ['autodocs'],
     render: (args) => html`

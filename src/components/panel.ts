@@ -6,10 +6,15 @@ import { OnyksStyles } from '../utils/styles'
 export class OnyksPanel extends LitElement 
 {
     @property({type: String, reflect: true})
-    side = 'left'
+    side = 'none'
 
-    @property({type: String, reflect: true, attribute: 'all-round'})
-    allRound = false
+    @property({type: String, reflect: true, attribute: 'radius'})
+    radius = 'm'
+
+    @property({type: String, reflect: true, attribute: 'padding'})
+    padding = 'm'
+
+
 
     render() 
     {
@@ -20,40 +25,35 @@ export class OnyksPanel extends LitElement
         :host 
         {
             display: block;
-            height: 200px;
-            width: 200px;
+            height: fit-content;
+            width: fit-content;
             background-color: var(--onyks-surface-1);
-            padding: var(--onyks-spacing-md);
             border: 1px solid var(--onyks-surface-1-border);
             font-family: var(--onyks-font);
             color: var(--onyks-on-surface-1);
+            box-sizing: border-box;
         }
 
-        :host([all-round])
-        {
-            border-radius: var(--onyks-radius-lg);
+        :host([side="left"]) {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
         }
 
-        :host([side="left"]:not([all-round]))
-        {
-            border-radius: 0 var(--onyks-radius-lg) var(--onyks-radius-lg) 0;
-        }
-        
-        :host([side="right"]:not([all-round]))
-        {
-            border-radius: var(--onyks-radius-lg) 0 0 var(--onyks-radius-lg);
+        :host([side="right"]) {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
         }
 
-        :host([side="top"]:not([all-round]))
-        {
-            border-radius: 0 0 var(--onyks-radius-lg) var(--onyks-radius-lg);
+        :host([side="top"]) {
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
         }
 
-        :host([side="bottom"]:not([all-round]))
-        {
-            border-radius: var(--onyks-radius-lg) var(--onyks-radius-lg) 0 0;
+        :host([side="bottom"]) {
+            border-top-left-radius: 0 !important;
+            border-top-right-radius: 0 !important;
         }
-    `, OnyksStyles.size(), OnyksStyles.scroll(':host')]
+    `, OnyksStyles.size(), OnyksStyles.scroll(':host'), OnyksStyles.padding(), OnyksStyles.radius()]
 }
 
 

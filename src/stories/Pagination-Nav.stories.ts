@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Pagination Nav',
+    title: 'ONYKS WebUI/Unstable or unverified/Pagination Nav',
     component: 'onyks-pagination-nav',
     tags: ['autodocs'],
     

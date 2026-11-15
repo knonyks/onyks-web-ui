@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Navigation',
+    title: 'ONYKS WebUI/Unstable or unverified/Navigation',
     component: 'onyks-nav',
     tags: ['autodocs'],
     argTypes: 

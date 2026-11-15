@@ -1,9 +1,10 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { OnyksSchemas } from '../utils/styles';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Panel',
+    title: 'ONYKS WebUI/Unstable or unverified/Panel',
     component: 'onyks-panel',
     tags: ['autodocs'],
     argTypes: 
@@ -11,22 +12,32 @@ const meta: Meta =
         side: 
         {
             control: { type: 'select' },
-            options: ['left', 'right', 'top', 'bottom'],
+            options: OnyksSchemas.side,
             table: 
             {
                 category: 'parameters'
             }
         },
-        'all-round':
+        radius:
+        {   
+            control: { type: 'select' },
+            options: OnyksSchemas.radius,
+            table:
+            {
+                category: 'parameters'
+            }
+        },
+        padding:
         {
-            control: {type: 'boolean'},
-            table: 
+            control: { type: 'select' },
+            options: OnyksSchemas.padding,
+            table:
             {
                 category: 'parameters'
             }
         }
     },
-    render: (args) => html`<onyks-panel side=${args.side} ?all-round=${args['all-round']}>Example content</onyks-panel>`,
+    render: (args) => html`<onyks-panel side=${args.side} radius=${args['radius']} padding=${args.padding}>Example content</onyks-panel>`,
     parameters:
     {
         docs:
@@ -37,7 +48,7 @@ const meta: Meta =
                 {
                     const { args } = storyContext;
                     return `
-                    <onyks-panel side=${args.side}${args['all-round']? ' all-round':''}>Example content</onyks-panel>
+                    <onyks-panel side="${args.side}" radius="${args['radius']}" padding="${args.padding}">Example content</onyks-panel>
                     `;
                 }
             },
@@ -52,8 +63,9 @@ export const Base: Story =
 {
     args: 
     {
-        side: 'bottom',
-        'all-round': true,
+        side: 'left',
+        'radius': 'm',
+        padding: 'm',
     }
 };
 
@@ -61,82 +73,54 @@ export const MoreComplicatedExample: Story =
 {
     args: 
     {
-        side: 'bottom',
-        'all-round': true,
+        side: 'left',
+        'radius': 'm',
+        padding: 's',
+        icon: ['F7CD', 'F62A', 'F7B4', 'F62A', 'F7CD'],
     },
     render: (args) => html`
-    <style>
-        #x
-        {
-            height: fit-content;
-            width: 400px;
-            text-align: justify;
-            display: flex;
-            flex-direction: column;
-            gap: var(--onyks-spacing-md);
-            padding: var(--onyks-spacing-lg);
-        }
-        
-        #x *
-        {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-    <onyks-panel side=${args.side} ?all-round=${args['all-round']} id="x">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis velit, 
-            venenatis a nulla vitae, varius finibus metus. Etiam nec enim id eros feugiat 
-            finibus nec in elit. Aliquam placerat, justo nec accumsan venenatis, urna enim 
-            laoreet augue, ac accumsan leo nibh ut urna. Nulla quis magna vel nisi tempor 
-            posuere luctus cursus orci. Etiam egestas sem ex, sit amet suscipit sem finibus sed. 
-            Maecenas aliquet nisi vitae augue lacinia, ut convallis nulla luctus. Sed varius id metus 
-            id convallis. Proin dictum lorem quis tristique viverra. Quisque tristique congue lectus 
-            luctus efficitur. Nam vitae arcu mauris. Aliquam erat volutpat. Donec in placerat purus. 
-            Curabitur porttitor accumsan laoreet.
-        </p>
-        <p>
-            Sed volutpat posuere tortor ac porttitor. Donec at justo at ligula 
-            ultrices commodo id ut justo. In porttitor convallis eros. In id 
-            consequat dolor. Phasellus scelerisque vel diam vitae pretium. 
-            Suspendisse congue mauris quis sagittis feugiat. Pellentesque id leo ornare, 
-            efficitur diam sit amet, consectetur magna. Pellentesque id magna malesuada, 
-            vestibulum mi ut, elementum quam. 
-        </p>
+    <onyks-panel side=${args.side} radius=${args['radius']} padding=${args.padding}>
+        <onyks-container gap=s>
+            <onyks-strip-menu-option size=m icon=${args.icon[0]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=m icon=${args.icon[1]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=m icon=${args.icon[2]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=m icon=${args.icon[3]}></onyks-strip-menu-option>
+            <onyks-strip-menu-option size=m icon=${args.icon[4]}></onyks-strip-menu-option>
+        </onyks-container>
     </onyks-panel>`,
-    parameters:
-    {
-        docs:
-        {
-            source:
-            {
-                transform: (_originalCode: string, storyContext: any) => 
-                {
-                    const { args } = storyContext;
-                    return `
-                    <style>
-                        onyks-panel
-                        {
-                            height: fit-content;
-                            width: 400px;
-                            text-align: justify;
-                            display: flex;
-                            flex-direction: column;
-                            gap: var(--onyks-spacing-md);
-                            padding: var(--onyks-spacing-lg);
-                        }
+//     parameters:
+//     {
+//         docs:
+//         {
+//             source:
+//             {
+//                 transform: (_originalCode: string, storyContext: any) => 
+//                 {
+//                     const { args } = storyContext;
+//                     return `
+//                     <style>
+//                         onyks-panel
+//                         {
+//                             height: fit-content;
+//                             width: 400px;
+//                             text-align: justify;
+//                             display: flex;
+//                             flex-direction: column;
+//                             gap: var(--onyks-spacing-md);
+//                             padding: var(--onyks-spacing-lg);
+//                         }
 
-                        onyks-panel *
-                        {
-                            margin: 0;
-                            padding: 0;
-                        }
-                    </style>
+//                         onyks-panel *
+//                         {
+//                             margin: 0;
+//                             padding: 0;
+//                         }
+//                     </style>
 
-                    <onyks-panel side=${args.side}${args['all-round']? ' all-round':''}>Example content</onyks-panel>
-                    `;
-                }
-            },
-        }
-    }
+//                     <onyks-panel side=${args.side} radius=${args['radius']} padding=${args.padding}${args['all-round']? ' all-round':''}>Example content</onyks-panel>
+//                     `;
+//                 }
+//             },
+//         }
+//     }
 };

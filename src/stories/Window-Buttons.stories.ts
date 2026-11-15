@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Window Bar & Buttons',
+    title: 'ONYKS WebUI/Unstable or unverified/Window Bar & Buttons',
     component: 'onyks-window-bar',
     tags: ['autodocs'],
     argTypes: 

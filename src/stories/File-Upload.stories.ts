@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/File Upload',
+    title: 'ONYKS WebUI/Unstable or unverified/File Upload',
     component: 'onyks-file-upload',
     tags: ['autodocs'],
     

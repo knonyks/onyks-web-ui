@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Select',
+    title: 'ONYKS WebUI/Unstable or unverified/Select',
     component: 'onyks-select',
     tags: ['autodocs'],
     argTypes: {

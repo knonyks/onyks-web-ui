@@ -4,7 +4,7 @@ import { OnyksSchemas } from '../utils/styles';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Ready to use/Button',
+    title: 'ONYKS WebUI/Stable/Button',
     component: 'onyks-button',
     tags: ['autodocs'],
     

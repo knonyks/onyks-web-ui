@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 type TableRow = Record<string, any>;
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Table',
+    title: 'ONYKS WebUI/Unstable or unverified/Table',
     component: 'onyks-table',
     tags: ['autodocs'],
     argTypes: {

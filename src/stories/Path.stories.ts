@@ -4,7 +4,7 @@ import { fn } from 'storybook/test';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Path',
+    title: 'ONYKS WebUI/Unstable or unverified/Path',
     component: 'onyks-path',
     tags: ['autodocs'],
     render: (args) => html`

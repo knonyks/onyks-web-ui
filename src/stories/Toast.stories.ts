@@ -5,7 +5,7 @@ import { OnyksToastContainer } from '../components/toast';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Toast',
+    title: 'ONYKS WebUI/Unstable or unverified/Toast',
     component: 'onyks-toast',
     tags: ['autodocs'],
     

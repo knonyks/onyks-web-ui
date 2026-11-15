@@ -10,7 +10,7 @@ export class OnyksStyles
             return css`
                 :host([${unsafeCSS(property)}="s"]) ${unsafeCSS(selector)}
                 { 
-                    font-size: var(--onyks-size-sm, 12px); 
+                    font-size: var(--onyks-size-sm, 12px);
                 }
                 :host([${unsafeCSS(property)}="m"]) ${unsafeCSS(selector)}
                 { 
@@ -147,6 +147,28 @@ export class OnyksStyles
         `
     }
 
+    static radius = (selector: string = '', property: string = 'radius') =>
+    {
+        return css`
+            :host([${unsafeCSS(property)}="s"]) ${unsafeCSS(selector)}
+            {
+                border-radius: var(--onyks-radius-sm);
+            }
+            :host([${unsafeCSS(property)}="m"]) ${unsafeCSS(selector)}
+            {
+                border-radius: var(--onyks-radius-md);
+            }
+            :host([${unsafeCSS(property)}="l"]) ${unsafeCSS(selector)}
+            {
+                border-radius: var(--onyks-radius-lg);
+            }
+            :host([${unsafeCSS(property)}="xl"]) ${unsafeCSS(selector)}
+            {
+                border-radius: var(--onyks-radius-xl);
+            }
+        `
+    }
+
     static background = (selector: string = '', property: string = "background") =>
     {
 
@@ -253,5 +275,38 @@ export class OnyksSchemas
         'teal',
         'indigo',
         'lime'
+    ] as const
+
+    static size = [
+        's',
+        'm',
+        'l',
+        'xl'
+    ] as const
+
+    static padding = 
+    [
+        's',
+        'm',
+        'l',
+        'xl'
+    ] as const
+
+    static side = 
+    [
+        'none',
+        'left',
+        'right',
+        'top',
+        'bottom'
+    ] as const
+
+    static radius = 
+    [
+        'none',
+        's',
+        'm',
+        'l',
+        'xl'
     ] as const
 }

@@ -6,6 +6,9 @@ export class OnyksCheckbox extends LitElement
 {
     @property({ type: Boolean, reflect: true }) 
     checked = false;
+
+    @property({ type: Boolean, reflect: true })
+    disabled = false;
     
     @property({ type: String, reflect: true }) 
     size: 's' | 'm' | 'l' | 'xl' = 's';
@@ -13,69 +16,74 @@ export class OnyksCheckbox extends LitElement
     static styles = css`
         :host 
         {
-            display: inline-block;
+            display: inline-grid;
+            place-items: center;
             color: var(--onyks-on-surface);
             font-family: var(--onyks-font);
-
-            --cb-size: calc(var(--onyks-size-md) + 6px);
-            --cb-mark-size: calc(var(--onyks-size-md) - 2px);
+            --cb-size: var(--onyks-size-md);
+            --cb-mark-size: var(--onyks-size-md);
             --cb-font-size: var(--onyks-size-md);
+            width: var(--cb-size);
+            height: var(--cb-size);
         }
 
         :host([size="s"]) 
         {
-            --cb-size: calc(var(--onyks-size-sm) + 6px);
-            --cb-mark-size: calc(var(--onyks-size-sm) - 2px);
+            --cb-size: var(--onyks-size-sm);
+            --cb-mark-size: var(--onyks-size-sm);
             --cb-font-size: var(--onyks-size-sm);
         }
 
         :host([size="m"]) 
         {
-            --cb-size: calc(var(--onyks-size-md) + 6px);
-            --cb-mark-size: calc(var(--onyks-size-md) - 2px);
+            --cb-size: var(--onyks-size-md);
+            --cb-mark-size: var(--onyks-size-md);
             --cb-font-size: var(--onyks-size-md);
         }
 
         :host([size="l"]) 
         {
-            --cb-size: calc(var(--onyks-size-lg) + 6px);
-            --cb-mark-size: calc(var(--onyks-size-lg) - 2px);
+            --cb-size: var(--onyks-size-lg);
+            --cb-mark-size: var(--onyks-size-lg);
             --cb-font-size: var(--onyks-size-lg);
         }
 
         :host([size="xl"]) 
         {
-            --cb-size: calc(var(--onyks-size-xl) + 6px);
-            --cb-mark-size: calc(var(--onyks-size-xl) - 2px);
+            --cb-size: var(--onyks-size-xl);
+            --cb-mark-size: var(--onyks-size-xl);
             --cb-font-size: var(--onyks-size-xl);
-        }
-
-        .checkbox-wrapper 
-        {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--onyks-spacing-sm);
-            padding: var(--onyks-spacing-sm) 0;
-            cursor: pointer;
-            user-select: none;
         }
 
         input[type="checkbox"] 
         {
             appearance: none;
+            box-sizing: border-box;
             background-color: var(--onyks-surface-1);
             border: 1px solid var(--onyks-surface-1-border);
             border-radius: var(--onyks-radius-sm);
             
             margin: 0;
-            width: var(--cb-size);
-            height: var(--cb-size);
+            width: 100%;
+            height: 100%;
+
             
             display: inline-grid;
             place-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
             flex-shrink: 0;
+        }
+
+
+        :host([disabled]) .checkbox-wrapper, input[type="checkbox"]:disabled
+        {
+            cursor: not-allowed;
+        }
+
+        input[type="checkbox"]:disabled
+        {
+            opacity: 0.6;
         }
 
         .checkbox-wrapper:hover input[type="checkbox"] 
@@ -88,7 +96,6 @@ export class OnyksCheckbox extends LitElement
             content: "";
             width: var(--cb-mark-size);
             height: var(--cb-mark-size);
-            
             transform: scale(0);
             transition: 120ms transform ease-in-out;
             background-color: var(--onyks-accent);
@@ -107,23 +114,14 @@ export class OnyksCheckbox extends LitElement
         }
     `;
 
-    render() {
-        return html`
-            <label class="checkbox-wrapper">
-                <input 
-                    type="checkbox" 
-                    .checked=${this.checked} 
-                    @change=${this._handleChange} 
-                />
-                <span class="label-text">
-                    <slot></slot>
-                </span>
-            </label>
-        `;
+    render() 
+    {
+        return html`<input type="checkbox" .checked=${this.checked} ?disabled=${this.disabled} @change=${this._handleChange}/>`;
     }
 
     private _handleChange(e: Event) 
     {
+        e.stopPropagation();
         const target = e.target as HTMLInputElement;
         this.checked = target.checked;
         this.dispatchEvent(new CustomEvent('change', 

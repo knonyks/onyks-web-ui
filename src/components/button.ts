@@ -22,7 +22,7 @@ export class OnyksButton extends LitElement
     disabled = false;
 
     @property({ type: Boolean, reflect: true }) 
-    animated = true;
+    animated = false;
     
     @property({type: String, reflect: true}) 
     icon = ''

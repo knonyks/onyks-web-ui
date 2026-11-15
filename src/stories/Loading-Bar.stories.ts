@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Loading Bar',
+    title: 'ONYKS WebUI/Unstable or unverified/Loading Bar',
     component: 'onyks-loading-bar',
     tags: ['autodocs'],
     argTypes: {
