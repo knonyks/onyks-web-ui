@@ -3,11 +3,18 @@ import { Meta } from '@storybook/addon-docs/blocks';
 <Meta title="Installation and usage"/>
 
 # Installation and usage
-
-To add it to the project (e.g using npm) we enter the command below:
-
+To install the package (for example, with npm), run:
 ```bash
+# for the latest unstable version of the project
 npm i https://github.com/knonyks/onyks-web-ui
 ```
+Next, add the package's stylesheet to your HTML file:
 
-After that, we can use it in our project
+```html
+<link href="./node_modules/onyks-web-ui/dist/onyks-web-ui.css" rel="stylesheet" />
+```
+Then, import the package in your JavaScript entry file:
+```javascript
+import 'onyks-web-ui';
+```
+You can now use the package's elements in your project.
