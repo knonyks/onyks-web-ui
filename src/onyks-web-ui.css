@@ -59,21 +59,51 @@
     /* Classic colors */
     --onyks-red: #ef4444;
     --onyks-on-red: #ffffff;
+    --onyks-red-shadow: hsl(from var(--onyks-red) h s 30%);
     
     --onyks-blue: #3b82f6;
     --onyks-on-blue: #ffffff;
+    --onyks-blue-shadow: hsl(from var(--onyks-blue) h s 30%);
 
     --onyks-green: #10b981;
     --onyks-on-green: #ffffff;
+    --onyks-green-shadow: hsl(from var(--onyks-green) h s 30%);
 
     --onyks-yellow: #f59e0b;
     --onyks-on-yellow: #000000;
+    --onyks-yellow-shadow: hsl(from var(--onyks-yellow) h s 30%);
 
     --onyks-gray: #64748b;
     --onyks-on-gray: #ffffff;
+    --onyks-gray-shadow: hsl(from var(--onyks-gray) h s 30%);
 
     --onyks-purple: #7940ff;
     --onyks-on-purple: #ffffff;
+    --onyks-purple-shadow: hsl(from var(--onyks-purple) h s 30%);
+
+    --onyks-orange: #f97316;
+    --onyks-on-orange: #000000;
+    --onyks-orange-shadow: hsl(from var(--onyks-orange) h s 30%);
+
+    --onyks-pink: #ec4899;
+    --onyks-on-pink: #000000;
+    --onyks-pink-shadow: hsl(from var(--onyks-pink) h s 30%);
+
+    --onyks-cyan: #06b6d4;
+    --onyks-on-cyan: #000000;
+    --onyks-cyan-shadow: hsl(from var(--onyks-cyan) h s 30%);
+
+    --onyks-teal: #14b8a6;
+    --onyks-on-teal: #000000;
+    --onyks-teal-shadow: hsl(from var(--onyks-teal) h s 30%);
+
+    --onyks-indigo: #6366f1;
+    --onyks-on-indigo: #ffffff;
+    --onyks-indigo-shadow: hsl(from var(--onyks-indigo) h s 30%);
+
+    --onyks-lime: #84cc16;
+    --onyks-on-lime: #000000;
+    --onyks-lime-shadow: hsl(from var(--onyks-lime) h s 30%);
     
     /* Scrollbar */
     --onyks-scroll-track: transparent;

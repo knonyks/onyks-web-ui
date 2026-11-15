@@ -1,9 +1,10 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { OnyksSchemas } from '../utils/styles';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Button',
+    title: 'ONYKS WebUI/Ready to use/Button',
     component: 'onyks-button',
     tags: ['autodocs'],
     
@@ -12,6 +13,7 @@ const meta: Meta =
     background=${args.background}
     href=${args.href}
     ?disabled=${args.disabled}
+    ?animated=${args.animated}
     type=${args.type}
     icon=${args.icon}
     >
@@ -28,19 +30,20 @@ const meta: Meta =
             options: ['s', 'm', 'l', 'xl'],
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
+        
         background: 
         {
             control: 
             { 
                 type: 'select' 
             },
-            options: ['red', 'green', 'blue', 'yellow', 'gray'],
+            options: OnyksSchemas.background,
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         icon: 
@@ -51,7 +54,7 @@ const meta: Meta =
             },
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         type: 
@@ -63,7 +66,7 @@ const meta: Meta =
             options: ['button', 'submit', 'reset'],
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         href: 
@@ -74,7 +77,7 @@ const meta: Meta =
             },
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         disabled: 
@@ -85,7 +88,18 @@ const meta: Meta =
             },
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
+            }
+        },
+        animated: 
+        {
+            control: 
+            { 
+                type: 'boolean' 
+            },
+            table: 
+            {
+                category: 'properties'
             }
         },
         text: 
@@ -103,16 +117,14 @@ const meta: Meta =
       {
         description: 
             {
-            story: "Button uses Bootstrap Icons for the icon. We need to find CSS code (Code point) and put it in \
-            the ,,icon'' parameter. For example if we want to use \
-            icon (https://icons.getbootstrap.com/icons/0-circle/) we have to put ,,F840'' code: icon=\"F840\"" 
+            story: 'The button element uses Bootstrap Icons. To display an icon, find its CSS code point and pass it to the `icon` parameter. For example, the [0-circle icon](https://icons.getbootstrap.com/icons/0-circle/) has code point `F840`, so set `icon="F840"`.'
             },
-        source: 
+        source:
         {
           transform: (_originalCode: string, storyContext: any) => 
           {
             const { args } = storyContext;
-            return `<onyks-button size="${args.size}" ${args.icon? 'icon="' + args.icon + '"': ''} type="${args.type}" background="${args.background}" href="${args.href}"${args.disabled? ' disabled': ''}>${args.text}</onyks-alert>`;
+            return `<onyks-button size="${args.size}" ${args.icon? 'icon="' + args.icon + '"': ''} type="${args.type}" background="${args.background}" href="${args.href}"${args.disabled? ' disabled': ''}${args.animated? ' animated': ''}>${args.text}</onyks-alert>`;
           }
         },
       }
@@ -122,7 +134,7 @@ const meta: Meta =
 export default meta;
 type Story = StoryObj;
 
-export const Info: Story = {
+export const Base: Story = {
   args: {
     type: 'button',
     size: 'm',
@@ -130,6 +142,7 @@ export const Info: Story = {
     background: 'yellow',
     href: 'https://google.com',
     disabled: false,
+    animated: true,
     icon: 'F2C0'
   }
 };

@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Text',
+    title: 'ONYKS WebUI/Ready to use/Text',
     component: 'onyks-text',
     tags: ['autodocs'],
     
     render: (args) => html`
 
-    <div style="background-color: var(--onyks-surface);">
-    <onyks-text size="${args.size}">${args.text}</onyks-text>
+    <div style="background-color: var(--onyks-surface); padding: 1rem;">
+      <onyks-text size="${args.size}">${args.text}</onyks-text>
     </div>`,
 
     argTypes: 
@@ -21,10 +21,10 @@ const meta: Meta =
         { 
           type: 'select' 
         },
-        options: ['s', 'm', 'l', 'xl'],
+        options: ['s', 'm', 'l', 'xl', '2xl', '3xl', '4xl'],
         table: 
         {
-          category: 'parameters'
+          category: 'properties'
         }
       },
       text:

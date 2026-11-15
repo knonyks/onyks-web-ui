@@ -2,48 +2,54 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Card',
+    title: 'ONYKS WebUI/Ready to use/Card',
     component: 'onyks-card',
     tags: ['autodocs'],
     render: (args) => html`
-        <onyks-container gap="m" type="grid" mobile-breakpoint="${args['mobile-breakpoint']}" cols="5" rows="5">
-            <onyks-card size="${args.size}" title="${args.title}" cols="${args.cols}" rows="${args.rows}">Some content</onyks-card>
-            <onyks-card title="Card 2">Some content</onyks-card>
-            <onyks-card title="Card 3">Some content</onyks-card>
-            <onyks-card title="Card 4">Some content</onyks-card>
-            <onyks-card title="Card 5">Some content</onyks-card>
-            <onyks-card title="Card 6">Some content</onyks-card>
-            <onyks-card title="Card 7">Some content</onyks-card>
-            <onyks-card title="Card 8">Some content</onyks-card>
-            <onyks-card title="Card 9">Some content</onyks-card>
-            <onyks-card title="Card 10">Some content</onyks-card>
-        </onyks-container>
-    `,
-
+        <onyks-card
+            size="${args.size}"
+            title="${args.title}"
+            title-size="${args['title-size']}"
+            padding="${args.padding}"
+            gap="${args.gap}"
+            ?animated="${args.animated}">
+            Some content
+        </onyks-card>`,
     argTypes: 
     {
-        cols: 
-        {
-            control: { type: 'number', min: 0, max: 12 }
-        },
-        'mobile-breakpoint': 
-        {
-            control: { type: 'number'}
-        },
         title:
         {
             control: { type: 'text' },
-            table: {category: 'parameters'}
-        },
-        rows:
-        {
-            control: { type: 'number', min: 0, max: 12 },
+            table: {category: 'properties'}
         },
         size: 
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
-            table: { category: 'parameters' }
+            table: { category: 'properties' }
+        },
+        'title-size': 
+        {
+            control: { type: 'select' },
+            options: ['s', 'm', 'l', 'xl'],
+            table: { category: 'properties' }
+        },
+        padding: 
+        {
+            control: { type: 'select' },
+            options: ['s', 'm', 'l', 'xl'],
+            table: { category: 'properties' }
+        },
+        gap: 
+        {
+            control: { type: 'select' },
+            options: ['s', 'm', 'l', 'xl'],
+            table: { category: 'properties' }
+        },
+        animated: 
+        {
+            control: { type: 'boolean' },
+            table: { category: 'properties' }
         }
     },
     
@@ -52,19 +58,15 @@ const meta: Meta = {
         source: {
           transform: (_originalCode: string, storyContext: any) => {
             const { args } = storyContext;
+            const animated = args.animated ? ' animated' : '';
             return `
-                <onyks-container gap="m" type="grid" mobile-breakpoint="${args['mobile-breakpoint']}" cols="5" rows="5">
-                    <onyks-card size="${args.size}" title="${args.title}" cols="${args.cols}" rows="${args.rows}">Some content</onyks-card>
-                    <onyks-card title="Card 2">Some content</onyks-card>
-                    <onyks-card title="Card 3">Some content</onyks-card>
-                    <onyks-card title="Card 4">Some content</onyks-card>
-                    <onyks-card title="Card 5">Some content</onyks-card>
-                    <onyks-card title="Card 6">Some content</onyks-card>
-                    <onyks-card title="Card 7">Some content</onyks-card>
-                    <onyks-card title="Card 8">Some content</onyks-card>
-                    <onyks-card title="Card 9">Some content</onyks-card>
-                    <onyks-card title="Card 10">Some content</onyks-card>
-                </onyks-container>
+                <onyks-card
+                    size="${args.size}"
+                    title="${args.title}"
+                    title-size="${args['title-size']}"
+                    padding="${args.padding}"
+                    gap="${args.gap}"
+                    ${animated}>Some content</onyks-card>
             `;
           }
         },
@@ -77,10 +79,11 @@ type Story = StoryObj;
 
 export const Base: Story = {
     args: {
-        cols: 1,
-        'mobile-breakpoint': 300,
-        title: "Card 1",
-        rows: 1,
-        size: 'm'
+        title: 'Card',
+        size: 'm',
+        'title-size': 'm',
+        padding: 'm',
+        gap: 'm',
+        animated: false
     }
 };

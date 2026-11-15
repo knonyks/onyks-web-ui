@@ -1,57 +1,45 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
+import { OnyksStyles } from '../utils/styles';
 
 
 @customElement('onyks-header')
 export class OnyksHeader extends LitElement
 {
     @property({type: Number, reflect: true})
-    level = 1;
+    size = 'm';
 
     render()
     {
-        return html`<div><slot></slot></div>`;
+        return html`<slot></slot>`;
     }
 
     static styles = [css`
-    :host 
-    {
-        font-family: var(--onyks-font);
-        display: block;
-        font-weight: bold;
-    }
+        :host 
+        {
+            position: relative;
+            font-family: var(--onyks-font);
+            display: block;
+            font-weight: bold;
+            color: var(--onyks-accent);
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+            padding-bottom: var(--onyks-spacing-sm);
+        }
 
-    :host([level="1"])
-    {
-        font-size: var(--onyks-size-4xl);
-    }
-
-    :host([level="2"])
-    {
-        font-size: var(--onyks-size-3xl);
-    }
-
-    :host([level="3"])
-    {
-        font-size: var(--onyks-size-2xl);
-    }
-
-    :host([level="4"])
-    {
-        font-size: var(--onyks-size-xl);
-    }
-
-    :host([level="5"])
-    {
-        font-size: var(--onyks-size-lg);
-    }
-
-    :host([level="6"])
-    {
-        font-size: var(--onyks-size-md);
-    }
-`];
+        :host::after
+        {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--onyks-accent);
+        }
+    `, OnyksStyles.size()];
 }
 
 declare global 

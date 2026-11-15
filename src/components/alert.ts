@@ -18,14 +18,15 @@ export class OnyksAlert extends LitElement
     {
         return html`
         
-        <span id="icon" part="icon"></span><span id="text" part="text"><slot></slot></span>
+        <span id="icon" part="icon"></span><span id="text" part="text">
+            <slot></slot>
+        </span>
         ${this.closable?  html`<span id="close" @click="${this._close}"></span>`:html``}`;
     }
 
     private _close() 
     {
         this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
-        // this.open = false;
     }
 
     static styles = [css`

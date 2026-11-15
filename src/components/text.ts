@@ -11,16 +11,16 @@ export class OnyksText extends LitElement
 
     render()
     {
-        return html`<span class=""><slot></slot></span>`;
+        return html`<slot></slot>`;
     }
 
     static styles = [css`
-    :host 
-    {
-        font-family: var(--onyks-font);
-        display: block;
-    }
-`, OnyksStyles.size('span')];
+        :host 
+        {
+            font-family: var(--onyks-font);
+            display: inline;
+        }
+    `, OnyksStyles.size()];
 }
 
 declare global 

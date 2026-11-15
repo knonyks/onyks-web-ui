@@ -24,6 +24,18 @@ export class OnyksStyles
                 { 
                     font-size: var(--onyks-size-xl, 24px); 
                 }
+                :host([${unsafeCSS(property)}="2xl"]) ${unsafeCSS(selector)}
+                { 
+                    font-size: var(--onyks-size-2xl, 28px); 
+                }
+                :host([${unsafeCSS(property)}="3xl"]) ${unsafeCSS(selector)}
+                { 
+                    font-size: var(--onyks-size-3xl, 32px); 
+                }
+                :host([${unsafeCSS(property)}="4xl"]) ${unsafeCSS(selector)}
+                { 
+                    font-size: var(--onyks-size-4xl, 36px); 
+                }
             `
         }
         else
@@ -44,6 +56,18 @@ export class OnyksStyles
                 :host([size="xl"])
                 { 
                     font-size: var(--onyks-size-xl, 24px); 
+                }
+                :host([size="2xl"])
+                { 
+                    font-size: var(--onyks-size-2xl, 28px); 
+                }
+                :host([size="3xl"])
+                { 
+                    font-size: var(--onyks-size-3xl, 32px); 
+                }
+                :host([size="4xl"])
+                { 
+                    font-size: var(--onyks-size-4xl, 36px); 
                 }
             `
         }
@@ -100,4 +124,134 @@ export class OnyksStyles
             }
         `
     }
+
+    static padding = (selector: string = '', property: string = 'padding') =>
+    {
+        return css`
+            :host([${unsafeCSS(property)}="s"]) ${unsafeCSS(selector)}
+            { 
+                padding: var(--onyks-spacing-sm, 4px); 
+            }
+            :host([${unsafeCSS(property)}="m"]) ${unsafeCSS(selector)}
+            { 
+                padding: var(--onyks-spacing-md, 8px); 
+            }
+            :host([${unsafeCSS(property)}="l"]) ${unsafeCSS(selector)}
+            { 
+                padding: var(--onyks-spacing-lg, 12px); 
+            }
+            :host([${unsafeCSS(property)}="xl"]) ${unsafeCSS(selector)}
+            { 
+                padding: var(--onyks-spacing-xl, 16px); 
+            }
+        `
+    }
+
+    static background = (selector: string = '', property: string = "background") =>
+    {
+
+        return css`
+        :host([${unsafeCSS(property)}="red"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-red);
+            color: var(--onyks-on-red);
+            --background-shadow: hsl(from var(--onyks-red, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="blue"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-blue);
+            color: var(--onyks-on-blue);
+            --background-shadow: hsl(from var(--onyks-blue, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="green"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-green);
+            color: var(--onyks-on-green);
+            --background-shadow: hsl(from var(--onyks-green, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="yellow"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-yellow);
+            color: var(--onyks-on-yellow);
+            --background-shadow: hsl(from var(--onyks-yellow, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="gray"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-gray);
+            color: var(--onyks-on-gray);
+            --background-shadow: hsl(from var(--onyks-gray, #999) h s 30%);
+        }
+        
+        :host([${unsafeCSS(property)}="purple"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-purple);
+            color: var(--onyks-on-purple);
+            --background-shadow: hsl(from var(--onyks-purple, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="orange"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-orange);
+            color: var(--onyks-on-orange);
+            --background-shadow: hsl(from var(--onyks-orange, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="pink"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-pink);
+            color: var(--onyks-on-pink);
+            --background-shadow: hsl(from var(--onyks-pink, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="cyan"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-cyan);
+            color: var(--onyks-on-cyan);
+            --background-shadow: hsl(from var(--onyks-cyan, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="teal"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-teal);
+            color: var(--onyks-on-teal);
+            --background-shadow: hsl(from var(--onyks-teal, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="indigo"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-indigo);
+            color: var(--onyks-on-indigo);
+            --background-shadow: hsl(from var(--onyks-indigo, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="lime"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-lime);
+            color: var(--onyks-on-lime);
+            --background-shadow: hsl(from var(--onyks-lime, #999) h s 30%);
+        }
+        `
+    }
+}
+
+export class OnyksSchemas
+{
+    static background = [
+        'red',
+        'blue',
+        'green',
+        'yellow',
+        'gray',
+        'purple',
+        'orange',
+        'pink',
+        'cyan',
+        'teal',
+        'indigo',
+        'lime'
+    ] as const
 }

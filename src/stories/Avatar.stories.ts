@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Avatar',
+    title: 'ONYKS WebUI/Ready to use/Avatar',
     component: 'onyks-avatar',
     tags: ['autodocs'],
     argTypes: 
@@ -14,7 +14,7 @@ const meta: Meta =
             options: ['s', 'm', 'l', 'xl'],
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         src:
@@ -23,7 +23,7 @@ const meta: Meta =
             options: ['😍', '😁', '🥵', '🥶'],
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         },
         shape: 
@@ -32,7 +32,7 @@ const meta: Meta =
             options: ['circle', 'square'],
             table: 
             {
-                category: 'parameters'
+                category: 'properties'
             }
         }
     },
