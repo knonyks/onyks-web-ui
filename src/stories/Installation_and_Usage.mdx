@@ -3,6 +3,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 <Meta title="Installation and usage"/>
 
 # Installation and usage
+
+### How to install and use
 To install the package (for example, with npm), run:
 ```bash
 # for the latest unstable version of the project
@@ -18,3 +20,34 @@ Then, import the package in your JavaScript entry file:
 import 'onyks-web-ui';
 ```
 You can now use the package's elements in your project.
+
+### Custom elements with the ONYKS WebUI style
+
+When creating custom elements, use the CSS variables listed below to match the ONYKS WebUI styles for fonts, text sizes, spacing, and border radius.
+
+#### Font
+```css
+font-family: var(--onyks-font);
+```
+
+#### Text sizes
+```css
+/* Available variables: --onyks-size-sm, --onyks-size-md, --onyks-size-lg,
+   --onyks-size-xl, --onyks-size-2xl, --onyks-size-3xl, --onyks-size-4xl */
+font-size: var(--onyks-size-sm);
+```
+
+#### Padding and margins
+```css
+/* Available variables: --onyks-spacing-sm, --onyks-spacing-md,
+   --onyks-spacing-lg, --onyks-spacing-xl */
+padding: var(--onyks-spacing-md) 0 0 0;
+margin: var(--onyks-spacing-md) 0 0 0;
+```
+
+#### Border radius
+```css
+/* Available variables: --onyks-radius-sm, --onyks-radius-md,
+   --onyks-radius-lg, --onyks-radius-xl */
+border-radius: var(--onyks-radius-sm);
+```
