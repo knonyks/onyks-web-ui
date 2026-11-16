@@ -13,6 +13,7 @@ This project is created by ONYKS Student Scientific Club from Warsaw University 
 * **🎨 Fully Customizable:** Native support for CSS Custom Properties (Variables) and Shadow DOM styling.
 * **📘 TypeScript:** Written in TypeScript with complete type definitions included.
 <!-- * **♿ Accessible:** Components follow WAI-ARIA standards out of the box. -->
+
 ## 📜 Documentation
 
 The documentation with examples is available at this site: [https://knonyks.github.io/onyks-web-ui/](https://knonyks.github.io/onyks-web-ui/).

@@ -41,9 +41,10 @@ export class OnyksHeader extends LitElement
             height: 2px;
         }
 
-
-
-        
+        :host([color="none"])::after
+        {
+            background-color: var(--onyks-on-surface-1);
+        }
     `, OnyksStyles.size(), OnyksStyles.color(), OnyksStyles.background('::after', 'color')];
 }
 

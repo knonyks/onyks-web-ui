@@ -92,6 +92,9 @@ export class OnyksContainer extends LitElement
 
         if (this.type !== 'grid')
         {
+            this.style.removeProperty('--cols');
+            this.style.removeProperty('--rows');
+
             assigned.forEach((el) =>
             {
                 el.style.removeProperty('grid-column');
@@ -119,17 +122,6 @@ export class OnyksContainer extends LitElement
     updated(changedProperties: any)
     {
         super.updated(changedProperties);
-
-        if (changedProperties.has('cols') || changedProperties.has('type'))
-        {
-            this.style.setProperty('--cols', `${Math.max(this.cols, 1)}`);
-        }
-
-        if (changedProperties.has('rows') || changedProperties.has('type'))
-        {
-            this.style.setProperty('--rows', `${Math.max(this.rows, 1)}`);
-        }
-
         this._applyGridStyles();
         this._updateObservers();
     }
