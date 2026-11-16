@@ -248,7 +248,7 @@ export const MoreComplicatedExample: Story = {
         justify: "start",
         'mobile-breakpoint': 300
     },
-    render: (args) => html`
+    render: (_args) => html`
         <div style="background-color: var(--onyks-surface-1);">
             <onyks-container gap="m" padding="m" type="grid" cols="3" align="center" justify="center" mobile-breakpoint="800">
                 <onyks-card title="Card No 1" subcols="2">
