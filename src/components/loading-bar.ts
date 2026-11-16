@@ -101,5 +101,5 @@ export class OnyksLoadingBar extends LitElement
             from { background-position: 1rem 0; }
             to { background-position: 0 0; }
         }
-    `, OnyksStyles.radius('.track'), OnyksStyles.radius('.fill'), OnyksStyles.background('.fill')];
+    `, OnyksStyles.radius('.track'), OnyksStyles.radius('.fill'), OnyksStyles.background(' .fill')];
 }

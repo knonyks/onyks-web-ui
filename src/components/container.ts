@@ -79,15 +79,10 @@ export class OnyksContainer extends LitElement
     _updateObservers()
     {
         this._observer.disconnect();
-
-        if (!this._assignedElements?.length) return;
-
-        this._assignedElements.forEach((el) =>
-        {
-            this._observer.observe(el, {
-                attributes: true,
-                attributeFilter: ['subcols', 'subrows']
-            });
+        this._observer.observe(this, {
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['subcols', 'subrows']
         });
     }
 
@@ -113,11 +108,11 @@ export class OnyksContainer extends LitElement
 
         assigned.forEach((el) =>
         {
-            const subcols = el.getAttribute('subcols');
-            const subrows = el.getAttribute('subrows');
+            const subcols = Number(el.getAttribute('subcols'));
+            const subrows = Number(el.getAttribute('subrows'));
 
-            el.style.gridColumn = subcols ? `span ${subcols}` : '';
-            el.style.gridRow = subrows ? `span ${subrows}` : '';
+            el.style.gridColumn = Number.isInteger(subcols) && subcols > 0 ? `span ${subcols}` : '';
+            el.style.gridRow = Number.isInteger(subrows) && subrows > 0 ? `span ${subrows}` : '';
         });
     }
 

@@ -10,6 +10,9 @@ export class OnyksHeader extends LitElement
     @property({type: Number, reflect: true})
     size = 'm';
 
+    @property({type: String, reflect: true})
+    color = 'none';
+
     render()
     {
         return html`<slot></slot>`;
@@ -22,7 +25,6 @@ export class OnyksHeader extends LitElement
             font-family: var(--onyks-font);
             display: block;
             font-weight: bold;
-            color: var(--onyks-accent);
             line-height: 1.3;
             overflow-wrap: anywhere;
             padding-bottom: var(--onyks-spacing-sm);
@@ -37,9 +39,12 @@ export class OnyksHeader extends LitElement
             bottom: 0;
             width: 40px;
             height: 2px;
-            background-color: var(--onyks-accent);
         }
-    `, OnyksStyles.size()];
+
+
+
+        
+    `, OnyksStyles.size(), OnyksStyles.color(), OnyksStyles.background('::after', 'color')];
 }
 
 declare global 

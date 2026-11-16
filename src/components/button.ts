@@ -120,7 +120,7 @@ export class OnyksButton extends LitElement
             pointer-events: none;
             cursor: not-allowed;
         }
-    `, OnyksStyles.size('.btn'), OnyksStyles.background('.btn')];
+    `, OnyksStyles.size('.btn'), OnyksStyles.background(' .btn')];
 
     constructor() 
     {
