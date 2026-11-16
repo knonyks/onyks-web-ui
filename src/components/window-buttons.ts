@@ -1,6 +1,7 @@
 import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-window-bar-button')
 export class OnyksWindowBarButton extends LitElement 
@@ -22,29 +23,23 @@ export class OnyksWindowBarButton extends LitElement
     static styles = [css`
     :host 
     {
-        display: block;
-        width: 2rem;
-        height: 100%;
-        cursor: pointer;
-        border-radius: var(--radius-sm);
+
     }
 
     :host([type="close"])
     {
-        background-color: var(--window-bar-button-close-background);
+
     }   
 
     :host([type="minimalize"]),
     :host([type="minimize"])
     {
-        background-color: yellow;
-        background-color: var(--window-bar-button-minimize-background);
+
     }
 
     :host([type="fullscreen"])
     {
-        background-color: green;
-        background-color: var(--window-bar-button-fullscreen-background);
+
     }
 
     `];
@@ -53,62 +48,34 @@ export class OnyksWindowBarButton extends LitElement
 @customElement('onyks-window-bar')
 export class OnyksWindowBar extends LitElement 
 {
-    @property({ type: String, reflect: true }) 
-    text = "Placeholder";
-
     @property({type: String, reflect: true})
-    size = "xl"
+    size = "m"
+
+    @property({type: Boolean, reflect: true})
+    radius = false
+
+    @property({type: Boolean, reflect: true})
+    border = false
 
     render()
     {
         return html`
-            <div></div>
-            <div class="text">${this.text}</div>
-            <div class="btns"><slot></slot></div>
+            dasd
         `;
     }
 
     static styles = [css`
         :host
         {
+            display: block;
+            background-color: var(--onyks-surface-1);
             height: fit-content;
-            background-color: var(--window-bar-background);
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            border-radius: var(--radius-md);
-            height: fit-content;
-            user-select: none;
-            border: 1px solid var(--window-bar-border-color);
-        }
-
-        .text
-        {
-            text-align: center;
-            justify-self: center;
-            padding: var(--spacing-sm);
-        }
-
-        .btns
-        {
-            justify-self: end;
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-            padding: var(--spacing-sm);
+            border: 1px solid var(--onyks-surface-1-border);
+            padding: var(--onyks-spacing-sm);
             box-sizing: border-box;
-            gap: var(--spacing-sm);
-            -webkit-app-region: no-drag;
         }
-
-        ::slotted(onyks-window-bar-button:last-child)
-        {
-            border-top-right-radius: var(--radius-sm);
-            border-bottom-right-radius: var(--radius-sm);
-        }
-
-    `];
+    `, OnyksStyles.size(), OnyksStyles.radius()];
 }
 
 

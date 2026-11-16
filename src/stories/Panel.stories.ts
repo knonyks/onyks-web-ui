@@ -4,7 +4,7 @@ import { OnyksSchemas } from '../utils/styles';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Unstable or unverified/Panel',
+    title: 'ONYKS WebUI/Panel',
     component: 'onyks-panel',
     tags: ['autodocs'],
     argTypes: 

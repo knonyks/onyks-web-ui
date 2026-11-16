@@ -26,11 +26,9 @@ const meta: Meta =
             }
         },
     },
-    render: (args) => html`
-        <onyks-window-bar text=${args.text} size=${args.size}>
-            <onyks-window-bar-button type="minimize" size=${args.size}></onyks-window-bar-button>
-            <onyks-window-bar-button type="fullscreen" size=${args.size}></onyks-window-bar-button>
-            <onyks-window-bar-button type="close" size=${args.size}></onyks-window-bar-button>
+    render: (_args) => html`
+        <onyks-window-bar>
+
         </onyks-window-bar>`,
     parameters:
     {

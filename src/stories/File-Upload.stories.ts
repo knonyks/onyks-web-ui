@@ -9,6 +9,8 @@ const meta: Meta = {
     render: (args) => html`
       <onyks-file-upload 
         size=${args.size} 
+        radius=${args.radius}
+        padding=${args.padding}
         ?multiple=${args.multiple} 
         ?disabled=${args.disabled} 
         accept=${args.accept}
@@ -20,6 +22,16 @@ const meta: Meta = {
 
     argTypes: {
       size: {
+        control: { type: 'select' },
+        options: ['s', 'm', 'l', 'xl'],
+        table: { category: 'Properties' }
+      },
+      radius: {
+        control: { type: 'select' },
+        options: ['s', 'm', 'l', 'xl'],
+        table: { category: 'Properties' }
+      },
+      padding: {
         control: { type: 'select' },
         options: ['s', 'm', 'l', 'xl'],
         table: { category: 'Properties' }
@@ -57,7 +69,7 @@ const meta: Meta = {
         control: false,
         table: { category: 'Functions (JS)' }
       },
-      'get files': {
+      'getFiles()': {
         description: 'Returns the `FileList` object containing the selected files, exactly like a native `<input type="file">`.',
         control: false,
         table: { category: 'Functions (JS)' }
@@ -72,7 +84,7 @@ const meta: Meta = {
             const disabledAttr = args.disabled ? ' disabled' : '';
             const acceptAttr = args.accept ? ` accept="${args.accept}"` : '';
             const messageAttr = args.message && args.message !== 'Drag a file here or click' ? ` message="${args.message}"` : '';
-            return `<onyks-file-upload size="${args.size}"${multipleAttr}${disabledAttr}${acceptAttr}${messageAttr}></onyks-file-upload>`;
+            return `<onyks-file-upload size="${args.size}" radius="${args.radius}" padding="${args.padding}"${multipleAttr}${disabledAttr}${acceptAttr}${messageAttr}></onyks-file-upload>`;
           }
         },
       }
@@ -85,6 +97,8 @@ type Story = StoryObj;
 export const Default: Story = {
   args: {
     size: 'm',
+    radius: 'm',
+    padding: 'm',
     multiple: false,
     disabled: false,
     accept: '',
@@ -126,7 +140,7 @@ export const JSInteraction: Story = {
   },
   render: (args) => html`
     <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
-      <onyks-file-upload id="demo-uploader" size=${args.size} message=${args.message}></onyks-file-upload>
+      <onyks-file-upload id="demo-uploader" size=${args.size} radius=${args.radius} padding=${args.padding} message=${args.message}></onyks-file-upload>
       
       <button 
         style="padding: 8px 16px; cursor: pointer; background: var(--onyks-accent, #0080ff); color: var(--onyks-on-accent, #fff); border: none; border-radius: var(--onyks-radius-sm, 4px);"
@@ -208,6 +222,8 @@ export const ResetFunction: Story = {
       <onyks-file-upload 
         id="resettable-uploader" 
         size=${args.size}
+        radius=${args.radius}
+        padding=${args.padding}
         message=${args.message}
       ></onyks-file-upload>
       

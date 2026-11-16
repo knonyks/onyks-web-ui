@@ -171,7 +171,6 @@ export class OnyksStyles
 
     static background = (selector: string = '', property: string = "background") =>
     {
-
         return css`
         :host([${unsafeCSS(property)}="red"]) ${unsafeCSS(selector)}
         {
@@ -255,6 +254,71 @@ export class OnyksStyles
             background-color: var(--onyks-lime);
             color: var(--onyks-on-lime);
             --background-shadow: hsl(from var(--onyks-lime, #999) h s 30%);
+        }
+        `
+    }
+
+    static color = (selector: string = '', property: string = "color") =>
+    {
+        return css`
+        :host([${unsafeCSS(property)}="red"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-red);
+        }
+
+        :host([${unsafeCSS(property)}="blue"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-blue);
+        }
+
+        :host([${unsafeCSS(property)}="green"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-green);
+        }
+
+        :host([${unsafeCSS(property)}="yellow"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-yellow);
+        }
+
+        :host([${unsafeCSS(property)}="gray"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-gray);
+        }
+        
+        :host([${unsafeCSS(property)}="purple"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-purple);
+        }
+
+        :host([${unsafeCSS(property)}="orange"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-orange);
+        }
+
+        :host([${unsafeCSS(property)}="pink"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-pink);
+        }
+
+        :host([${unsafeCSS(property)}="cyan"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-cyan);
+        }
+
+        :host([${unsafeCSS(property)}="teal"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-teal);
+        }
+
+        :host([${unsafeCSS(property)}="indigo"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-indigo);
+        }
+
+        :host([${unsafeCSS(property)}="lime"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-lime);
         }
         `
     }

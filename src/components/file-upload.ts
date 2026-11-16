@@ -1,65 +1,86 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state, query } from 'lit/decorators.js';
-import { onyksStyleSize } from './_styles';
+import { OnyksStyles } from '../utils/styles';
 
 @customElement('onyks-file-upload')
-export class Onyks_FileUpload extends LitElement 
+export class OnyksFileUpload extends LitElement 
 {
+    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 'm';
+    @property({ type: String, reflect: true }) radius: 's' | 'm' | 'l' | 'xl' = 'm';
+    @property({ type: String, reflect: true }) padding: 's' | 'm' | 'l' | 'xl' = 'm';
+
     @property({ type: Boolean, reflect: true }) multiple = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
     @property({ type: String }) accept = '';
-    @property({ type: String }) message = 'Drag a file here or click';
-    @property({ type: String, reflect: true }) size: 's' | 'm' | 'l' | 'xl' = 'm';
+    @property({ type: String }) message = 'Drag a file here or click to upload';
+    
 
     static styles = [css`
-        :host {
+        :host 
+        {
             display: block;
             width: 100%;
-            font-family: var(--onyks-font, system-ui, sans-serif);
+            height: fit-content;
+            font-family: var(--onyks-font);
+            box-sizing: border-box;
         }
 
-        .drop-zone {
+        .drop-zone 
+        {
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px dashed var(--onyks-surface-1-border, #6c6d70);
-            border-radius: var(--onyks-radius-md, 8px);
+            border: 1px dashed var(--onyks-surface-1-border, #6c6d70);
             background-color: var(--onyks-surface-1, #242529);
-            color: var(--onyks-on-surface-1, #fff);
+            color: var(--onyks-on-surface-1);
             cursor: pointer;
             transition: all 0.2s ease;
+            box-sizing: border-box;
         }
 
-        :host([size="s"]) .drop-zone { min-height: 60px; padding: var(--onyks-spacing-sm, 8px); }
-        :host([size="m"]) .drop-zone { min-height: 100px; padding: var(--onyks-spacing-md, 16px); }
-        :host([size="l"]) .drop-zone { min-height: 140px; padding: var(--onyks-spacing-lg, 24px); }
-        :host([size="xl"]) .drop-zone { min-height: 180px; padding: var(--onyks-spacing-xl, 32px); }
-
-        .drop-zone:hover:not(.disabled) {
-            background-color: var(--onyks-surface-1-hover, #37383e);
+        .drop-zone:hover:not(.disabled) 
+        {
+            background-color: var(--onyks-surface-1-hover);
         }
 
-        .drop-zone.dragover {
-            border-color: var(--onyks-accent, #fa5252);
-            background-color: var(--onyks-surface-1-selected, #3e4047);
+        .drop-zone.dragover 
+        {
+            border-color: var(--onyks-accent);
+            background-color: var(--onyks-surface-1-selected);
         }
 
-        .drop-zone.disabled {
+        .drop-zone.disabled 
+        {
             opacity: 0.5;
             cursor: not-allowed;
-            border-color: var(--onyks-surface-1-border, #6c6d70);
+            border-color: var(--onyks-surface-1-border);
             pointer-events: none;
         }
 
-        input[type="file"] {
+        input[type="file"] 
+        {
             display: none;
         }
 
-        .text {
+        .text
+        {
             pointer-events: none;
-            color: var(--onyks-on-surface-1, #fff);
+            color: var(--onyks-on-surface-1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: var(--onyks-spacing-sm);
         }
-    `, onyksStyleSize];
+        
+        .text::before
+        {
+            font-family: 'bootstrap-icons';
+            content: '\\F358';
+        }
+    `, OnyksStyles.radius('.drop-zone'), OnyksStyles.size('.text'), OnyksStyles.padding('.drop-zone')];
 
     @state() private _isDragging = false;
     @state() private _displayText = '';
@@ -170,7 +191,11 @@ export class Onyks_FileUpload extends LitElement
                     @change=${this._handleChange}
                     @cancel=${this._handleCancel}
                 >
-                <span class="text onyks-size">${this._displayText || this.message}</span>
+
+
+
+                
+                <span class="text">${this._displayText || this.message}</span>
             </label>
         `;
     }

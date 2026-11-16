@@ -14,8 +14,6 @@ export class OnyksPanel extends LitElement
     @property({type: String, reflect: true, attribute: 'padding'})
     padding = 'm'
 
-
-
     render() 
     {
         return html`<slot></slot>`

@@ -7,22 +7,43 @@ export interface TextfieldOption {
 }
 
 @customElement('onyks-textfield')
-export class Onyks_Textfield extends LitElement {
-    static override shadowRootOptions = {
+export class Onyks_Textfield extends LitElement 
+{
+    static override shadowRootOptions = 
+    {
         ...LitElement.shadowRootOptions,
         delegatesFocus: true
     };
 
-    @property({ type: String, reflect: true }) size = "m";
-    @property({ type: String, reflect: true }) placeholder = "";
-    @property({ type: String, reflect: true }) type = "text";
-    @property({ type: String, reflect: true }) label = "";
-    @property({ type: String, reflect: true }) value = "";
-    @property({ type: Boolean, reflect: true }) disabled = false;
-    @property({ type: Boolean, reflect: true }) error = false;
-    @property({ type: Boolean, reflect: true }) dropdown = false;
-    @property({ attribute: false }) options: TextfieldOption[] = [];
-    @property({ type: Number }) scrollThreshold = 8;
+    @property({ type: String, reflect: true }) 
+    size = "m";
+
+    @property({ type: String, reflect: true }) 
+    placeholder = "";
+
+    @property({ type: String, reflect: true }) 
+    type = "text";
+
+    @property({ type: String, reflect: true }) 
+    label = "";
+
+    @property({ type: String, reflect: true }) 
+    value = "";
+
+    @property({ type: Boolean, reflect: true }) 
+    disabled = false;
+
+    @property({ type: Boolean, reflect: true }) 
+    error = false;
+
+    @property({ type: Boolean, reflect: true })
+    dropdown = false;
+
+    @property({ attribute: false }) 
+    options: TextfieldOption[] = [];
+
+    @property({ type: Number }) 
+    scrollThreshold = 8;
 
     @state() private _open = false;
     @state() private _activeIndex = -1;
@@ -30,16 +51,19 @@ export class Onyks_Textfield extends LitElement {
     private _scrolledToEnd = false;
     private _movedByKeyboard = false;
 
-    private _handleInput(e: Event) {
+    private _handleInput(e: Event) 
+    {
         const input = e.target as HTMLInputElement;
         this.value = input.value;
-        if (this.dropdown) {
+        if (this.dropdown) 
+        {
             this._open = true;
             this._activeIndex = -1;
         }
     }
 
-    render() {
+    render() 
+    {
         return html`
             <div class="wrapper ${this.error ? 'is-error' : ''}">
                 <input
@@ -69,7 +93,8 @@ export class Onyks_Textfield extends LitElement {
         `;
     }
 
-    private renderErrorIcon() {
+    private renderErrorIcon() 
+    {
         return html`
             <svg class="error-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L1 21H23L12 2ZM12 5.5L19.53 19H4.47L12 5.5ZM11 10V14H13V10H11ZM11 16V18H13V16H11Z" fill="currentColor"/>
@@ -104,7 +129,8 @@ export class Onyks_Textfield extends LitElement {
         `;
     }
 
-    private _handleFocus() {
+    private _handleFocus() 
+    {
         if (this.dropdown) this._open = true;
     }
 
@@ -307,8 +333,10 @@ export class Onyks_Textfield extends LitElement {
     `;
 }
 
-declare global {
-    interface HTMLElementTagNameMap {
+declare global 
+{
+    interface HTMLElementTagNameMap 
+    {
         'onyks-textfield': Onyks_Textfield;
     }
 }
