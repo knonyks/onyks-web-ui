@@ -10,6 +10,7 @@ const meta: Meta =
     {
         size: 
         {
+            description: 'Sets the size of the avatar.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: 
@@ -19,6 +20,7 @@ const meta: Meta =
         },
         src:
         {
+            description: 'Sets the image or emoji displayed in the avatar.',
             control: { type: 'select' },
             options: ['😍', '😁', '🥵', '🥶'],
             table: 
@@ -28,6 +30,7 @@ const meta: Meta =
         },
         shape: 
         {
+            description: 'Sets the shape of the avatar.',
             control: { type: 'select' },
             options: ['circle', 'square'],
             table: 

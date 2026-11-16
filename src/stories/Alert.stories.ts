@@ -13,6 +13,7 @@ const meta: Meta =
     {
       type: 
       {
+        description: 'Defines the alert variant and its color/icon styling.',
         control: 
         { 
           type: 'select' 
@@ -20,11 +21,13 @@ const meta: Meta =
         options: ['info', 'warning', 'error', 'success'],
         table: 
         {
-          category: 'properties'
+          category: 'properties',
+          type: { summary: '"info" | "warning" | "error" | "success"' }
         }
       },
       size: 
       {
+        description: 'Sets the alert size and spacing.',
         control: 
         { 
           type: 'select' 
@@ -32,22 +35,26 @@ const meta: Meta =
         options: ['s', 'm', 'l', 'xl'],
         table: 
         {
-          category: 'properties'
+          category: 'properties',
+          type: { summary: '"s" | "m" | "l" | "xl"' }
         }
       },
       closable:
       {
+        description: 'Displays the close button and enables dismissing the alert.',
         control:
         {
           type: 'boolean'
         },
         table: 
         {
-          category: 'properties'
+          category: 'properties',
+          type: { summary: 'boolean' }
         }
       },
       text: 
       {
+        description: 'The alert content displayed inside the component.',
         control: { type: 'text' },
         table: 
         {
@@ -56,6 +63,7 @@ const meta: Meta =
       },
       'close':
       {
+        description: 'Triggered when the user clicks the close button.',
         table: 
         {
           category: 'event'

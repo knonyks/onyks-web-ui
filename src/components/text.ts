@@ -9,6 +9,9 @@ export class OnyksText extends LitElement
     @property({type: String, reflect: true})
     size = "m";
 
+    @property({type: String, reflect: true})
+    color = "none";
+    
     render()
     {
         return html`<slot></slot>`;
@@ -20,7 +23,7 @@ export class OnyksText extends LitElement
             font-family: var(--onyks-font);
             display: inline;
         }
-    `, OnyksStyles.size()];
+    `, OnyksStyles.size(), OnyksStyles.color()];
 }
 
 declare global 

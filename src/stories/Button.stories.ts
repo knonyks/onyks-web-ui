@@ -23,6 +23,7 @@ const meta: Meta =
     {
         size: 
         {
+            description: 'Controls the button size.',
             control: 
             { 
                 type: 'select' 
@@ -36,6 +37,7 @@ const meta: Meta =
         
         background: 
         {
+            description: 'Controls the button background color.',
             control: 
             { 
                 type: 'select' 
@@ -48,6 +50,7 @@ const meta: Meta =
         },
         icon: 
         {
+            description: 'Sets the Bootstrap Icons code point used for the button icon.',
             control: 
             { 
                 type: 'text'
@@ -59,6 +62,7 @@ const meta: Meta =
         },
         type: 
         {
+            description: 'Sets the button type.',
             control: 
             { 
                 type: 'select' 
@@ -71,6 +75,7 @@ const meta: Meta =
         },
         href: 
         {
+            description: 'Sets the URL opened when the button is activated.',
             control: 
             { 
                 type: 'text' 
@@ -82,6 +87,7 @@ const meta: Meta =
         },
         disabled: 
         {
+            description: 'Disables the button when set to true.',
             control: 
             { 
                 type: 'boolean' 
@@ -93,6 +99,7 @@ const meta: Meta =
         },
         animated: 
         {
+            description: 'Enables or disables the button animation.',
             control: 
             { 
                 type: 'boolean' 
@@ -104,6 +111,7 @@ const meta: Meta =
         },
         text: 
         {
+            description: 'Sets the text displayed inside the button.',
             control: { type: 'text' },
             table: 
             {

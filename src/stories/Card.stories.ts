@@ -19,35 +19,41 @@ const meta: Meta = {
     {
         title:
         {
+            description: 'The card title.',
             control: { type: 'text' },
             table: {category: 'properties'}
         },
         size: 
         {
+            description: 'The overall size of the card.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: { category: 'properties' }
         },
         'title-size': 
         {
+            description: 'The size of the card title.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: { category: 'properties' }
         },
         padding: 
         {
+            description: 'The amount of inner spacing around the card content.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: { category: 'properties' }
         },
         gap: 
         {
+            description: 'The spacing between the card title and its content.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: { category: 'properties' }
         },
         animated: 
         {
+            description: 'Whether to animate the card.',
             control: { type: 'boolean' },
             table: { category: 'properties' }
         }

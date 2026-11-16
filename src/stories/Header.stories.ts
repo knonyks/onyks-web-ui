@@ -15,6 +15,7 @@ const meta: Meta =
     {
       size: 
       {
+        description: 'Sets the size of the header.',
         control: 
         { 
           type: 'select' 
@@ -27,6 +28,7 @@ const meta: Meta =
       },
       text:
       {
+        description: 'Text displayed inside the header.',
         control:
         {
             type: 'text'

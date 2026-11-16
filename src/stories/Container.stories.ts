@@ -33,6 +33,7 @@ const meta: Meta =
     {
         gap: 
         {
+            description: 'Defines the spacing between items inside the container.',
             control:
             { 
                 type: 'select' 
@@ -45,6 +46,7 @@ const meta: Meta =
         },
         padding: 
         {
+            description: 'Sets the internal spacing around the container content.',
             control:
             { 
                 type: 'select' 
@@ -57,6 +59,7 @@ const meta: Meta =
         },
         type: 
         {
+            description: 'Defines the layout mode of the container.',
             control:
             { 
                 type: 'select' 
@@ -69,6 +72,7 @@ const meta: Meta =
         },
         cols:
         {
+            description: 'Sets the number of columns in the container grid.',
             control:
             { 
                 type: 'number' 
@@ -80,6 +84,7 @@ const meta: Meta =
         },
         align:
         {
+            description: 'Aligns items along the cross axis of the container.',
             control:
             {
                 type: 'select'
@@ -92,6 +97,7 @@ const meta: Meta =
         },
         justify:
         {
+            description: 'Aligns items along the main axis of the container.',
             control:
             {
                 type: 'select'
@@ -105,7 +111,7 @@ const meta: Meta =
         'mobile-breakpoint': 
         {
             control: { type: 'number' },
-            description: 'Screen width (in pixels), at which the grid switches to a single-column mode',
+            description: 'Screen width (in pixels), at which the grid switches to a single-column mode.',
             table: { category: 'properties' }
         },
         subcols:

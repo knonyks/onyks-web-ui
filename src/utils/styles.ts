@@ -255,6 +255,34 @@ export class OnyksStyles
             color: var(--onyks-on-lime);
             --background-shadow: hsl(from var(--onyks-lime, #999) h s 30%);
         }
+
+        :host([${unsafeCSS(property)}="error"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-error);
+            color: var(--onyks-on-error);
+            --background-shadow: hsl(from var(--onyks-error, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="warning"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-warning);
+            color: var(--onyks-on-warning);
+            --background-shadow: hsl(from var(--onyks-warning, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="info"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-info);
+            color: var(--onyks-on-info);
+            --background-shadow: hsl(from var(--onyks-info, #999) h s 30%);
+        }
+
+        :host([${unsafeCSS(property)}="success"]) ${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-success);
+            color: var(--onyks-on-success);
+            --background-shadow: hsl(from var(--onyks-success, #999) h s 30%);
+        }
         `
     }
 
@@ -320,6 +348,26 @@ export class OnyksStyles
         {
             color: var(--onyks-lime);
         }
+
+        :host([${unsafeCSS(property)}="error"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-error);
+        }
+
+        :host([${unsafeCSS(property)}="warning"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-warning);
+        }
+
+        :host([${unsafeCSS(property)}="info"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-info);
+        }
+
+        :host([${unsafeCSS(property)}="success"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-success);
+        }
         `
     }
 }
@@ -338,7 +386,11 @@ export class OnyksSchemas
         'cyan',
         'teal',
         'indigo',
-        'lime'
+        'lime',
+        'error',
+        'warning',
+        'info',
+        'success'
     ] as const
 
     static size = [
@@ -372,5 +424,25 @@ export class OnyksSchemas
         'm',
         'l',
         'xl'
+    ] as const
+
+    static color = [
+        'none',
+        'red',
+        'blue',
+        'green',
+        'yellow',
+        'gray',
+        'purple',
+        'orange',
+        'pink',
+        'cyan',
+        'teal',
+        'indigo',
+        'lime',
+        'error',
+        'warning',
+        'info',
+        'success'
     ] as const
 }

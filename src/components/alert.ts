@@ -44,7 +44,7 @@ export class OnyksAlert extends LitElement
             user-select: none;
         }
 
-        :host([size="m"]) > #close::before
+        :host > #close::before
         {
             display: block;
             content: '\\F659';

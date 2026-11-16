@@ -18,22 +18,32 @@ const meta: Meta =
         checked: 
         {
             control: { type: 'boolean' },
-            table: { category: 'properties' }
+            description: 'Whether the checkbox is checked.',
+            table: 
+            {
+                category: 'properties',
+                type: { summary: 'boolean' }
+            }
         },
         size:
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
-            table: { category: 'properties' }
+            description: 'Defines the size of the checkbox.',
+            table: 
+            {
+                category: 'properties',
+                type: { summary: '"s" | "m" | "l" | "xl"' }
+            }
         },
         "change":
         {
             action: 'change',
-            description: 'Emitted when the checkbox was changed.',
+            description: 'Emitted when the checkbox value changes.',
             table: 
             {
                 category: 'events',
-                type: { summary: '{ checked: true/false }' },
+                type: { summary: '{ checked: boolean }' },
             }
         },
     },

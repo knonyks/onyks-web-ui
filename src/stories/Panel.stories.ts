@@ -11,6 +11,7 @@ const meta: Meta =
     {
         side: 
         {
+            description: 'Determines the side of the panel.',
             control: { type: 'select' },
             options: OnyksSchemas.side,
             table: 
@@ -20,6 +21,7 @@ const meta: Meta =
         },
         radius:
         {   
+            description: 'Sets the corner radius of the panel.',
             control: { type: 'select' },
             options: OnyksSchemas.radius,
             table:
@@ -29,6 +31,7 @@ const meta: Meta =
         },
         padding:
         {
+            description: 'Sets the inner spacing of the panel.',
             control: { type: 'select' },
             options: OnyksSchemas.padding,
             table:
