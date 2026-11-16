@@ -82,7 +82,7 @@ export class OnyksContainer extends LitElement
         this._observer.observe(this, {
             subtree: true,
             attributes: true,
-            attributeFilter: ['subcols', 'subrows']
+            attributeFilter: ['cols', 'rows', 'type', 'subcols', 'subrows']
         });
     }
 
