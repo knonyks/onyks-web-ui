@@ -12,6 +12,7 @@ const meta: Meta =
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
+            description: 'Sets the tile size.',
             table: 
             {
                 category: 'parameters'
@@ -21,6 +22,7 @@ const meta: Meta =
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
+            description: 'Sets the spacing between tile elements.',
             table:
             {
                 category: 'parameters'
@@ -30,6 +32,7 @@ const meta: Meta =
         {
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
+            description: 'Sets the internal spacing of the tile.',
             table:
             {
                 category: 'parameters'
@@ -37,6 +40,7 @@ const meta: Meta =
         },
         icon:
         {
+            description: 'Bootstrap icon code used for the tile icon.',
             table: 
             {
                 category: 'parameters'
@@ -44,6 +48,7 @@ const meta: Meta =
         },
         selected: 
         {
+            description: 'Defines whether each tile is selected.',
             table: 
             {
                 category: 'parameters'
@@ -52,6 +57,7 @@ const meta: Meta =
         text:
         {
             control: { type: 'text' },
+            description: 'Text displayed inside the tile.',
             table:
             {
                 category: 'parameters'
