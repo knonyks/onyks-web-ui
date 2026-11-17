@@ -2,7 +2,7 @@
 
 > A lightweight, fast, and modern UI component library built with **Web Components** and **Lit**.
 
-**ONYKS WebUI** provides a set of reusable, accessible, and highly performant interface elements. By leveraging the native Web Components standard, these elements work in any framework (React, Vue, Angular, Svelte) or with no framework at all.
+**ONYKS WebUI** provides a set of reusable, accessible, and highly performant interface elements. By leveraging the native Web Components standard, these elements work in any framework (React, Vue) or with no framework at all.
 
 This project is created by ONYKS Student Scientific Club from Warsaw University of Technology. Details about the student club at [ https://www.onyks.elka.pw.edu.pl/](https://www.onyks.elka.pw.edu.pl/)
 

@@ -2,9 +2,10 @@ import {LitElement, css, html} from 'lit'
 import {customElement} from 'lit/decorators.js'
 import { property } from 'lit/decorators.js';
 import { onyksStyleSize } from './_styles';
+import { OnyksStyles } from '../utils/styles';
 
-@customElement('onyks-strip-menu-option')
-export class OnyksStripMenuOption extends LitElement 
+@customElement('onyks-tile')
+export class OnyksTile extends LitElement 
 {
     @property({type: String, reflect: true}) 
     icon = "F62A";
@@ -13,7 +14,13 @@ export class OnyksStripMenuOption extends LitElement
     selected = false;
 
     @property({type: String, reflect: true})
-    size = "xl"
+    size = "m"
+
+    @property({type: String, reflect: true})
+    gap = "m"
+
+    @property({type: String, reflect: true})
+    padding = "m"
 
     render() 
     {
@@ -25,76 +32,52 @@ export class OnyksStripMenuOption extends LitElement
                     content: "\\${this.icon}";
                 }
             </style>
-            <div class="icon onyks-size"></div>
+            <span class="icon"></span>
+            <slot></slot>
         `;
-    }
-
-    static styles = [css`
-        .icon
-        {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--onyks-surface-1-border);
-            transition: background-color 0.3s ease;
-            padding: var(--onyks-spacing-md);
-            border-radius: var(--onyks-spacing-sm);
-            cursor: pointer;
-        }
-
-        :host(:hover) .icon
-        {
-            background-color: var(--onyks-surface-1-hover);
-        }
-
-        :host([selected]) .icon
-        {
-            background-color: var(--onyks-surface-1-selected);
-        }
-    `, onyksStyleSize];
-}
-
-@customElement('onyks-strip-menu')
-export class OnyksStripMenu extends LitElement 
-{
-    @property({type: String, reflect: true})
-    type = "v"
-
-    render()
-    {
-        return html`<slot></slot>`;
     }
 
     static styles = [css`
         :host
         {
-            background-color: var(--onyks-surface-1);
-            border: 1px solid var(--onyks-surface-1-border);
-            border-radius: var(--onyks-radius-md);
             display: flex;
-            gap: var(--onyks-spacing-sm);
+            justify-content: start;
+            align-items: center;
+            background-color: var(--onyks-surface-1-hover);
+            border: 1px solid var(--onyks-surface-1-border);
+            transition: background-color 0.3s ease;
+            padding: var(--onyks-spacing-md);
+            border-radius: var(--onyks-spacing-sm);
+            cursor: pointer;
             width: fit-content;
             height: fit-content;
-            padding: var(--onyks-spacing-sm);
         }
 
-        :host([type="v"])
+        :host([selected])
         {
-            flex-direction: column;
+            background-color: var(--onyks-surface-1-selected);
         }
 
-        :host([type="h"])
+        .icon
         {
-            flex-direction: row;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-    `];
+
+        .slot
+        {
+            flex: 1;
+        }
+
+    `, OnyksStyles.size(), OnyksStyles.padding(), OnyksStyles.gap()];
 }
+
 
 declare global 
 {
     interface HTMLElementTagNameMap 
     {
-        'onyks-strip-menu': OnyksStripMenu,
-        'onyks-strip-menu-option': OnyksStripMenuOption
+        'onyks-tile': OnyksTile
     }
 }

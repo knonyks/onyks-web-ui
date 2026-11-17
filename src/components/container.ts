@@ -103,8 +103,10 @@ export class OnyksContainer extends LitElement
             return;
         }
 
-        const safeCols = Number.isFinite(this.cols) && this.cols > 0 ? this.cols : 1;
-        const safeRows = Number.isFinite(this.rows) && this.rows > 0 ? this.rows : 1;
+        const cols = Number(this.cols);
+        const rows = Number(this.rows);
+        const safeCols = Number.isFinite(cols) && cols > 0 ? cols : 1;
+        const safeRows = Number.isFinite(rows) && rows > 0 ? rows : 1;
 
         this.style.setProperty('--cols', `${safeCols}`);
         this.style.setProperty('--rows', `${safeRows}`);

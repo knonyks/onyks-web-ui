@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Unstable or unverified/Pagination Nav',
+    title: 'ONYKS WebUI/Pagination Nav',
     component: 'onyks-pagination-nav',
     tags: ['autodocs'],
     
@@ -86,7 +86,7 @@ const meta: Meta =
                 pageNav.addEventListener('page-change', console.log)
             </script>
             
-            <onyks-pagination-nav max-index=${args['nax-index']} index=${args.index} max-view=${args['max-view']} size=${args.size}></onyks-pagination-nav>`;
+            <onyks-pagination-nav max-index="${args['max-index']}" index="${args.index}" max-view="${args['max-view']}" size="${args.size}"></onyks-pagination-nav>`;
           }
         },
       }

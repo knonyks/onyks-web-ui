@@ -41,7 +41,7 @@ const meta: Meta =
       },
       color:
       {
-        description: '',
+        description: 'Sets the color of the header.',
         control:
         {
             type: 'select',

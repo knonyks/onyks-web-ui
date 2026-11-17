@@ -256,6 +256,13 @@ export class OnyksStyles
             --background-shadow: hsl(from var(--onyks-lime, #999) h s 30%);
         }
 
+        :host([${unsafeCSS(property)}="accent"])${unsafeCSS(selector)}
+        {
+            background-color: var(--onyks-accent);
+            color: var(--onyks-on-accent);
+            --background-shadow: hsl(from var(--onyks-accent, #999) h s 30%);
+        }
+
         :host([${unsafeCSS(property)}="error"])${unsafeCSS(selector)}
         {
             background-color: var(--onyks-error);
@@ -349,6 +356,11 @@ export class OnyksStyles
             color: var(--onyks-lime);
         }
 
+        :host([${unsafeCSS(property)}="accent"]) ${unsafeCSS(selector)}
+        {
+            color: var(--onyks-accent);
+        }
+
         :host([${unsafeCSS(property)}="error"]) ${unsafeCSS(selector)}
         {
             color: var(--onyks-error);
@@ -387,6 +399,7 @@ export class OnyksSchemas
         'teal',
         'indigo',
         'lime',
+        'accent',
         'error',
         'warning',
         'info',

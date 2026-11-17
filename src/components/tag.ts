@@ -80,49 +80,7 @@ export class OnyksTag extends LitElement
             gap: var(--onyks-spacing-sm);
             max-width: 300px;
         }
-
-        :host([background="accent"])
-        {
-            background-color: var(--onyks-accent);
-            color: var(--onyks-on-accent);
-        }
-
-        :host([background="blue"])
-        {
-            background-color: var(--onyks-blue);
-            color: var(--onyks-on-blue);
-        }
-
-        :host([background="green"])
-        {
-            background-color: var(--onyks-green);
-            color: var(--onyks-on-green);
-        }
-
-        :host([background="red"])
-        {
-            background-color: var(--onyks-red);
-            color: var(--onyks-on-red);
-        }
-
-        :host([background="yellow"])
-        {
-            background-color: var(--onyks-yellow);
-            color: var(--onyks-on-yellow);
-        }
-
-        :host([background="purple"])
-        {
-            background-color: var(--onyks-purple);
-            color: var(--onyks-on-purple);
-        }
-        
-        :host([background="gray"])
-        {
-            background-color: var(--onyks-gray);
-            color: var(--onyks-on-gray);
-        }
-    `, OnyksStyles.size('')]
+    `, OnyksStyles.size(''), OnyksStyles.background()]
 }
 
 declare global 

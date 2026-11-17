@@ -29,7 +29,7 @@ export * from './components/_styles.ts'
 export * from './components/pagination-nav.ts'
 export * from './components/panel.ts'
 export * from './components/window-buttons.ts'
-export * from './components/strip-menu.ts'
+export * from './components/tile.ts'
 
 
 export * from './components/label.ts'
