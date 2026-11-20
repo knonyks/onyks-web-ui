@@ -52,6 +52,18 @@ const meta: Meta =
         {
           category: 'properties'
         }
+      },
+      underline:
+      {
+        description: 'Adds an underline to the header.',
+        control:
+        {
+          type: 'boolean'
+        },
+        table:
+        {
+          category: 'properties'
+        }
       }
     },
     parameters:
@@ -78,6 +90,7 @@ export const Base: Story = {
     size: 'm',
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam \
     hendrerit a orci sit amet molestie. Suspendisse mollis ullamcorper mauris.",
-    color: 'none'
+    color: 'none',
+    underline: false
   }
 };
