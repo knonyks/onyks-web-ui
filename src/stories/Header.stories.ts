@@ -10,7 +10,7 @@ const meta: Meta =
     
     render: (args) => html`
     <div style="background-color: var(--onyks-surface); padding: 1rem;">
-      <onyks-header size="${args.size}" color="${args.color}">${args.text}</onyks-header>
+      <onyks-header size="${args.size}" color="${args.color}" ?underline=${args.underline}>${args.text}</onyks-header>
     </div>`,
     argTypes: 
     {

@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-    title: 'ONYKS WebUI/Calendar',
+    title: 'ONYKS WebUI/Unstable or unverified/Calendar',
     component: 'onyks-calendar',
     tags: ['autodocs'],
     render: (args) => html`

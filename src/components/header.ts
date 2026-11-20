@@ -7,11 +7,14 @@ import { OnyksStyles } from '../utils/styles';
 @customElement('onyks-header')
 export class OnyksHeader extends LitElement
 {
-    @property({type: Number, reflect: true})
+    @property({type: String, reflect: true})
     size = 'm';
 
     @property({type: String, reflect: true})
     color = 'none';
+
+    @property({type: Boolean, reflect: true})
+    underline = false
 
     render()
     {
@@ -39,6 +42,11 @@ export class OnyksHeader extends LitElement
             bottom: 0;
             width: 40px;
             height: 2px;
+        }
+
+        :host(:not([underline]))::after
+        {
+            display: none;
         }
 
         :host([color="none"])::after
