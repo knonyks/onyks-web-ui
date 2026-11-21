@@ -31,3 +31,4 @@ export * from './components/loading-bar.ts'
 export * from  './components/file-upload.ts';
 export * from './components/tag.ts'
 export * from './components/loader.ts'
+export * from './components/tile.ts'

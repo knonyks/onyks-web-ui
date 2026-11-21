@@ -42,7 +42,7 @@ export class OnyksTile extends LitElement
             display: flex;
             justify-content: start;
             align-items: center;
-            background-color: var(--onyks-surface-1-hover);
+            background-color: var(--onyks-surface-1);
             border: 1px solid var(--onyks-surface-1-border);
             transition: background-color 0.3s ease;
             padding: var(--onyks-spacing-md);
@@ -50,6 +50,11 @@ export class OnyksTile extends LitElement
             cursor: pointer;
             width: fit-content;
             height: fit-content;
+        }
+
+        :host(:hover)
+        {
+            background-color: var(--onyks-surface-1-hover);
         }
 
         :host([selected])
@@ -71,7 +76,6 @@ export class OnyksTile extends LitElement
 
     `, OnyksStyles.size(), OnyksStyles.padding(), OnyksStyles.gap()];
 }
-
 
 declare global 
 {

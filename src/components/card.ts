@@ -60,7 +60,7 @@ export class OnyksCard extends LitElement
     render() 
     {
         return html`
-            ${this.title ? html`<onyks-header color="accent" class="title" size=${this.titleSize}>${this.title}</onyks-header>` : ''}
+            ${this.title ? html`<onyks-header underline color="accent" class="title" size=${this.titleSize}>${this.title}</onyks-header>` : ''}
             <div class="content"><slot></slot></div>`;
     }
 }
