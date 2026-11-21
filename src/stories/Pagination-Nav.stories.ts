@@ -67,7 +67,8 @@ const meta: Meta =
             description: 'Emit when user change the page; click on the index',
             table: 
             {
-                category: 'events'
+                category: 'events',
+                type: { summary: '{ index: number }' }
             }
         }
     },

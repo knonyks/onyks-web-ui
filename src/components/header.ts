@@ -30,6 +30,11 @@ export class OnyksHeader extends LitElement
             font-weight: bold;
             line-height: 1.3;
             overflow-wrap: anywhere;
+            
+        }
+
+        :host([underline])
+        {
             padding-bottom: var(--onyks-spacing-sm);
         }
 

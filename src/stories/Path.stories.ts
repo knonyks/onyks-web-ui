@@ -4,47 +4,47 @@ import { fn } from 'storybook/test';
 
 const meta: Meta = 
 {
-    title: 'ONYKS WebUI/Unstable or unverified/Path',
+    title: 'ONYKS WebUI/Path',
     component: 'onyks-path',
     tags: ['autodocs'],
     render: (args) => html`
         <onyks-path .content=${args.content} size="${args.size}" ?disabled=${args.disabled}
-            @path-change=${(e: CustomEvent<{ path: string[] }>) => 
-            {
-                console.log('Path changed:', e.detail.path);
-            }}
+            @path-change=${console.log}
         ></onyks-path>
     `,
     argTypes: 
     {
         content:
         {
+            description: 'An array of strings representing the path segments.',
             table: 
             {
-                category: 'parameters'
+                category: 'property'
             }
         },
         size: 
         {
+            description: 'The size of the path component.',
             control: { type: 'select' },
             options: ['s', 'm', 'l', 'xl'],
             table: 
             {
-                category: 'parameters'
+                category: 'property'
             }
         },
         disabled: 
         {
+            description: 'Disables interactions with the path component.',
             control: { type: 'boolean' },
             table: 
             {
-                category: 'parameters'
+                category: 'property'
             }
         },
         "path-change":
         {
+            description: 'Emitted when the selected path changes. The event detail contains the updated path array.',
             action: 'path-change',
-            description: 'Emit when user change the path; click on the folder',
             table: 
             {
                 category: 'events',
@@ -65,10 +65,7 @@ const meta: Meta =
                     <script>
                         const path = document.querySelector('onyks-path');
                         path.content = ${JSON.stringify(args.content)};
-                        path.addEventListener('path-change', (event) => 
-                        {
-                            console.log('Path changed:', event.detail.path);
-                        });
+                        path.addEventListener('path-change', console.log);
                     </script>
 
 

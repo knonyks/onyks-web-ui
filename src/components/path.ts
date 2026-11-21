@@ -31,7 +31,6 @@ export class OnyksPathChain extends LitElement
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 300px;
-            color: var(--onyks-on-accent);
             transition: opacity 0.2s;
         }
 
@@ -91,16 +90,22 @@ export class OnyksPath extends LitElement
         {
             background-color: var(--onyks-surface-1);
             width: 100%;
-            height: fit-content;
-            min-height: calc(1em + var(--onyks-spacing-sm) * 4 + 2px);
             display: flex;
             flex-direction: row;
-            border-radius: 5px;
+            border-radius: var(--onyks-radius-md);
             padding: var(--onyks-spacing-sm);
-            box-sizing: border-box;
-            overflow-x: scroll;
             gap: var(--onyks-spacing-sm);
             border: 1px solid var(--onyks-surface-1-border);
+        }
+
+        :host::before
+        {
+            content: '';
+            flex: 0 0 0;
+            width: 0;
+            height: calc(1lh + 2 * var(--onyks-spacing-sm));
+            box-sizing: border-box;
+            margin-right: calc(-1 * var(--onyks-spacing-sm));
         }
 
         onyks-path-chain:not(:last-child)::after 

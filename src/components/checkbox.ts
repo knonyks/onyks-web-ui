@@ -11,7 +11,7 @@ export class OnyksCheckbox extends LitElement
     disabled = false;
     
     @property({ type: String, reflect: true }) 
-    size: 's' | 'm' | 'l' | 'xl' = 's';
+    size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     static styles = css`
         :host 

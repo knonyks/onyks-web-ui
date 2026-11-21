@@ -66,7 +66,8 @@ const meta: Meta =
         description: 'Triggered when the user clicks the close button.',
         table: 
         {
-          category: 'event'
+          category: 'event',
+          type: { summary: 'null' },
         }
       }
     },
